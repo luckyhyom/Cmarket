@@ -1,0 +1,411 @@
+:root {
+  --green--color: #88c077;
+  --green2--color: #75b261;
+  --yellow--color: #ffe355;
+  --yellow2--color: #ffdb55;
+  --yellow3--color: #f2cb57;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.notScroll {
+  position: fixed;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.notScroll section {
+  position: relative;
+  top: 0;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+li,
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0px;
+}
+
+nav {
+  top: 0px;
+  position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  z-index: 2;
+  height: 72px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.nav {
+  /* width: 1600px; */
+  width: 1072px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  padding-top: 10px;
+}
+
+nav > div {
+  margin: 0px;
+  padding: 0;
+}
+
+.navR {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  /* margin-left: 150px; */
+  /* margin-top: -10px; */
+}
+
+.logo img {
+  height: 60px;
+}
+
+.searchBar {
+  /* height: 50px; */
+  width: 400px;
+  height: 35px;
+  /* width: 230px; */
+  font-size: 20px;
+  outline-style: none;
+  border: 1px solid gainsboro;
+  border-radius: 4px;
+  margin-left: 45px;
+  /* margin-top: 10px; */
+  display: flex;
+  align-items: center;
+  justify-self: flex-start;
+  /* margin-right: 200px; */
+  margin-right: 100px;
+}
+
+.searchText {
+  /* height: 50px; */
+  height: 35px;
+  width: 360px;
+  /* width: 240px; */
+  /* font-size: 20px; */
+  font-size: 14px;
+  outline-style: none;
+  border: 0px solid gainsboro;
+  border-radius: 4px;
+  margin-left: 10px;
+}
+
+.fa-search {
+  font-size: 16px;
+  color: gray;
+}
+
+.login {
+  display: flex;
+  font-size: 20px;
+  align-items: center;
+  /* margin-top: -8px; */
+  position: relative;
+  left: 0px;
+  /* margin-left: 200px; */
+}
+
+.login > a {
+  /* font-size: 24px; */
+  font-size: 16px;
+  text-decoration: none;
+  color: darkslategrey;
+  border: 1px solid gainsboro;
+  /* padding: 12px; */
+  padding: 8px;
+  /* padding-left: 20px; */
+  padding-left: 14px;
+  padding-right: 14px;
+  border-radius: 6px;
+  font-family: "Source Sans Pro", sans-serif;
+  margin-left: 12px;
+  text-align: center;
+  width: 100px;
+}
+
+.login > a:hover {
+  border: 1px solid darkgray;
+}
+
+.fa-apple {
+  margin-right: 8px;
+  font-size: 20px;
+}
+
+.toggleBtns {
+  display: flex;
+}
+
+.toggleBtns [class$="Toggle"] {
+  margin-left: 4px;
+}
+
+.navRight {
+  display: flex;
+  align-items: center;
+}
+
+.logoutBtn {
+  margin-left: 10px;
+  color: gray;
+}
+
+.sections {
+  display: flex;
+  /* margin-top: 72px; */
+  width: 100%;
+  background-color: var(--green2--color);
+  color: white;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+.sections:nth-of-type(1) {
+  display: flex;
+  margin-top: 72px;
+  width: 100%;
+  background-color: #fbf7f2;
+  color: black;
+  padding-bottom: 0px;
+}
+
+.sections:nth-of-type(2) {
+  background-color: white;
+  color: black;
+}
+
+.sections:nth-of-type(3) {
+  background-color: #e6f3e6;
+  color: black;
+}
+
+.sections:nth-of-type(4) {
+  background-color: white;
+  color: black;
+}
+
+.sections__ {
+  display: flex;
+  width: 1072px;
+  margin: 0 auto;
+  position: relative;
+  justify-content: space-between;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: auto;
+}
+
+.text:nth-of-type(2) {
+}
+
+.text > h1 {
+  /* font-size: 60px; */
+  font-size: 46px;
+}
+
+.text > span {
+  /* font-size: 28px; */
+  font-size: 16px;
+}
+
+.textImg {
+  height: 600px;
+  width: 600px;
+}
+
+.sections:nth-of-type(1) img {
+  /* height: 500px; */
+  /* width: 594px; */
+  height: 600px;
+  width: 700px;
+}
+
+.sections:nth-of-type(2) img {
+  width: 480px;
+}
+.sections:nth-of-type(3) img {
+  width: 480px;
+}
+.sections:nth-of-type(4) img {
+  width: 480px;
+}
+
+.mainCategory {
+  display: flex;
+  justify-content: center;
+}
+
+.mainCategoryBox {
+  width: 1072px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.topList {
+  margin-right: 60px;
+  font-weight: bolder;
+}
+
+.cateList {
+  display: flex;
+}
+
+.category {
+  padding: 10px;
+}
+
+footer {
+  width: 100%;
+  height: 400px;
+  background-color: beige;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.fTop {
+  display: flex;
+  justify-content: space-between;
+  width: 1072px;
+  border-bottom: solid 1px var(--green2--color);
+  padding-bottom: 40px;
+}
+
+[class*="Div"] > a {
+  color: var(--green2--color);
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.fTop > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.fBot {
+  width: 1072px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.fBot > a {
+  font-size: 16px;
+}
+
+.botL {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.botL * {
+  font-size: 16px;
+  color: var(--green2--color);
+}
+
+.botR {
+  font-size: 32px;
+  color: #75b261;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 12%;
+}
+
+/* boardList */
+
+.boardList {
+  display: flex;
+  margin-top: 72px;
+  width: 100%;
+  background-color: #f8f9fa;
+  color: white;
+  padding: 20px 0px;
+}
+
+.boardList__ {
+  display: flex;
+  flex-wrap: wrap;
+  width: 800px;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px auto;
+  position: relative;
+  justify-content: space-around;
+  background-color: white;
+}
+
+.boardList__ > h1 {
+  font-size: 18px;
+  color: black;
+  width: 100%;
+  padding: 6px 22px;
+  margin: 0px;
+  margin-bottom: 14px;
+  /* font-weight: 600; */
+}
+
+.board {
+  /* width: 236px; */
+  width: 217px;
+  /* height: 400px; */
+  height: 300px;
+}
+
+.titleImg {
+  /* width: 100%; */
+  /* height: 217px; */
+  /* overflow: hidden;
+  overflow-y: hidden; */
+}
+
+.titleImg > img {
+  width: 100%;
+  height: 160px;
+  border-radius: 8px;
+}
+
+.boardInfo > h1 {
+  font-size: 16px;
+  color: black;
+  margin: 6px 0px;
+}
+
+.boardInfo > span {
+  color: gray;
+}
+
+.worth {
+  display: flex;
+  justify-content: space-between;
+  color: orange;
+  font-weight: bolder;
+  align-items: baseline;
+}

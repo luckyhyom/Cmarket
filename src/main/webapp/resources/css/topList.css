@@ -1,0 +1,49 @@
+.mainCategory {
+  margin: 100px 0px;
+  margin-top: 140px;
+  margin-bottom: 80px;
+}
+
+.mainCategoryBox {
+  display: flex;
+  flex-direction: column;
+}
+
+.topList {
+  font-size: 34px;
+  margin: auto;
+  margin-bottom: 40px;
+}
+
+.cateList {
+  display: flex;
+  flex-direction: column;
+}
+
+.category {
+  font-size: 17px;
+  border-bottom: 1px solid #e9ecef;
+  width: 400px;
+  height: 25px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.category:hover {
+  background-color: #f7f7f7;
+}
+
+.ranks {
+  display: inline-block;
+  font-size: 20px;
+  font-weight: 900;
+  margin-left: 18px;
+  width: 40px;
+}
+
+.left > a {
+  /* width: 100%; */
+}
+
+.current {
+}
