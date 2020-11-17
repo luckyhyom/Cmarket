@@ -3,17 +3,15 @@
 <mapper namespace="memberMapper">
 	<resultMap type="Member" id="memberResultSet">
 		<!-- MYBATIS에서 id는 pk를 뜻함 -->
-		<id property="id" column="ID" />
-		<result property="pwd" column="PWD" />
-		<result property="name" column="NAME" />
-		<result property="email" column="EMAIL" />
-		<result property="gender" column="GENDER" />
-		<result property="age" column="AGE" />
-		<result property="phone" column="PHONE" />
+		<id property="user_sq" column="user_sq" />
+		<!-- <result property="user_sq" column="user_sq" /> -->
+		<result property="user_id" column="user_id" />
+		<result property="user_pwd" column="user_pwd" />
+		<result property="user_name" column="user_name" />
+		<result property="email" column="email" />
+		<result property="phone" column="phone" />
+		<result property="address" column="address" />
 		<result property="address" column="ADDRESS" />
-		<result property="enrollDate" column="ENROLL_DATE" />
-		<result property="updateDate" column="UPDATE_DATE" />
-		<result property="mStatus" column="M_STATUS" />
 	</resultMap>
 
 	<select id="loginMember" parameterType="Member"
@@ -27,15 +25,13 @@
 		
 		<!-- 암호화 후 -->
 		SELECT *
-		FROM MEMBER
-		WHERE ID=#{id}
-		AND M_STATUS='Y'
+		FROM user_tb
+		WHERE user_id=#{user_id}
 		
 	</select>
 
 	<insert id="insertMember" parameterType="Member">
-		INSERT INTO MEMBER
-		VALUES(#{id},#{pwd},#{name},#{email},#{gender},#{age},#{phone},#{address},sysdate,sysdate,default)
+		INSERT INTO user_tb VALUES (user_seq.nextval,#{user_id},#{user_pwd},#{user_name},#{email},#{phone},#{address})
 	</insert>
 	
 	<update id="updateMember" parameterType="Member">
@@ -60,4 +56,8 @@
 		FROM MEMBER
 		WHERE ID=#{id}
 	</select>
+	
+	<insert id="insertProfile" parameterType="MemberProfile">
+		INSERT INTO profile_tb VALUES (profile_seq.nextval,#{user_sq},#{profile_nickname},#{profile_gender},default,default,default)
+	</insert>
 </mapper>

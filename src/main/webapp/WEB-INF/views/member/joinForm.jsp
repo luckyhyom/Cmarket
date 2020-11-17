@@ -22,32 +22,31 @@
 </head>
 <body>
 	<section class="loginSection">
-		<form action="home.do">
+		<form action="memberJoin.do" method="post" id="joinForm">
 			<h1>JOIN</h1>
 			<div class="loginForm">
 				<!-- <h1>JOIN</h1> -->
 				<div class="inputs">
-					ID<input style="margin-bottom: 10px" type="text" id="userId" />Password<input
-						type="password" name="" id="password1" /> <label for=""
-						class="repeatPwd">Password <spqn
-							class="confirmPwd"></spqn></label><input type="password" name=""
-						id="password2" /> 이름 <input type="text" name="" id="userName" />
-					닉네임 <input type="text" id="userNickname" /> 전화번호 <input
-						type="text" name="" id="phone" /> Email <input type="text"
-						name="" id="email" />
+					ID<input style="margin-bottom: 10px" type="text" id="user_id" name="user_id"
+						required />Password<input type="password" name="user_pwd" id="password1" />
+					<label for="" class="repeatPwd">Password <spqn
+							class="confirmPwd"></spqn></label><input type="password" name="user_pwd"
+						id="password2" /> 이름 <input type="text" name="user_name" id="userName" />
+					닉네임 <input type="text" id="userNickname" name="profile_nickname" /> 전화번호 <input
+						type="text" name="phone" id="phone" /> Email <input type="text"
+						name="email" id="email" />
 					<div class="gender" style="margin-bottom: 10px">
-						<label for="man">Man</label><input type="radio" name="gender"
-							id="man" /> <label for="woman">Woman</label><input type="radio"
-							name="gender" id="woman" />
+						<label for="man">Man</label><input type="radio" name="profile_gender"
+							id="man" value="M"/> <label for="woman">Woman</label><input type="radio"
+							name="profile_gender" id="woman" value="F"/>
 					</div>
 					<div class="addressForm">
 						주소 <input type="button" onclick="sample4_execDaumPostcode()"
 							value="우편번호 찾기" style="width: 100px" class="addressBtn" />
 						<div class="addressSet">
-							<input type="text" id="sample4_postcode" placeholder="우편번호" />
-							<br /> <input type="text" id="sample4_roadAddress"
-								placeholder="도로명주소" /> <input type="text"
-								id="sample4_jibunAddress" placeholder="지번주소" />
+							<input type="text" id="sample4_postcode" name="sample4_postcode" placeholder="우편번호" /> <br />
+							<input type="text" id="sample4_roadAddress" name="sample4_roadAddress" placeholder="도로명주소" />
+							<input type="text" id="sample4_jibunAddress" name="sample4_jibunAddress" placeholder="지번주소" />
 							<span id="guide" style="color: #999; display: none"></span>
 
 							<!-- <input
@@ -55,7 +54,7 @@
                   id="sample4_extraAddress"
                   placeholder="참고항목"
                 /> -->
-							<input type="text" id="sample4_detailAddress" placeholder="상세주소" />
+							<input type="text" id="sample4_detailAddress" name="sample4_detailAddress" placeholder="상세주소" />
 							<script
 								src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 							<script>
@@ -138,7 +137,7 @@
 					</div>
 
 					<button>
-						<a href="home.do">JOIN</a>
+						JOIN
 					</button>
 				</div>
 			</div>

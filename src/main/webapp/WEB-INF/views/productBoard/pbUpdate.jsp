@@ -9,8 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <link rel="stylesheet" href="../rebuild-Cmarket/css/main.css" />
-  <link rel="stylesheet" href="../rebuild-Cmarket/css/board-write.css" />
+  <link rel="stylesheet" href="${root}/css/main.css" />
+  <link rel="stylesheet" href="${root}/css/board-write.css" />
   <link
     rel="stylesheet"
     href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
@@ -27,7 +27,7 @@
         <div class="navR">
           <div class="logo">
             <a href="afterLogin.html"
-              ><img src="../rebuild-Cmarket/img/LOGO.png" alt="cucumber logo"
+              ><img src="${root}/img/LOGO.png" alt="cucumber logo"
             /></a>
           </div>
           <div class="searchBar">
@@ -82,7 +82,7 @@
                   />
                 </label>
                 <label class="wrap2">
-                  <img src="./img/Jiseong.png" alt="" />
+                  <img src="${root}/img/Jiseong.png" alt="" />
                 </label>
               </div>
             </li>
@@ -178,7 +178,7 @@
         // 길이가 3까지는 그대로 출력
         if (val.length <= 3) {
           out.style.color = "black";
-          return (out.textContent = `${val}` + "원");
+          return (out.textContent = `${'${val}'}` + "원");
         }
         // 길이 4부터는 콤마 입력
         else if (val.length > 3) {

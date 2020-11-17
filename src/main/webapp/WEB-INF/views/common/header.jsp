@@ -22,7 +22,7 @@
 				</div>
 			</div>
 			<div class="login">
-				<a href="login.do" style="width: 66px">Login</a> <a href="#"
+				<a href="loginForm.do" style="width: 66px">Login</a> <a href="#"
 					style="width: 154px"> <i class="fab fa-apple"></i> App Store
 				</a>
 			</div>

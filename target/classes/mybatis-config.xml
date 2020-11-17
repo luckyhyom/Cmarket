@@ -9,6 +9,7 @@
 	<!-- typeAliases -->
 	<typeAliases>
 		<typeAlias type="com.cmarket.spring.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.cmarket.spring.member.model.vo.MemberProfile" alias="MemberProfile"/>
 		<typeAlias type="com.cmarket.spring.board.model.vo.Board" alias="Board"/>
 		<typeAlias type="com.cmarket.spring.board.model.vo.Reply" alias="Reply"/>
 	</typeAliases>
