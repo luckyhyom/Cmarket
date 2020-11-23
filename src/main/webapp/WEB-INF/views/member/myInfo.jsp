@@ -17,28 +17,39 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap"
 	rel="stylesheet" />
-<link rel="stylesheet" href="${root}/css/chatApply.css" />
+<%-- <link rel="stylesheet" href="${root}/css/chatApply.css" /> --%>
 <link rel="stylesheet" href="${root}/css/userProfile.css" />
 <link rel="stylesheet" href="${root}/css/myInfo.css" />
 <body>
-	<c:import url="../common/header.jsp"/>
-
+	<c:import url="../common/header.jsp" />
 	<section class="profileSections">
 		<div class="profileSections__">
 			<div class="profileTop">
 				<div class="profileImg">
-					<img src="${root}/img/Hyoshin.png" alt="" />
+					<form action="profileFileUpload.do" method="post"
+						enctype="multipart/form-data" id="profileForm">
+						<input type="hidden" name="profile_sq"
+							value="${memberProfile.profile_sq}"> <input type="file"
+							name="profileFile" id="profileFile" style="display: none;"
+							accept="image/*"> <label for="profileFile"><img
+							class="injectImg"
+							src='${root}/profilePhotos/${memberProfile.profile_photo }'
+							alt="" /></label>
+					</form>
 				</div>
+
 				<div class="topRight">
-					<div class="profileName">너랑나랑은</div>
-					<button class="toUpdate">
-						내 정보 수정</ㅠ>
-						<div class="profileTopBtn">
-							<!-- <button>대화하기</button>
+					<div class="profileName">${memberProfile.profile_nickname}</div>
+					<!-- <button class="toUpdate">내 정보 수정</button> -->
+					<div class="profileTopBtn">
+						<button>
+							<a class="toUpdate" href="myInfoUpdateForm.do">내 정보 수정</a>
+						</button>
+						<!-- <button>대화하기</button>
               <button>칭찬</button>
               <button>비매너</button> -->
-							<!-- <button><a href="">매너평가하기</a></button> -->
-						</div>
+						<!-- <button><a href="">매너평가하기</a></button> -->
+					</div>
 				</div>
 				<!-- <ul class="judge">
             <div class="judgeGood">칭찬</div>
@@ -46,9 +57,11 @@
           </ul> -->
 			</div>
 			<div class="profileTemp">
-				<div class="tempCount">매너온도 75.6C🥰</div>
+				<div class="tempCount">매너온도
+					${memberProfile.profile_temperature}C🥰</div>
 				<div class="temp">
-					<div class="temp__"></div>
+					<div class="temp__"
+						style="width:${memberProfile.profile_temperature}%"></div>
 				</div>
 			</div>
 			<div class="sellList">
@@ -107,6 +120,81 @@
 		</div>
 	</section>
 
-	<c:import url="../common/footer.jsp"/>
+	<c:import url="../common/footer.jsp" />
+
+	<script type="text/javascript">
+	const profileForm = document.querySelector('#profileForm');
+	const injectImg = document.querySelector('.injectImg');
+	const inputFile = document.querySelector('input[name="profileFile"]');
+	const profile_sq = document.querySelector('input[name="profile_sq"]');
+	console.log(inputFile);
+	console.log(profileForm);
+	console.log(profile_sq.value);
+		/* injectImg.src = `${root}/img/Bill.png`; */
+
+		/* formData.append('profile_sq', profile_sq.value); */
+	inputFile.addEventListener('change',()=>{
+		const formData = new FormData(profileForm);
+		/* const formData = new FormData(profileForm);
+		formData.append('profile_sq', profile_sq.value); */
+		/* console.log(formData.get('profile_sq')); */
+		fetch('profileFileUpload.do', {
+			  method: 'POST', // POST 메소드 지정
+			  body: formData, // formData를 데이터로 설정
+			}).then((res) => {
+			  if (res.status === 200 || res.status === 201) {
+				console.log(res);
+			    res.json().then((json) => {console.log(json.fileName);
+			    
+			    /* injectImg.src = `${root}/profilePhotos/json.fileName`; */
+			    
+			    fetch('updateProfilePhoto.do', {
+					  method: 'POST', // POST 메소드 지정
+					  body: JSON.stringify({profile_sq:${memberProfile.profile_sq},
+						  profile_photo:json.fileName,
+						  /* user_sq:${memberProfile.user_sq},
+						  profile_nickname:`${memberProfile.profile_nickname}`,
+						  profile_gender:`${memberProfile.profile_gender}`,
+						  profile_temperature:${memberProfile.profile_temperature}, */
+						  /* profile_date:`${memberProfile.profile_date}` */
+	
+					  }), // formData를 데이터로 설정
+					  headers: new Headers({'Content-Type':'application/json'}),
+					}).then((res) => {
+					  if (res.status === 200 || res.status === 201) {
+					    res.json().then(json => 
+					    console.log(`${'${json.fileName}'}`)
+					    );
+					  } else {
+					    console.error(res.statusText);
+					  }
+					}).catch(err => console.error(err));	
+			    
+			    injectImg.src = `${root}/profilePhotos/${'${json.fileName}'}`;
+			    
+			    });
+			  } else {
+			    console.error(res.statusText);
+			  }
+			}).catch(err => console.error(err));	
+	})
+	
+			/* const body = {profile_sq:profile_sq.value}; */
+/* 		fetch('profileFileUpload.do', {
+			  method: 'POST', // POST 메소드 지정
+			  body: JSON.stringify({profile_sq:profile_sq.value}), // formData를 데이터로 설정
+			  headers: new Headers({'Content-Type':'application/json'}),
+			}).then((res) => {
+			  if (res.status === 200 || res.status === 201) {
+			    res.json().then(json => 
+			    console.log(`${'${json.fileName}'}`)
+			    );
+			  } else {
+			    console.error(res.statusText);
+			  }
+			}).catch(err => console.error(err));	
+	}) */
+	
+	</script>
 </body>
 </html>

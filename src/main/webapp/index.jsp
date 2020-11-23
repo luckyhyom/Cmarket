@@ -26,6 +26,10 @@
 
 <body>
 <c:import url="WEB-INF/views/common/header.jsp"/>
+<%-- <a href='<c:url value="/page"/>'>GUEST</a>
+<a href='<c:url value="/user/page"/>'>USER</a>
+<a href='<c:url value="/member/page"/>'>MEMBER</a>
+<a href='<c:url value="/admin/page"/>'>ADMIN</a> --%>
 
 	<section class="sections">
 		<div class="sections__">

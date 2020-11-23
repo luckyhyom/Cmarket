@@ -14,3 +14,14 @@ pwd2.addEventListener("keyup", (e) => {
     confirmPwd.textContent = `비밀번호 불일치`;
   }
 });
+
+function validate(){
+	return false
+	if(pwd1.value !== pwd2.value){
+		alert("비밀번호를 정확하게 입력해주세요");
+		return false;
+	}else{
+		return true;
+	}
+	
+}

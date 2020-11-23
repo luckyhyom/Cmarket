@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
+ <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
-	
+
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
 	<!-- 1. DataSource 등록 (순서가 중요하다): 빈객체를 위에서부터 생성후 밑에꼐 위에것을 가져다 쓰므로..
@@ -50,5 +50,6 @@
 	  	<property name="maxInMemorySize" value="100000000"/>
 	  	</bean>	 
 	 
+	 <!-- <bean class="org.springframework.mock.web.MockServletContext"/> -->
 		
 </beans>

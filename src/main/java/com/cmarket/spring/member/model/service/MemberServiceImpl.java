@@ -35,8 +35,23 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int updateMember(Member m) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = 0;
+		int result1 = mDao.updateMember(m);
+		int result2 = 0;
+		if(result1>0) {
+//			result2= mDao.updateProfile(m.getUser_sq());
+		}
+		
+		if(result1 >0 && result2 >0) {
+			result = 1;
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public int updateMemberPwd(Member m) {
+		return mDao.updateMemberPwd(m);
 	}
 
 	@Override
@@ -46,15 +61,29 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int idCheck(String id) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int idCheck(String user_id) {
+		return mDao.idCheck(user_id);
 	}
 
 	@Override
 	public int insertProfile(MemberProfile profile) {
 			int result = mDao.insertProfile(profile);	
 		return result;
+	}
+
+	@Override
+	public MemberProfile getMemberProfile(Member loginUser) {
+		return mDao.getMemberProfile(loginUser);
+	}
+
+	@Override
+	public int updateProfile(MemberProfile profile) {
+		return mDao.updateProfile(profile);
+	}
+
+	@Override
+	public int updateMemberPhoto(MemberProfile profile) {
+		return mDao.updateMemberPhoto(profile);
 	}
 
 }

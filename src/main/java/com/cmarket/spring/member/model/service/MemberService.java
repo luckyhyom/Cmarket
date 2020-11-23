@@ -35,8 +35,16 @@ public interface MemberService {
 	 * 5. 아이디 중복 체크
 	 * @author hyom
 	 */
-	int idCheck(String id);
+	int idCheck(String user_id);
 
 	int insertProfile(MemberProfile profile);
+
+	int updateMemberPwd(Member m);
+
+	MemberProfile getMemberProfile(Member loginUser);
+
+	int updateProfile(MemberProfile profile);
+
+	int updateMemberPhoto(MemberProfile profile);
 
 }

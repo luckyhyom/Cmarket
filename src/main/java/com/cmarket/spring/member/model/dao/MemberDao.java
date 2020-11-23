@@ -26,6 +26,11 @@ public class MemberDao {
 	public int updateMember(Member m) {
 		return sqlSession.update("memberMapper.updateMember",m);
 	}
+	
+	public int updateMemberPwd(Member m) {
+		return sqlSession.update("memberMapper.updateMemberPwd",m);
+	}
+	
 
 
 	public int deleteMember(String id) {
@@ -36,5 +41,25 @@ public class MemberDao {
 
 	public int insertProfile(MemberProfile profile) {
 		return sqlSession.insert("memberMapper.insertProfile",profile);
+	}
+
+
+	public MemberProfile getMemberProfile(Member loginUser) {
+		return (MemberProfile)sqlSession.selectOne("memberMapper.getMemberProfile",loginUser);
+	}
+
+
+	public int updateProfile(MemberProfile profile) {
+		return sqlSession.update("memberMapper.updateProfile", profile);
+	}
+
+
+	public int idCheck(String user_id) {
+		return sqlSession.selectOne("memberMapper.idCheck",user_id);
+	}
+
+
+	public int updateMemberPhoto(MemberProfile profile) {
+		return sqlSession.update("memberMapper.updateMemberPhoto",profile);
 	}
 }

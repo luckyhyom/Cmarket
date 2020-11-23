@@ -11,53 +11,98 @@
 		<result property="email" column="email" />
 		<result property="phone" column="phone" />
 		<result property="address" column="address" />
-		<result property="address" column="ADDRESS" />
+		<result property="sample4_postcode" column="sample4_postcode" />
+		<result property="sample4_roadAddress" column="sample4_roadAddress" />
+		<result property="sample4_jibunAddress" column="sample4_jibunAddress" />
+		<result property="sample4_detailAddress" column="sample4_detailAddress" />
+		<result property="user_status" column="user_status" />
+	</resultMap>
+
+	<resultMap type="MemberProfile" id="profileResultSet">
+		<!-- MYBATIS에서 id는 pk를 뜻함 -->
+		<id property="profile_sq" column="profile_sq" />
+		<!-- <result property="user_sq" column="user_sq" /> -->
+		<result property="user_sq" column="user_sq" />
+		<result property="profile_nickname" column="profile_nickname" />
+		<result property="profile_gender" column="profile_gender" />
+		<result property="profile_photo" column="profile_photo" />
+		<result property="profile_temperature"
+			column="profile_temperature" />
+		<result property="profile_date" column="profile_date" />
 	</resultMap>
 
 	<select id="loginMember" parameterType="Member"
 		resultMap="memberResultSet">
 		<!-- 암호화 전 -->
-		<!-- SELECT *
-		FROM MEMBER
-		WHERE ID=#{id}
-		AND PWD=#{pwd}
-		AND M_STATUS='Y' -->
-		
+		<!-- SELECT * FROM MEMBER WHERE ID=#{id} AND PWD=#{pwd} AND M_STATUS='Y' -->
+
 		<!-- 암호화 후 -->
 		SELECT *
 		FROM user_tb
-		WHERE user_id=#{user_id}
-		
+		WHERE user_id=#{user_id} AND user_status ='Y'
+
+	</select>
+	
+	
+	
+	<select id="getMemberProfile" parameterType="MemberProfile"
+		resultMap="profileResultSet">
+		SELECT *
+		FROM profile_tb
+		WHERE user_sq=#{user_sq}
+
 	</select>
 
 	<insert id="insertMember" parameterType="Member">
-		INSERT INTO user_tb VALUES (user_seq.nextval,#{user_id},#{user_pwd},#{user_name},#{email},#{phone},#{address})
+		INSERT INTO user_tb
+		VALUES
+		(user_seq.nextval,#{user_id},#{user_pwd},#{user_name},#{email},#{phone},#{address},
+		#{sample4_postcode},#{sample4_roadAddress},#{sample4_jibunAddress},#{sample4_detailAddress},default)
 	</insert>
-	
+
 	<update id="updateMember" parameterType="Member">
-		UPDATE MEMBER
-		SET EMAIL = #{email},AGE=#{age},PHONE=#{phone},ADDRESS=#{address},UPDATE_DATE=SYSDATE
-		WHERE ID = #{id}
+		UPDATE user_tb
+		SET email=#{email},phone=#{phone},address=#{address},
+		sample4_postcode=#{sample4_postcode},sample4_roadAddress=#{sample4_roadAddress},sample4_jibunAddress=#{sample4_jibunAddress},
+		sample4_detailAddress=#{sample4_detailAddress}
+		WHERE user_sq = #{user_sq}
 	</update>
 	
+	<update id="updateProfile" parameterType="MemberProfile">
+		UPDATE profile_tb
+		SET profile_nickname=#{profile_nickname}
+		WHERE profile_sq = #{profile_sq}
+	</update>
+	
+	<update id="updateMemberPhoto" parameterType="MemberProfile">
+		UPDATE profile_tb
+		SET profile_photo=#{profile_photo}
+		WHERE profile_sq = #{profile_sq}
+	</update>
+	
+
+	<update id="updateMemberPwd" parameterType="Member">
+		UPDATE user_tb SET user_pwd = #{user_pwd} WHERE user_id = #{user_id}
+	</update>
+
+
 	<update id="deleteMember" parameterType="string">
-		UPDATE MEMBER
-		SET M_STATUS='N'
-		WHERE ID = #{id}
+		UPDATE user_tb
+		SET
+		user_status='N'
+		WHERE user_id = #{user_id}
 	</update>
-	
-	<insert id="insertBoard" parameterType="Member">
-		INSERT INTO BOARD(BID,BTITLE)
-		VALUES(SEQ_BID.NEXTVAL,'새로운 회원이 가입되었습니다.')
-	</insert>
-	
+
+
 	<select id="idCheck" parameterType="string" resultType="_int">
 		SELECT COUNT(*)
-		FROM MEMBER
-		WHERE ID=#{id}
+		FROM user_tb
+		WHERE user_id = #{user_id}
 	</select>
-	
+
 	<insert id="insertProfile" parameterType="MemberProfile">
-		INSERT INTO profile_tb VALUES (profile_seq.nextval,#{user_sq},#{profile_nickname},#{profile_gender},default,default,default)
+		INSERT INTO profile_tb
+		VALUES
+		(profile_seq.nextval,#{user_sq},#{profile_nickname},#{profile_gender},default,default,default)
 	</insert>
 </mapper>

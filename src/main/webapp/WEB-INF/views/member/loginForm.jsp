@@ -21,14 +21,17 @@
 </head>
 <body>
 	<section class="loginSection">
-		<form action="">
+	<!-- 로그인 실패 시 출력할 메세지 -->
+		${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+		${requestScope.loginFailMsg}
+		<form action="login.do" method="post">
 			<div class="loginForm">
 				<div class="inputs">
-					ID<input style="margin-bottom: 10px" type="text" />Password<input
-						type="password" name="" id="" />
-					<button>
-						<a href="home.do">login</a>
-					</button>
+					ID<input style="margin-bottom: 10px" type="text" id="user_id"
+						name="user_id" />Password<input type="password" name="user_pwd"
+						id="user_pwd" />
+					<!-- <input type='submit'> -->
+					<button>login</button>
 					<div class="another">
 						<a href="joinForm.do">회원가입</a> <a href="findId.do">아이디찾기</a>
 					</div>

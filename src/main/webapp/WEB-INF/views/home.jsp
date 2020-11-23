@@ -19,7 +19,6 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap"
 	rel="stylesheet" />
-<link rel="stylesheet" href="${root}/css/chatApply.css" />
 
 
 </head>
@@ -34,7 +33,7 @@
 					오늘도 이 마켓<br />오이마켓
 				</h1>
 				<span>중고 거래부터 동네 정보까지, 이웃과 함께 해요.<br /> 가깝고 따뜻한
-					당신의 근처를 만들어요.
+					당신의 근처를 만들어요."${memberProfile.profile_photo }"
 				</span>
 			</div>
 			<div class="textImg">

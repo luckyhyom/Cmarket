@@ -32,32 +32,54 @@
 </head>
 <body>
 	<section class="loginSection">
-		<form action="">
+		<form action="updatePwd.do" method="post">
 			<div class="loginForm">
 				<h1>update Password</h1>
+				<input type="hidden" name="user_id" id="user_id"
+						value="${loginUser.user_id }">
 				<div class="inputs">
-					Password<input type="password" name="" id="" />new Password<input
-						type="password" name="" id="password1" /> <label
-						for="" class="repeatPwd">new Password <spqn
+					Password<input type="password" name="user_pwd" id="user_pwd" />new
+					Password<input type="password" name="user_pwd_up" id="password1" />
+					<label for="" class="repeatPwd">new Password <spqn
 							class="confirmPwd"></spqn></label><input type="password" name=""
 						id="password2" />
-					<button>
-						<a href="home.do">Submit</a>
-					</button>
-					<div class="another">
-						<!-- <a href="joinForm.html">회원가입</a> <a href="#">아이디찾기</a> -->
-					</div>
+					<button onclick='return validate();'>submit</button>
+					<div class="another"></div>
 				</div>
 
-				<!-- <div class="login">
-            <a href="#" style="width: 154px">Google Login</a>
-            <a href="#" style="width: 154px">
-              <i class="fab fa-apple"></i> App Store
-            </a>
-          </div> -->
 			</div>
 		</form>
 	</section>
+	
+	<script type="text/javascript">
+	const pwd1 = document.querySelector("input[id=password1]");
+	const pwd2 = document.querySelector("input[id=password2]");
+	const confirmPwd = document.querySelector(".confirmPwd");
+	pwd2.addEventListener("keyup", (e) => {
+	  if (pwd1.value === "" || pwd2.value === "") {
+	    confirmPwd.style.color = "black";
+	    confirmPwd.textContent = `비밀번호를 입력해주세요`;
+	    return;
+	  } else if (pwd1.value === pwd2.value) {
+	    confirmPwd.style.color = "green";
+	    confirmPwd.textContent = `비밀번호 일치`;
+	  } else if (pwd1.value !== pwd2.value) {
+	    confirmPwd.style.color = "red";
+	    confirmPwd.textContent = `비밀번호 불일치`;
+	  }
+	});
+	
+	function validate(){
+		
+		if(pwd1.value !== pwd2.value){
+			alert("비밀번호를 정확하게 입력해주세요");
+			return false;
+		}else{
+			return true;
+		}
+		
+	}
+	</script>
 </body>
 </html>
 
