@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -27,6 +28,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cmarket.spring.member.model.service.MemberService;
 import com.cmarket.spring.member.model.vo.Member;
 import com.cmarket.spring.member.model.vo.MemberProfile;
+import com.cmarket.spring.member.model.vo.ProfileComment;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 @SessionAttributes("loginUser")
 @Controller
 public class MemberController {
@@ -95,7 +99,7 @@ public class MemberController {
 		//		System.out.println("matches 결과 : "+bcryptPasswordEncoder.matches(m.getUser_pwd(),loginUser.getUser_pwd()));
 
 		//Profile 불러오기
-		MemberProfile memberProfile = mService.getMemberProfile(loginUser); 
+		MemberProfile memberProfile = mService.getMemberProfile(loginUser.getUser_sq()); 
 
 		if(loginUser != null && bcryptPasswordEncoder.matches(m.getUser_pwd(),loginUser.getUser_pwd())) {
 			model.addAttribute("loginUser",loginUser);
@@ -380,6 +384,28 @@ public class MemberController {
 		}
 	}
 	
+	@RequestMapping(value="viewProfile.do")
+	public String viewProfile(MemberProfile profile, Model m) {
+		MemberProfile mp = mService.getMemberProfile(profile.getUser_sq());
+		System.out.println(mp.getProfile_sq());
+		ArrayList<ProfileComment> pcList = mService.getCommentList(1);
+		System.out.println("pcList : "+pcList);
+		m.addAttribute("p", mp);
+		m.addAttribute("pcList",pcList);
+		System.out.println("mp : "+mp);
+		
+		return "member/userProfile";
+	}
+	
+//	@ResponseBody
+//	@RequestMapping(value="commentList.do",produces="application/json; charset=utf-8")
+//	public void getReplyList(int bId, HttpServletResponse response) throws JsonIOException, IOException {
+//		response.setContentType("application/json; charset=utf-8");
+//		ArrayList<ProfileComment> rList = mService.selectCommentList(bId);
+//		
+//		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+//		gson.toJson(rList,response.getWriter());
+//	}
 	
 
 	//	@RequestMapping("error.do")

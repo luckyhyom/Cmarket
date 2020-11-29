@@ -1,7 +1,10 @@
 package com.cmarket.spring.member.model.service;
 
+import java.util.ArrayList;
+
 import com.cmarket.spring.member.model.vo.Member;
 import com.cmarket.spring.member.model.vo.MemberProfile;
+import com.cmarket.spring.member.model.vo.ProfileComment;
 
 public interface MemberService {
 
@@ -41,10 +44,12 @@ public interface MemberService {
 
 	int updateMemberPwd(Member m);
 
-	MemberProfile getMemberProfile(Member loginUser);
+	MemberProfile getMemberProfile(int user_sq);
 
 	int updateProfile(MemberProfile profile);
 
 	int updateMemberPhoto(MemberProfile profile);
+
+	ArrayList<ProfileComment> getCommentList(int profile_sq);
 
 }

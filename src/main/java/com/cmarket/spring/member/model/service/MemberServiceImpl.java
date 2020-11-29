@@ -1,5 +1,7 @@
 package com.cmarket.spring.member.model.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.cmarket.spring.member.model.dao.MemberDao;
 import com.cmarket.spring.member.model.vo.Member;
 import com.cmarket.spring.member.model.vo.MemberProfile;
+import com.cmarket.spring.member.model.vo.ProfileComment;
 
 @Service("Service")
 public class MemberServiceImpl implements MemberService{
@@ -72,8 +75,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public MemberProfile getMemberProfile(Member loginUser) {
-		return mDao.getMemberProfile(loginUser);
+	public MemberProfile getMemberProfile(int user_sq) {
+		return mDao.getMemberProfile(user_sq);
 	}
 
 	@Override
@@ -85,5 +88,12 @@ public class MemberServiceImpl implements MemberService{
 	public int updateMemberPhoto(MemberProfile profile) {
 		return mDao.updateMemberPhoto(profile);
 	}
+
+	@Override
+	public ArrayList<ProfileComment> getCommentList(int profile_sq) {
+		return mDao.getCommentList(profile_sq);
+	}
+	
+	
 
 }

@@ -1,11 +1,14 @@
 package com.cmarket.spring.member.model.dao;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cmarket.spring.member.model.vo.Member;
 import com.cmarket.spring.member.model.vo.MemberProfile;
+import com.cmarket.spring.member.model.vo.ProfileComment;
 
 @Repository("mDao")
 public class MemberDao {
@@ -44,8 +47,8 @@ public class MemberDao {
 	}
 
 
-	public MemberProfile getMemberProfile(Member loginUser) {
-		return (MemberProfile)sqlSession.selectOne("memberMapper.getMemberProfile",loginUser);
+	public MemberProfile getMemberProfile(int user_sq) {
+		return (MemberProfile)sqlSession.selectOne("memberMapper.getMemberProfile",user_sq);
 	}
 
 
@@ -61,5 +64,10 @@ public class MemberDao {
 
 	public int updateMemberPhoto(MemberProfile profile) {
 		return sqlSession.update("memberMapper.updateMemberPhoto",profile);
+	}
+
+
+	public ArrayList<ProfileComment> getCommentList(int profile_sq) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectCommentList",profile_sq);
 	}
 }

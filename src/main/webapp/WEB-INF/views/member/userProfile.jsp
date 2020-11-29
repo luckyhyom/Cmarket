@@ -25,10 +25,10 @@
 		<div class="profileSections__">
 			<div class="profileTop">
 				<div class="profileImg">
-					<img src="${root}/img/Hyoshin.png" alt="" />
+					<img src="${root}/profilePhotos/${p.profile_photo}" alt="" />
 				</div>
 				<div class="topRight">
-					<div class="profileName">너랑나랑은</div>
+					<div class="profileName">${p.profile_nickname}</div>
 					<div class="profileTopBtn">
 						<button>대화하기</button>
 						<button>칭찬</button>
@@ -42,7 +42,7 @@
           </ul> -->
 			</div>
 			<div class="profileTemp">
-				<div class="tempCount">매너온도 75.6C🥰</div>
+				<div class="tempCount">매너온도 ${p.profile_temperature }C🥰</div>
 				<div class="temp">
 					<div class="temp__"></div>
 				</div>
@@ -54,205 +54,39 @@
 			</div>
 			<div class="postCount">받은거래후기(2)</div>
 			<div class="posts">
+			${pcList}
+				<c:forEach var="pc" items="${pcList}">
 				<div class="post">
 					<div class="postImg">
-						<img src="${root}/img/Beomsu.png" alt="" />
+						<img src="${root}/profilePhotos/${pc.com_img}" alt="" />
 					</div>
 					<div class="postRight">
 						<div class="postWriter">
-							<a class="postWriterName">싼타페</a>
+							<a class="postWriterName">${pc.com_writer}</a>
 							<div class="etc">금천구 시흥제1동 6일전</div>
 							<a href="#">수정</a> <a href="#">삭제</a>
 						</div>
-						<div class="postContent">잘사용할께요!</div>
+						<div class="postContent">${pc.com_content}</div>
 					</div>
 				</div>
+				
+				</c:forEach>
 
-				<div class="post">
+		<%-- 		<div class="post">
 					<div class="postImg">
-						<img src="${root}/img/Faker.png" alt="" />
+						<img src="${root}/profilePhotos/${c.com_img}" alt="" />
 					</div>
 					<div class="postRight">
 						<div class="postWriter">
-							<a class="postWriterName">싼타페</a>
+							<a class="postWriterName">${c.com_writer}</a>
 							<div class="etc">금천구 시흥제1동 6일전</div>
 							<a href="#">수정</a> <a href="#">삭제</a>
 						</div>
-						<div class="postContent">잘사용할께요!</div>
+						<div class="postContent">${c.com_content}</div>
 					</div>
-				</div>
-
-				<div class="post">
-					<div class="postImg">
-						<img src="${root}/img/Jiseong.png" alt="" />
-					</div>
-					<div class="postRight">
-						<div class="postWriter">
-							<a class="postWriterName">싼타페</a>
-							<div class="etc">금천구 시흥제1동 6일전</div>
-							<a href="#">수정</a> <a href="#">삭제</a>
-						</div>
-						<div class="postContent">잘사용할께요!</div>
-					</div>
-				</div>
-
-				<div class="post">
-					<div class="postImg">
-						<img src="${root}/img/Bill.png" alt="" />
-					</div>
-					<div class="postRight">
-						<div class="postWriter">
-							<a class="postWriterName">싼타페</a>
-							<div class="etc">금천구 시흥제1동 6일전</div>
-							<a href="#">수정</a> <a href="#">삭제</a>
-						</div>
-						<div class="postContent">잘사용할께요!</div>
-					</div>
-				</div>
-
-				<div class="post">
-					<div class="postImg">
-						<img src="${root}/img/Misaki.jpg" alt="" />
-					</div>
-					<div class="postRight">
-						<div class="postWriter">
-							<a class="postWriterName">싼타페</a>
-							<div class="etc">금천구 시흥제1동 6일전</div>
-							<a href="#">수정</a> <a href="#">삭제</a>
-						</div>
-						<div class="postContent">잘사용할께요!</div>
-					</div>
-				</div>
-				<div class="post">
-					<div class="postImg">
-						<img src="${root}/img/Jiseong.png" alt="" />
-					</div>
-					<div class="postRight">
-						<div class="postWriter">
-							<a class="postWriterName">싼타페</a>
-							<div class="etc">금천구 시흥제1동 6일전</div>
-							<a href="#">수정</a> <a href="#">삭제</a>
-						</div>
-						<div class="postContent">잘사용할께요!</div>
-					</div>
-				</div>
-				<div class="post">
-					<div class="postImg">
-						<img src="${root}/img/Jiseong.png" alt="" />
-					</div>
-					<div class="postRight">
-						<div class="postWriter">
-							<a class="postWriterName">싼타페</a>
-							<div class="etc">금천구 시흥제1동 6일전</div>
-							<a href="#">수정</a> <a href="#">삭제</a>
-						</div>
-						<div class="postContent">잘사용할께요!</div>
-					</div>
-				</div>
-				<div class="post">
-					<div class="postImg">
-						<img src="${root}/img/Jiseong.png" alt="" />
-					</div>
-					<div class="postRight">
-						<div class="postWriter">
-							<a class="postWriterName">싼타페</a>
-							<div class="etc">금천구 시흥제1동 6일전</div>
-							<a href="#">수정</a> <a href="#">삭제</a>
-						</div>
-						<div class="postContent">잘사용할께요!</div>
-					</div>
-				</div>
-				<div class="post">
-					<div class="postImg">
-						<img src="${root}/img/Jiseong.png" alt="" />
-					</div>
-					<div class="postRight">
-						<div class="postWriter">
-							<a class="postWriterName">싼타페</a>
-							<div class="etc">금천구 시흥제1동 6일전</div>
-							<a href="#">수정</a> <a href="#">삭제</a>
-						</div>
-						<div class="postContent">잘사용할께요!</div>
-					</div>
-				</div>
-				<div class="post">
-					<div class="postImg">
-						<img src="${root}/img/Jiseong.png" alt="" />
-					</div>
-					<div class="postRight">
-						<div class="postWriter">
-							<a class="postWriterName">싼타페</a>
-							<div class="etc">금천구 시흥제1동 6일전</div>
-							<a href="#">수정</a> <a href="#">삭제</a>
-						</div>
-						<div class="postContent">잘사용할께요!</div>
-					</div>
-				</div>
-				<div class="post">
-					<div class="postImg">
-						<img src="${root}/img/Jiseong.png" alt="" />
-					</div>
-					<div class="postRight">
-						<div class="postWriter">
-							<a class="postWriterName">싼타페</a>
-							<div class="etc">금천구 시흥제1동 6일전</div>
-							<a href="#">수정</a> <a href="#">삭제</a>
-						</div>
-						<div class="postContent">잘사용할께요!</div>
-					</div>
-				</div>
-				<div class="post">
-					<div class="postImg">
-						<img src="${root}/img/Jiseong.png" alt="" />
-					</div>
-					<div class="postRight">
-						<div class="postWriter">
-							<a class="postWriterName">싼타페</a>
-							<div class="etc">금천구 시흥제1동 6일전</div>
-							<a href="#">수정</a> <a href="#">삭제</a>
-						</div>
-						<div class="postContent">잘사용할께요!</div>
-					</div>
-				</div>
-				<div class="post">
-					<div class="postImg">
-						<img src="${root}/img/Jiseong.png" alt="" />
-					</div>
-					<div class="postRight">
-						<div class="postWriter">
-							<a class="postWriterName">싼타페</a>
-							<div class="etc">금천구 시흥제1동 6일전</div>
-							<a href="#">수정</a> <a href="#">삭제</a>
-						</div>
-						<div class="postContent">잘사용할께요!</div>
-					</div>
-				</div>
-
-				<div class="post">
-					<div class="postImg">
-						<img src="${root}/img/searon.png" alt="" />
-					</div>
-					<div class="postRight">
-						<div class="postWriter">
-							<a class="postWriterName">싼타페</a>
-							<div class="etc">금천구 시흥제1동 6일전</div>
-						</div>
-						<div class="postContent">잘사용할께요!</div>
-					</div>
-				</div>
-
-				<div class="post">
-					<div class="postImg">
-						<img src="${root}/img/Beomsu.png" alt="" />
-					</div>
-					<div class="postRight">
-						<div class="postWriter">
-							<a class="postWriterName">싼타페</a>
-							<div class="etc">금천구 시흥제1동 6일전</div>
-						</div>
-						<div class="postContent">잘사용할께요!</div>
-					</div>
-				</div>
+				</div> --%>
+				
+				
 			</div>
 		</div>
 	</section>

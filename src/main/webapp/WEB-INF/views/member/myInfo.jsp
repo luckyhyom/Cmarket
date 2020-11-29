@@ -22,6 +22,11 @@
 <link rel="stylesheet" href="${root}/css/myInfo.css" />
 <body>
 	<c:import url="../common/header.jsp" />
+	<c:url value="viewProfile.do" var="viewProfile">
+		<c:param name="user_sq" value="1"/>
+	</c:url>
+	<a href="${viewProfile}">클릭클릭클</a> <!-- 게시판은 어떻게 링크 달더라? -->
+	
 	<section class="profileSections">
 		<div class="profileSections__">
 			<div class="profileTop">
@@ -194,7 +199,58 @@
 			  }
 			}).catch(err => console.error(err));	
 	}) */
+	$(function(){
+		getReplyList();
+		
+		setInterval(function(){
+			getReplyList(); // 타 회원이 댓글을 작성했을수도 있으니 지속적으로 댓글 불러오기
+		},3000);
+		
 	
+	function getReplyList(){
+		var bId = ${b.bId}
+		/* 서버관련된걸 js, 혹은 페이지에서 직접 처리하는게 신기하네, 이게 비동기구나 (원래 그랬나? 뭔가 다른 느낌인데 뭐지) */
+		$.ajax({
+			url:"rList.do",
+			data:{bId:bId},
+			dataType:"json",
+			success:function(data){
+				/* console.log(data); */
+				$tableBody = $("#rtb tbody");
+				$tableBody.html("");
+				
+				var $tr;
+				var $rWriter;
+				var $rContent;
+				var $rCreateDate;
+				
+				$("#rCount").text("댓글("+data.length+")");
+				
+				if(data.length>0){
+					for(var i in data){
+						$tr = $("<tr>");
+						$rWriter = $("<td width='100'>").text(data[i].rWriter);
+						$rContent = $("<td>").text(data[i].rContent);
+						$rCreateDate = $("<td width='100'>").text(data[i].rCreateDate);
+						
+						$tr.append($rWriter);
+						$tr.append($rContent);
+						$tr.append($rCreateDate);
+						$tableBody.append($tr);
+					}
+				}else{// no reply
+					$tr = $("<tr>");
+					$rContent = $("<td colspan='3'>").text("등록된 댓글이 없습니다.");
+					
+					$tr.append($rContent);
+					$tableBody.append($tr);
+				}
+				
+			},error:function(request,status,errorData){
+				console.log(request.status+" : " + errorData);
+			}
+		})
+	}
 	</script>
 </body>
 </html>

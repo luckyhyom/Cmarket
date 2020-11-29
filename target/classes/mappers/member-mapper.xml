@@ -44,12 +44,13 @@
 	</select>
 	
 	
-	
+	<!-- <select id="getMemberProfile" parameterType="_int" -->
+	<!-- parameterType도 상관이 없고, #{}안의 이름도 상관이 없네.. -->
 	<select id="getMemberProfile" parameterType="MemberProfile"
 		resultMap="profileResultSet">
 		SELECT *
 		FROM profile_tb
-		WHERE user_sq=#{user_sq}
+		WHERE user_sq=#{numberaaa}
 
 	</select>
 
@@ -105,4 +106,24 @@
 		VALUES
 		(profile_seq.nextval,#{user_sq},#{profile_nickname},#{profile_gender},default,default,default)
 	</insert>
+	
+	<resultMap type="ProfileComment" id="commentResultSet">
+		<id property="comment_sq" column="comment_sq" />
+		<result property="profile_sq" column="profile_sq" />
+		<result property="com_writer" column="com_writer" />
+		<result property="com_img" column="com_img" />
+		<result property="com_content" column="com_content" />
+		<result property="com_date" column="com_date" />
+	</resultMap>
+
+	<select id="selectCommentList" parameterType="_int"
+		resultMap="commentResultSet">
+		SELECT *
+		FROM profile_comment
+		WHERE profile_sq=#{profile_sq333}
+		ORDER
+		BY com_date DESC
+	</select>
+	
+	
 </mapper>
