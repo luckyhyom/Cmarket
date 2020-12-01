@@ -19,7 +19,7 @@
 	rel="stylesheet" />
 <link rel="stylesheet" href="${root}/css/userProfile.css" />
 <body>
-	<c:import url="../common/header.jsp"/>
+	<c:import url="../common/header.jsp" />
 
 	<section class="profileSections">
 		<div class="profileSections__">
@@ -29,22 +29,37 @@
 				</div>
 				<div class="topRight">
 					<div class="profileName">${p.profile_nickname}</div>
-					<div class="profileTopBtn">
+					<c:if test="${p.user_sq ne sessionScope.loginUser.user_sq}">
+						<div class="profileTopBtn">
 						<button>대화하기</button>
-						<button>칭찬</button>
-						<button>비매너</button>
-						<!-- <button><a href="">매너평가하기</a></button> -->
+						<c:if test="${checkOverlap eq 'no' }">
+							<button class="upTemp">평가하기</button>
+							<div class="upTempWindow">
+								평가하기!
+								<form action="writeComment.do">
+									<!-- 코맨트 등록 유저 정보는 컨트롤러 세션에서 구하기 -->
+									<input type="hidden" name="profile_sq" value="${p.profile_sq}">
+									<input type="text" name="com_content" id="com_content">
+									<label for="upTemp">칭찬</label> <input type="radio"
+										name="tempPoint" id="upTemp" value="1" /> <label
+										for="downTemp">불만</label> <input type="radio"
+										name="tempPoint" id="downTemp" value="-1" /><br />
+									<button type="submit">평가하기</button>
+								</form>
+							</div>
+						</c:if>
+						<c:if test="${checkOverlap eq 'yes' }">
+							<button class="upTemp" disabled="false">평가하기</button>
+						</c:if>
 					</div>
+					</c:if>
 				</div>
-				<!-- <ul class="judge">
-            <div class="judgeGood">칭찬</div>
-            <div class="judgeBad">비매너</div>
-          </ul> -->
 			</div>
 			<div class="profileTemp">
-				<div class="tempCount">매너온도 ${p.profile_temperature }C🥰</div>
+				<div class="tempCount">매너온도 ${p.profile_temperature}C🥰</div>
 				<div class="temp">
-					<div class="temp__"></div>
+					<div class="temp__"
+						style="width:${p.profile_temperature}%"></div>
 				</div>
 			</div>
 			<div class="sellList">
@@ -54,43 +69,41 @@
 			</div>
 			<div class="postCount">받은거래후기(2)</div>
 			<div class="posts">
-			${pcList}
 				<c:forEach var="pc" items="${pcList}">
-				<div class="post">
-					<div class="postImg">
-						<img src="${root}/profilePhotos/${pc.com_img}" alt="" />
-					</div>
-					<div class="postRight">
-						<div class="postWriter">
-							<a class="postWriterName">${pc.com_writer}</a>
-							<div class="etc">금천구 시흥제1동 6일전</div>
-							<a href="#">수정</a> <a href="#">삭제</a>
+					<c:url var="goProfile" value="viewProfile.do">
+						<c:param name="profile_sq" value="${pc.com_writer_sq}" />
+					</c:url>
+					<c:url var="deleteComment" value="deleteComment.do">
+						<c:param name="comment_sq" value="${pc.comment_sq}" />
+						<c:param name="profile_sq" value="${pc.profile_sq}" />
+					</c:url>
+					<div class="post">
+						<div class="postImg">
+							<img src="${root}/profilePhotos/${pc.com_img}" alt="" />
 						</div>
-						<div class="postContent">${pc.com_content}</div>
+						<div class="postRight">
+							<div class="postWriter">
+								<a class="postWriterName" href="${goProfile}">${pc.com_writer}</a>
+								<div class="etc">6일전</div>
+								<c:if test="${pc.com_writer eq sessionScope.memberProfile.profile_nickname}">
+									<a href="${deleteComment}">삭제</a>
+								</c:if>
+							</div>
+							<div class="postContent">${pc.com_content}</div>
+						</div>
 					</div>
-				</div>
-				
 				</c:forEach>
 
-		<%-- 		<div class="post">
-					<div class="postImg">
-						<img src="${root}/profilePhotos/${c.com_img}" alt="" />
-					</div>
-					<div class="postRight">
-						<div class="postWriter">
-							<a class="postWriterName">${c.com_writer}</a>
-							<div class="etc">금천구 시흥제1동 6일전</div>
-							<a href="#">수정</a> <a href="#">삭제</a>
-						</div>
-						<div class="postContent">${c.com_content}</div>
-					</div>
-				</div> --%>
-				
-				
 			</div>
 		</div>
 	</section>
-
-	<c:import url="../common/footer.jsp"/>
+	<script>
+      const upTempBtn = document.querySelector('.upTemp');
+      const upTempWindow = document.querySelector('.upTempWindow');
+      upTempBtn.addEventListener('click',()=>{
+        upTempWindow.classList.toggle('show');
+      })
+    </script>
+	<c:import url="../common/footer.jsp" />
 </body>
 </html>

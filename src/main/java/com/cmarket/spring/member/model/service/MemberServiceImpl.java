@@ -93,6 +93,27 @@ public class MemberServiceImpl implements MemberService{
 	public ArrayList<ProfileComment> getCommentList(int profile_sq) {
 		return mDao.getCommentList(profile_sq);
 	}
+
+	@Override
+	public int writeComment(ProfileComment comment) {
+		return mDao.writeComment(comment);
+	}
+
+	@Override
+	public MemberProfile getMemberProfile2(int profile_sq) {
+		return mDao.getMemberProfile2(profile_sq);
+	}
+
+
+	@Override
+	public int updateTemp(MemberProfile mp) {
+		return mDao.updateTemp(mp);
+	}
+
+	@Override
+	public int deleteComment(ProfileComment comment) {
+		return mDao.deleteComment(comment);
+	}
 	
 	
 

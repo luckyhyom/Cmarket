@@ -68,6 +68,27 @@ public class MemberDao {
 
 
 	public ArrayList<ProfileComment> getCommentList(int profile_sq) {
-		return (ArrayList)sqlSession.selectList("memberMapper.selectCommentList",profile_sq);
+		return (ArrayList)sqlSession.selectList("memberMapper.getCommentList",profile_sq);
 	}
+
+
+	public int writeComment(ProfileComment comment) {
+		return sqlSession.insert("memberMapper.writeComment",comment);
+	}
+
+
+	public MemberProfile getMemberProfile2(int profile_sq) {
+		return (MemberProfile)sqlSession.selectOne("memberMapper.getMemberProfile2",profile_sq);
+	}
+
+
+	public int updateTemp(MemberProfile mp) {
+		return sqlSession.update("memberMapper.updateTemp",mp);
+	}
+
+
+	public int deleteComment(ProfileComment comment) {
+		return sqlSession.delete("memberMapper.deleteComment",comment);
+	}
+
 }

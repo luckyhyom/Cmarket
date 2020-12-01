@@ -52,4 +52,13 @@ public interface MemberService {
 
 	ArrayList<ProfileComment> getCommentList(int profile_sq);
 
+	int writeComment(ProfileComment comment);
+
+	MemberProfile getMemberProfile2(int profile_sq);
+
+	int updateTemp(MemberProfile mp);
+
+	int deleteComment(ProfileComment comment);
+
+
 }

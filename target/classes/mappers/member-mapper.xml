@@ -53,6 +53,14 @@
 		WHERE user_sq=#{numberaaa}
 
 	</select>
+	
+	<select id="getMemberProfile2" parameterType="MemberProfile"
+		resultMap="profileResultSet">
+		SELECT *
+		FROM profile_tb
+		WHERE profile_sq=#{numberaaa}
+
+	</select>
 
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO user_tb
@@ -78,6 +86,12 @@
 	<update id="updateMemberPhoto" parameterType="MemberProfile">
 		UPDATE profile_tb
 		SET profile_photo=#{profile_photo}
+		WHERE profile_sq = #{profile_sq}
+	</update>
+	
+	<update id="updateTemp" parameterType="MemberProfile">
+		UPDATE profile_tb
+		SET profile_temperature=#{profile_temperature}
 		WHERE profile_sq = #{profile_sq}
 	</update>
 	
@@ -111,12 +125,13 @@
 		<id property="comment_sq" column="comment_sq" />
 		<result property="profile_sq" column="profile_sq" />
 		<result property="com_writer" column="com_writer" />
+		<result property="com_writer_sq" column="com_writer_sq" />
 		<result property="com_img" column="com_img" />
 		<result property="com_content" column="com_content" />
 		<result property="com_date" column="com_date" />
 	</resultMap>
 
-	<select id="selectCommentList" parameterType="_int"
+	<select id="getCommentList" parameterType="_int"
 		resultMap="commentResultSet">
 		SELECT *
 		FROM profile_comment
@@ -125,5 +140,15 @@
 		BY com_date DESC
 	</select>
 	
+	<insert id="writeComment" parameterType="MemberProfile">
+		INSERT INTO profile_comment
+		VALUES
+		(profile_comment_seq.nextval,#{profile_sq},#{com_writer},#{com_writer_sq},#{com_img},#{com_content},default)
+	</insert>
+	
+	<delete id="deleteComment">
+		DELETE profile_comment
+		WHERE comment_sq = #{comment_sq}
+	</delete>
 	
 </mapper>

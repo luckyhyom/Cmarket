@@ -2,11 +2,13 @@ package com.cmarket.spring.member.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
@@ -385,14 +387,29 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="viewProfile.do")
-	public String viewProfile(MemberProfile profile, Model m) {
-		MemberProfile mp = mService.getMemberProfile(profile.getUser_sq());
+	public String viewProfile(MemberProfile profile, Model m,HttpSession session) {
+		
+		MemberProfile visitMp = (MemberProfile) session.getAttribute("memberProfile");
+		
+		MemberProfile mp = mService.getMemberProfile2(profile.getProfile_sq());
 		System.out.println(mp.getProfile_sq());
-		ArrayList<ProfileComment> pcList = mService.getCommentList(1);
+		
+		//Check overlap
+		String checkOverlap = "no";
+		
+		ArrayList<ProfileComment> pcList = mService.getCommentList(mp.getProfile_sq());
+		for(ProfileComment pc :pcList) {
+			if(pc.getCom_writer_sq()==visitMp.getProfile_sq()) {
+				checkOverlap = "yes";
+			}
+		}
+		
+		
 		System.out.println("pcList : "+pcList);
 		m.addAttribute("p", mp);
 		m.addAttribute("pcList",pcList);
 		System.out.println("mp : "+mp);
+		m.addAttribute("checkOverlap", checkOverlap);
 		
 		return "member/userProfile";
 	}
@@ -412,5 +429,67 @@ public class MemberController {
 	//	public String errorPage() {
 	//		return "common/error";
 	//	}
+	
+//	@ResponseBody
+	@RequestMapping(value="writeComment.do")
+	public String writeComment(ProfileComment comment, HttpSession session,Model m, @RequestParam(name="tempPoint") int tempPoint,HttpServletResponse response) {
+		MemberProfile wrtierMp = (MemberProfile) session.getAttribute("memberProfile");
+		comment.setCom_writer(wrtierMp.getProfile_nickname());
+		comment.setCom_img(wrtierMp.getProfile_photo());
+		comment.setCom_writer_sq(wrtierMp.getProfile_sq());
+		
+		//profile_sq로 평가받는 유저의 프로필 불러오기
+		MemberProfile mp = mService.getMemberProfile2(comment.getProfile_sq());
+		double sum = mp.getProfile_temperature()+tempPoint;
+		mp.setProfile_temperature(sum);
+		
+		
+		ArrayList<ProfileComment> pcList = mService.getCommentList(mp.getProfile_sq());
+		
+		// 댓글 중복 방지
+		for(ProfileComment pc :pcList) {
+			if(pc.getCom_writer_sq()==comment.getCom_writer_sq()) {
+				m.addAttribute("msg", "이미 평가를 하셨어요.");
+				return "common/errorPage";
+//				errorPage("이미 평가를 하셨어요.",m);
+			}
+		}
+		
+		int result = mService.writeComment(comment);
+		int result2 = mService.updateTemp(mp);
+		
+		//viewProfile메소드 가능할시에 Model에 셋팅이 필요한지?
+		//m.addAttribute("p", mp);
+		//m.addAttribute("pcList",pcList);
+		
+     
+		
+		//왜 얘는 comment를 따로 안만들고 바로 집어넣어도 되는지 생각해보기 : 회원가입이랑 똑같음. 걍 집어넣는거임
+		if(result>0 && result2 > 0) {
+			// redirect로 메소드를 다시 실행시켜야한다. 새로고침효과도 얻음!, 새로고침되는 페이지의 정보를 model에 셋팅해주어야한다.
+   
+			return "redirect:viewProfile.do";
+			//return "member/userProfile";	
+//			viewProfile(mp,m,session);
+		}else {
+			m.addAttribute("msg", "고객센터에 문의해주세요.");
+			return "common/errorPage";
+//			errorPage("고객센터에 문의해주세요.",m);
+		}
+		
+	}
+	
+	@RequestMapping("deleteComment.do")
+	public void deleteComment(ProfileComment comment,Model m,HttpSession session) {
+		int result = mService.deleteComment(comment);
+		MemberProfile mp = mService.getMemberProfile2(comment.getProfile_sq());
+		viewProfile(mp,m,session);
+	}
+	
+	@RequestMapping
+	public String errorPage(String msg,Model m) {
+		m.addAttribute("msg",msg);
+		return "common/errorPage";
+	}
 
 }
