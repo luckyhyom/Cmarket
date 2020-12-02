@@ -12,9 +12,12 @@
 		<result property="phone" column="phone" />
 		<result property="address" column="address" />
 		<result property="sample4_postcode" column="sample4_postcode" />
-		<result property="sample4_roadAddress" column="sample4_roadAddress" />
-		<result property="sample4_jibunAddress" column="sample4_jibunAddress" />
-		<result property="sample4_detailAddress" column="sample4_detailAddress" />
+		<result property="sample4_roadAddress"
+			column="sample4_roadAddress" />
+		<result property="sample4_jibunAddress"
+			column="sample4_jibunAddress" />
+		<result property="sample4_detailAddress"
+			column="sample4_detailAddress" />
 		<result property="user_status" column="user_status" />
 	</resultMap>
 
@@ -42,8 +45,8 @@
 		WHERE user_id=#{user_id} AND user_status ='Y'
 
 	</select>
-	
-	
+
+
 	<!-- <select id="getMemberProfile" parameterType="_int" -->
 	<!-- parameterType도 상관이 없고, #{}안의 이름도 상관이 없네.. -->
 	<select id="getMemberProfile" parameterType="MemberProfile"
@@ -53,7 +56,7 @@
 		WHERE user_sq=#{numberaaa}
 
 	</select>
-	
+
 	<select id="getMemberProfile2" parameterType="MemberProfile"
 		resultMap="profileResultSet">
 		SELECT *
@@ -71,33 +74,39 @@
 
 	<update id="updateMember" parameterType="Member">
 		UPDATE user_tb
-		SET email=#{email},phone=#{phone},address=#{address},
+		SET
+		email=#{email},phone=#{phone},address=#{address},
 		sample4_postcode=#{sample4_postcode},sample4_roadAddress=#{sample4_roadAddress},sample4_jibunAddress=#{sample4_jibunAddress},
 		sample4_detailAddress=#{sample4_detailAddress}
-		WHERE user_sq = #{user_sq}
+		WHERE user_sq =
+		#{user_sq}
 	</update>
-	
+
 	<update id="updateProfile" parameterType="MemberProfile">
 		UPDATE profile_tb
-		SET profile_nickname=#{profile_nickname}
+		SET
+		profile_nickname=#{profile_nickname}
 		WHERE profile_sq = #{profile_sq}
 	</update>
-	
+
 	<update id="updateMemberPhoto" parameterType="MemberProfile">
 		UPDATE profile_tb
 		SET profile_photo=#{profile_photo}
 		WHERE profile_sq = #{profile_sq}
 	</update>
-	
+
 	<update id="updateTemp" parameterType="MemberProfile">
 		UPDATE profile_tb
-		SET profile_temperature=#{profile_temperature}
-		WHERE profile_sq = #{profile_sq}
+		SET
+		profile_temperature=#{profile_temperature}
+		WHERE profile_sq =
+		#{profile_sq}
 	</update>
-	
+
 
 	<update id="updateMemberPwd" parameterType="Member">
-		UPDATE user_tb SET user_pwd = #{user_pwd} WHERE user_id = #{user_id}
+		UPDATE user_tb SET
+		user_pwd = #{user_pwd} WHERE user_id = #{user_id}
 	</update>
 
 
@@ -110,7 +119,8 @@
 
 
 	<select id="idCheck" parameterType="string" resultType="_int">
-		SELECT COUNT(*)
+		SELECT
+		COUNT(*)
 		FROM user_tb
 		WHERE user_id = #{user_id}
 	</select>
@@ -120,10 +130,11 @@
 		VALUES
 		(profile_seq.nextval,#{user_sq},#{profile_nickname},#{profile_gender},default,default,default)
 	</insert>
-	
+
 	<resultMap type="ProfileComment" id="commentResultSet">
 		<id property="comment_sq" column="comment_sq" />
 		<result property="profile_sq" column="profile_sq" />
+		<result property="com_judge" column="com_judge" />
 		<result property="com_writer" column="com_writer" />
 		<result property="com_writer_sq" column="com_writer_sq" />
 		<result property="com_img" column="com_img" />
@@ -135,20 +146,33 @@
 		resultMap="commentResultSet">
 		SELECT *
 		FROM profile_comment
-		WHERE profile_sq=#{profile_sq333}
+		WHERE
+		profile_sq=#{profile_sq333}
 		ORDER
 		BY com_date DESC
 	</select>
-	
+
+	<select id="getComment" parameterType="_int"
+		resultMap="commentResultSet">
+		SELECT *
+		FROM profile_comment
+		WHERE
+		profile_sq=#{profile_sq} AND comment_sq=#{comment_sq}
+	</select>
+
 	<insert id="writeComment" parameterType="MemberProfile">
-		INSERT INTO profile_comment
+		INSERT INTO
+		profile_comment
 		VALUES
-		(profile_comment_seq.nextval,#{profile_sq},#{com_writer},#{com_writer_sq},#{com_img},#{com_content},default)
+		(profile_comment_seq.nextval,#{profile_sq},#{com_judge},#{com_writer},#{com_writer_sq},#{com_img},#{com_content},default)
 	</insert>
-	
+
 	<delete id="deleteComment">
 		DELETE profile_comment
-		WHERE comment_sq = #{comment_sq}
+		WHERE comment_sq =
+		#{comment_sq}
 	</delete>
-	
+
+
+
 </mapper>

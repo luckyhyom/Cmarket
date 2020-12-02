@@ -6,6 +6,7 @@ public class ProfileComment {
 
 	private int comment_sq;
 	private int profile_sq;
+	private String com_judge;
 	private String com_writer;
 	// profile's sq
 	private int com_writer_sq;
@@ -19,17 +20,28 @@ public class ProfileComment {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ProfileComment(int comment_sq, int profile_sq, String com_writer, int com_writer_sq, String com_img,
-			String com_content, Date com_date) {
+	
+	public ProfileComment(int comment_sq, int profile_sq, String com_judge, String com_writer, int com_writer_sq,
+			String com_img, String com_content, Date com_date) {
 		super();
 		this.comment_sq = comment_sq;
 		this.profile_sq = profile_sq;
+		this.com_judge = com_judge;
 		this.com_writer = com_writer;
 		this.com_writer_sq = com_writer_sq;
 		this.com_img = com_img;
 		this.com_content = com_content;
 		this.com_date = com_date;
 	}
+
+	public String getCom_judge() {
+		return com_judge;
+	}
+
+	public void setCom_judge(String com_judge) {
+		this.com_judge = com_judge;
+	}
+
 	public int getComment_sq() {
 		return comment_sq;
 	}
@@ -72,14 +84,13 @@ public class ProfileComment {
 	public void setCom_date(Date com_date) {
 		this.com_date = com_date;
 	}
+
 	@Override
 	public String toString() {
-		return "ProfileComment [comment_sq=" + comment_sq + ", profile_sq=" + profile_sq + ", com_writer=" + com_writer
-				+ ", com_writer_sq=" + com_writer_sq + ", com_img=" + com_img + ", com_content=" + com_content
-				+ ", com_date=" + com_date + "]";
+		return "ProfileComment [comment_sq=" + comment_sq + ", profile_sq=" + profile_sq + ", com_judge=" + com_judge
+				+ ", com_writer=" + com_writer + ", com_writer_sq=" + com_writer_sq + ", com_img=" + com_img
+				+ ", com_content=" + com_content + ", com_date=" + com_date + "]";
 	}
-	
-
 	
 	
 }

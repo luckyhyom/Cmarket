@@ -91,4 +91,9 @@ public class MemberDao {
 		return sqlSession.delete("memberMapper.deleteComment",comment);
 	}
 
+
+	public ProfileComment getComment(ProfileComment comment) {
+		return (ProfileComment)sqlSession.selectOne("memberMapper.getComment",comment);
+	}
+
 }

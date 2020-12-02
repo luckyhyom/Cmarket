@@ -114,6 +114,11 @@ public class MemberServiceImpl implements MemberService{
 	public int deleteComment(ProfileComment comment) {
 		return mDao.deleteComment(comment);
 	}
+
+	@Override
+	public ProfileComment getComment(ProfileComment comment) {
+		return mDao.getComment(comment);
+	}
 	
 	
 

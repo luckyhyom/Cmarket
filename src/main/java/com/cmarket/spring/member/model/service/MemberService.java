@@ -60,5 +60,7 @@ public interface MemberService {
 
 	int deleteComment(ProfileComment comment);
 
+	ProfileComment getComment(ProfileComment comment);
+
 
 }

@@ -41,7 +41,7 @@
 									<input type="hidden" name="profile_sq" value="${p.profile_sq}">
 									<input type="text" name="com_content" id="com_content">
 									<label for="upTemp">칭찬</label> <input type="radio"
-										name="tempPoint" id="upTemp" value="1" /> <label
+										name="tempPoint" id="upTemp" value="1" checked /> <label
 										for="downTemp">불만</label> <input type="radio"
 										name="tempPoint" id="downTemp" value="-1" /><br />
 									<button type="submit">평가하기</button>
@@ -67,15 +67,17 @@
 					<a href="sellList.do">판매상품</a>
 				</button>
 			</div>
-			<div class="postCount">받은거래후기(2)</div>
+			<div class="postCount">받은거래후기(${sumComments})</div>
 			<div class="posts">
 				<c:forEach var="pc" items="${pcList}">
 					<c:url var="goProfile" value="viewProfile.do">
 						<c:param name="profile_sq" value="${pc.com_writer_sq}" />
 					</c:url>
 					<c:url var="deleteComment" value="deleteComment.do">
+						<!-- comment_sq는 삭제할때 쓰는 값이므로, jsp개발자도구에서 소유자(Session)외에는 안보이도록 해야한다. -->
 						<c:param name="comment_sq" value="${pc.comment_sq}" />
 						<c:param name="profile_sq" value="${pc.profile_sq}" />
+						<%-- <c:param name="com_judge" value="${pc.com_judge }"/> --%>
 					</c:url>
 					<div class="post">
 						<div class="postImg">
@@ -83,8 +85,14 @@
 						</div>
 						<div class="postRight">
 							<div class="postWriter">
-								<a class="postWriterName" href="${goProfile}">${pc.com_writer}</a>
-								<div class="etc">6일전</div>
+								<a class="postWriterName" href="${goProfile}" style="font-weight: 500;">${pc.com_writer}</a>
+								<c:if test="${ pc.com_judge eq 'Y'}">
+									<div class="etc" style="color:green;">칭찬해요!</div>&nbsp;
+								</c:if> 
+								<c:if test="${ pc.com_judge eq 'N'}">
+									<div class="etc" style="color:blue;">불만이에요!</div>&nbsp;
+								</c:if>
+								<div class="etc">${pc.com_date}</div>
 								<c:if test="${pc.com_writer eq sessionScope.memberProfile.profile_nickname}">
 									<a href="${deleteComment}">삭제</a>
 								</c:if>

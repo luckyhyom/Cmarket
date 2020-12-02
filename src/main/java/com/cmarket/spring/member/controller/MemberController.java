@@ -389,6 +389,8 @@ public class MemberController {
 	@RequestMapping(value="viewProfile.do")
 	public String viewProfile(MemberProfile profile, Model m,HttpSession session) {
 		
+		// when profile is Null
+		
 		MemberProfile visitMp = (MemberProfile) session.getAttribute("memberProfile");
 		
 		MemberProfile mp = mService.getMemberProfile2(profile.getProfile_sq());
@@ -397,17 +399,21 @@ public class MemberController {
 		//Check overlap
 		String checkOverlap = "no";
 		
+		int sumComments = 0;
+		
 		ArrayList<ProfileComment> pcList = mService.getCommentList(mp.getProfile_sq());
 		for(ProfileComment pc :pcList) {
 			if(pc.getCom_writer_sq()==visitMp.getProfile_sq()) {
 				checkOverlap = "yes";
 			}
+			sumComments++;
 		}
 		
 		
 		System.out.println("pcList : "+pcList);
 		m.addAttribute("p", mp);
 		m.addAttribute("pcList",pcList);
+		m.addAttribute("sumComments",sumComments);
 		System.out.println("mp : "+mp);
 		m.addAttribute("checkOverlap", checkOverlap);
 		
@@ -440,7 +446,19 @@ public class MemberController {
 		
 		//profile_sq로 평가받는 유저의 프로필 불러오기
 		MemberProfile mp = mService.getMemberProfile2(comment.getProfile_sq());
-		double sum = mp.getProfile_temperature()+tempPoint;
+		
+		double sum=mp.getProfile_temperature();
+		
+		if(tempPoint == 1) {
+			sum = mp.getProfile_temperature()+1*20;
+			comment.setCom_judge("Y");
+		}else if(tempPoint == -1) {
+			sum = mp.getProfile_temperature()-1*20;
+			comment.setCom_judge("N");
+		}else {
+			return errorPage("고객센터에 문의해주세요.",m);
+		}
+		
 		mp.setProfile_temperature(sum);
 		
 		
@@ -456,7 +474,11 @@ public class MemberController {
 		}
 		
 		int result = mService.writeComment(comment);
-		int result2 = mService.updateTemp(mp);
+		int result2 =0;
+		if(result>0) {
+			result2 = mService.updateTemp(mp);
+		}
+		
 		
 		//viewProfile메소드 가능할시에 Model에 셋팅이 필요한지?
 		//m.addAttribute("p", mp);
@@ -467,23 +489,57 @@ public class MemberController {
 		//왜 얘는 comment를 따로 안만들고 바로 집어넣어도 되는지 생각해보기 : 회원가입이랑 똑같음. 걍 집어넣는거임
 		if(result>0 && result2 > 0) {
 			// redirect로 메소드를 다시 실행시켜야한다. 새로고침효과도 얻음!, 새로고침되는 페이지의 정보를 model에 셋팅해주어야한다.
-   
-			return "redirect:viewProfile.do";
-			//return "member/userProfile";	
-//			viewProfile(mp,m,session);
+			//return "redirect:viewProfile.do";
+			//return "member/userProfile";	   
+			return viewProfile(mp,m,session);
 		}else {
+			//return "common/errorPage";
 			m.addAttribute("msg", "고객센터에 문의해주세요.");
-			return "common/errorPage";
-//			errorPage("고객센터에 문의해주세요.",m);
+			return errorPage("고객센터에 문의해주세요.",m);
 		}
 		
 	}
 	
 	@RequestMapping("deleteComment.do")
-	public void deleteComment(ProfileComment comment,Model m,HttpSession session) {
-		int result = mService.deleteComment(comment);
+	public String deleteComment(ProfileComment comment,Model m,HttpSession session) {
+		
+		// 평가받는 유저의 프로필 불러오기
 		MemberProfile mp = mService.getMemberProfile2(comment.getProfile_sq());
-		viewProfile(mp,m,session);
+		
+		// comment_sq를 이용하여 comment를 가져온 후에, judge의 상태를 확인한다.
+		// profile_sq와 함께 비교하여 유저 임의로 다른 유저의 댓글을 삭제 시키는 것을 방지한다.
+		ProfileComment realPc = mService.getComment(comment);
+		if(realPc == null) {
+			return errorPage("잘못된 접근입니다.",m);
+		}
+		
+		// 댓글 삭제시 judge의 상태에 따라서 온도 초기화 값 설정
+		double sum=mp.getProfile_temperature();
+		if(realPc.getCom_judge().equals("Y")) {
+			sum = mp.getProfile_temperature()-1*20;
+		}else if(realPc.getCom_judge().equals("N")) {
+			sum = mp.getProfile_temperature()+1*20;
+		}else {
+			return errorPage("고객센터에 문의해주세요.",m);
+		}
+		mp.setProfile_temperature(sum);
+		
+		
+		// 댓글 삭제
+		int result = mService.deleteComment(realPc);
+		int result2 =0;
+		
+		// 댓글 삭제 성공하면 유저 온도 수정
+		if(result>0) {
+			result2 = mService.updateTemp(mp);
+		}
+		
+		if(result>0 && result2>0) {
+			return viewProfile(mp,m,session);
+		}else {
+			return errorPage("댓글 삭제 오류, 고객센터에 문의해주세요.",m);
+		}
+		
 	}
 	
 	@RequestMapping
