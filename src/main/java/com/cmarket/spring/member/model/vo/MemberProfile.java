@@ -1,6 +1,8 @@
 package com.cmarket.spring.member.model.vo;
 
-import java.sql.Date;
+import java.sql.Timestamp; 
+
+//import java.sql.Date;
 
 public class MemberProfile {
 	   private int profile_sq;           
@@ -9,13 +11,14 @@ public class MemberProfile {
 	   private String profile_gender;     
 	   private String profile_photo;      
 	   private Double profile_temperature;
-	   private Date profile_date;
+	   private Timestamp profile_date;
+	   
 	public MemberProfile() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public MemberProfile(int profile_sq, int user_sq, String profile_nickname, String profile_gender,
-			String profile_photo, Double profile_temperature, Date profile_date) {
+			String profile_photo, Double profile_temperature, Timestamp profile_date) {
 		super();
 		this.profile_sq = profile_sq;
 		this.user_sq = user_sq;
@@ -61,10 +64,10 @@ public class MemberProfile {
 	public void setProfile_temperature(Double profile_temperature) {
 		this.profile_temperature = profile_temperature;
 	}
-	public Date getProfile_date() {
+	public Timestamp getProfile_date() {
 		return profile_date;
 	}
-	public void setProfile_date(Date profile_date) {
+	public void setProfile_date(Timestamp profile_date) {
 		this.profile_date = profile_date;
 	}
 	@Override

@@ -19,7 +19,7 @@
 	href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap"
 	rel="stylesheet" />
 <body>
-	<c:import url="../common/header.jsp"/>
+	<c:import url="../common/header.jsp" />
 
 	<!-- banner start -->
 	<section class="sections">
@@ -38,69 +38,64 @@
 	<section class="latest-product-area latest-padding"
 		style="text-align: center">
 		<section class="sectionBox">
-			<form class="passwordUpdate" action="" method="get">
+			<form action="writePB.do" method="post" enctype="multipart/form-data">
 				<ul class="writeBox">
 					<li class="wImg"><a>상품이미지</a>
 						<div class="wrap">
-							<label class="wrap2"><i
-								class="fas fa-camera"></i> <input type="file" class="wImgFile"
-								accept="image/*" name="wImage" id="" /> </label> <label
-								class="wrap2"> <img src="${root}/img/Jiseong.png" alt="" />
+							<label class="wrap2"><i class="fas fa-camera"></i> <input
+								type="file" class="wImgFile" accept="image/*" name="imgFile1"
+								id="imgFile1" /> </label> <label class="wrap2"> <img
+								src="${root}/img/Jiseong.png" alt="" />
 							</label>
 						</div></li>
 					<li class="wTitle"><a>제목</a>
 						<div class="wrap">
-							<input type="text" name="wTitle" id="" />
+							<input type="text" name="board_title" id="" />
 						</div></li>
 					<li class="wCate"><a>카테고리</a>
 						<div class="wrap">
 							<div class="wCate__option">
 								<div class="option__1">
 									<ul>
-										<li><button type="button">남성의류</button></li>
-										<li><button type="button">여성의류</button></li>
-										<li><button type="button">전자기기</button></li>
-										<li><button type="button">생활용품</button></li>
-										<li><button type="button">남성의류</button></li>
-										<li><button type="button">여성의류</button></li>
-										<li><button type="button">전자기기</button></li>
-										<li><button type="button">생활용품</button></li>
-										<li><button type="button">남성의류</button></li>
-										<li><button type="button">여성의류</button></li>
-										<li><button type="button">전자기기</button></li>
-										<li><button type="button">생활용품</button></li>
+										<select name='cate_name' id="cate_name" style="width:100%;">
+											<option value='' selected>-- 선택 --</option>
+											<option value='남성의류'>남성의류</option>
+											<option value='여성의류'>여성의류</option>
+											<option value='전자기기'>전자기기</option>
+											<option value='도서'>도서</option>
+										</select>
 									</ul>
 								</div>
 							</div>
 						</div></li>
 					<li class="wPlace"><a>거래지역</a>
 						<div class="wrap">
-							<input type="text" name="" id="" />
+							<input type="text" name="board_address" id="" />
 						</div></li>
-					<li class="wStatus"><a>상태</a>
+			<!-- 		<li class="wStatus"><a>상태</a>
 						<div class="wrap">
 							<input type="radio" name="status" id="used" /> <label for="used">중고상품</label>
 							<input type="radio" name="status" id="new" /> <label for="new">새상품</label>
-						</div></li>
+						</div></li> -->
 					<li class="wPrice"><a>가격</a>
 						<div class="wrap">
 							<div class="inputs">
 								<div class="inputs__price">
-									<input type="text" name="" id="" class="input" />
+									<input type="text" name="price" id="price" class="input" />
 									<div class="output">
 										<div class="out">원</div>
 									</div>
 								</div>
 								<div class="inputs__status">
 									<input type="checkbox" name="" id="include" /> <label
-										for="include">배송비포함</label> <input type="checkbox" name=""
-										id="nego" /> <label for="nego">가격협의 가능</label>
+										for="include">배송비포함</label> <input type="checkbox" name="nego"
+										id="nego" value="Y" /> <label for="nego">가격협의 가능</label>
 								</div>
 							</div>
 						</div></li>
 					<li class="wEx"><a>설명</a>
 						<div class="wrap">
-							<textarea name="" id="" cols="30" rows="10"></textarea>
+							<textarea name="board_content" id="board_content" cols="30" rows="10"></textarea>
 						</div></li>
 				</ul>
 				<button type="submit">등록하기</button>
@@ -108,7 +103,7 @@
 		</section>
 	</section>
 
-	<c:import url="../common/footer.jsp"/>
+	<c:import url="../common/footer.jsp" />
 
 	<script>
       const inputText = document.querySelector(".input");

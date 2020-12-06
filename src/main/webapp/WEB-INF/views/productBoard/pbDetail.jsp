@@ -63,7 +63,7 @@
 				<h2>RX570 4g 블로워팬 33000</h2>
 				<div class="btns">
 					<button class="writeBtn">
-						<a href="pbWrite.do">글쓰기</a>
+						<a href="toPbWrite.do">글쓰기</a>
 					</button>
 					<!-- <button>목록</button> -->
 					<button class="updateBtn">수정</button>

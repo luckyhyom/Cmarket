@@ -1,101 +1,133 @@
 package com.cmarket.spring.board.model.vo;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Board {
-	private int bId;
-	private String bTitle;
-	private String bWriter;
-	private String bContent;
-	private String originalFileName;
-	private String renameFileName;
-	private int bCount;
-	private Date bCreateDate;
-	private Date bModifyDate;
-	private String bStatus;
+	private int board_sq;
+	private String board_writer;
+	private String board_category;
+	private String board_title;
+	private int price;
+	private String board_img;
+	private int board_dips_cnt;
+	private int board_chat_cnt;
+	private int board_views_cnt;
+	private Timestamp board_date;
+	private Timestamp board_update_date;
+	private String board_address;
+	private String nego;
+	
 	public Board() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Board(int bId, String bTitle, String bWriter, String bContent, String originalFileName,
-			String renameFileName, int bCount, Date bCreateDate, Date bModifyDate, String bStatus) {
+	public Board(int board_sq, String board_writer, String board_category, String board_title, int price,
+			String board_img, int board_dips_cnt, int board_chat_cnt, int board_views_cnt, Timestamp board_date,
+			Timestamp board_update_date, String board_address, String nego) {
 		super();
-		this.bId = bId;
-		this.bTitle = bTitle;
-		this.bWriter = bWriter;
-		this.bContent = bContent;
-		this.originalFileName = originalFileName;
-		this.renameFileName = renameFileName;
-		this.bCount = bCount;
-		this.bCreateDate = bCreateDate;
-		this.bModifyDate = bModifyDate;
-		this.bStatus = bStatus;
+		this.board_sq = board_sq;
+		this.board_writer = board_writer;
+		this.board_category = board_category;
+		this.board_title = board_title;
+		this.price = price;
+		this.board_img = board_img;
+		this.board_dips_cnt = board_dips_cnt;
+		this.board_chat_cnt = board_chat_cnt;
+		this.board_views_cnt = board_views_cnt;
+		this.board_date = board_date;
+		this.board_update_date = board_update_date;
+		this.board_address = board_address;
+		this.nego = nego;
 	}
-	public int getbId() {
-		return bId;
+	public int getBoard_sq() {
+		return board_sq;
 	}
-	public void setbId(int bId) {
-		this.bId = bId;
+	public void setBoard_sq(int board_sq) {
+		this.board_sq = board_sq;
 	}
-	public String getbTitle() {
-		return bTitle;
+	public String getBoard_writer() {
+		return board_writer;
 	}
-	public void setbTitle(String bTitle) {
-		this.bTitle = bTitle;
+	public void setBoard_writer(String board_writer) {
+		this.board_writer = board_writer;
 	}
-	public String getbWriter() {
-		return bWriter;
+	public String getBoard_category() {
+		return board_category;
 	}
-	public void setbWriter(String bWriter) {
-		this.bWriter = bWriter;
+	public void setBoard_category(String board_category) {
+		this.board_category = board_category;
 	}
-	public String getbContent() {
-		return bContent;
+	public String getBoard_title() {
+		return board_title;
 	}
-	public void setbContent(String bContent) {
-		this.bContent = bContent;
+	public void setBoard_title(String board_title) {
+		this.board_title = board_title;
 	}
-	public String getOriginalFileName() {
-		return originalFileName;
+	public int getPrice() {
+		return price;
 	}
-	public void setOriginalFileName(String originalFileName) {
-		this.originalFileName = originalFileName;
+	public void setPrice(int price) {
+		this.price = price;
 	}
-	public String getRenameFileName() {
-		return renameFileName;
+	public String getBoard_img() {
+		return board_img;
 	}
-	public void setRenameFileName(String renameFileName) {
-		this.renameFileName = renameFileName;
+	public void setBoard_img(String board_img) {
+		this.board_img = board_img;
 	}
-	public int getbCount() {
-		return bCount;
+	public int getBoard_dips_cnt() {
+		return board_dips_cnt;
 	}
-	public void setbCount(int bCount) {
-		this.bCount = bCount;
+	public void setBoard_dips_cnt(int board_dips_cnt) {
+		this.board_dips_cnt = board_dips_cnt;
 	}
-	public Date getbCreateDate() {
-		return bCreateDate;
+	public int getBoard_chat_cnt() {
+		return board_chat_cnt;
 	}
-	public void setbCreateDate(Date bCreateDate) {
-		this.bCreateDate = bCreateDate;
+	public void setBoard_chat_cnt(int board_chat_cnt) {
+		this.board_chat_cnt = board_chat_cnt;
 	}
-	public Date getbModifyDate() {
-		return bModifyDate;
+	public int getBoard_views_cnt() {
+		return board_views_cnt;
 	}
-	public void setbModifyDate(Date bModifyDate) {
-		this.bModifyDate = bModifyDate;
+	public void setBoard_views_cnt(int board_views_cnt) {
+		this.board_views_cnt = board_views_cnt;
 	}
-	public String getbStatus() {
-		return bStatus;
+	public Timestamp getBoard_date() {
+		return board_date;
 	}
-	public void setbStatus(String bStatus) {
-		this.bStatus = bStatus;
+	public void setBoard_date(Timestamp board_date) {
+		this.board_date = board_date;
 	}
+	public Timestamp getBoard_update_date() {
+		return board_update_date;
+	}
+	public void setBoard_update_date(Timestamp board_update_date) {
+		this.board_update_date = board_update_date;
+	}
+	public String getBoard_address() {
+		return board_address;
+	}
+	public void setBoard_address(String board_address) {
+		this.board_address = board_address;
+	}
+	
+	public String getNego() {
+		return nego;
+	}
+	public void setNego(String nego) {
+		this.nego = nego;
+	}
+	
 	@Override
 	public String toString() {
-		return "Board [bId=" + bId + ", bTitle=" + bTitle + ", bWriter=" + bWriter + ", bContent=" + bContent
-				+ ", originalFileName=" + originalFileName + ", renameFileName=" + renameFileName + ", bCount=" + bCount
-				+ ", bCreateDate=" + bCreateDate + ", bModifyDate=" + bModifyDate + ", bStatus=" + bStatus + "]";
+		return "Board [board_sq=" + board_sq + ", board_writer=" + board_writer + ", board_category=" + board_category
+				+ ", board_title=" + board_title + ", price=" + price + ", board_img=" + board_img + ", board_dips_cnt="
+				+ board_dips_cnt + ", board_chat_cnt=" + board_chat_cnt + ", board_views_cnt=" + board_views_cnt
+				+ ", board_date=" + board_date + ", board_update_date=" + board_update_date +", board_address="+board_address+", nego="+nego+ "]";
 	}
+	
+	
 
 }

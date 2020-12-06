@@ -25,7 +25,6 @@
 	<section class="loginSection">
 		<form action="myInfoUpdate.do">
 			<h1>JOIN</h1>
-			"${sessionScope.memberProfile}" ,"${memberProfile }",-----------------"${sessionScope}"
 			<div class="loginForm">
 				<!-- <h1>JOIN</h1> -->
 				<div class="inputs">

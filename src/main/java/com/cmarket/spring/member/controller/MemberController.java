@@ -59,46 +59,15 @@ public class MemberController {
 		return "member/loginForm";
 	}
 
-	//	@RequestMapping(value="login.do",method=RequestMethod.POST)
-	//	public String login(Member m, Model model, HttpSession session) {
-	//		Member loginUser = mService.loginMember(m);
-	//		System.out.println(m.getUser_pwd() +" || " + loginUser.getUser_pwd());
-	//		System.out.println(bcryptPasswordEncoder.matches(m.getUser_pwd(), loginUser.getUser_pwd()));
-	//		if(loginUser != null && bcryptPasswordEncoder.matches(m.getUser_pwd(), loginUser.getUser_pwd())) {
-	//			model.addAttribute("loginUser",loginUser);
-	//			return "redirect:home.do";
-	//		}else {
-	//			model.addAttribute("msg","로그인에 실패하셨습니다. 아이디 혹은 비밀번호를 확인해주세요.");
-	//			return "common/errorPage";
-	//		}
-	//	}
-
-	//	@RequestMapping("/page")
-	//	public String toJoinForm1() {
-	//		return "/page";
-	//	}
-	//	@RequestMapping("/user/page")
-	//	public String toJoinForm2() {
-	//		return "/user/page";
-	//	}
-	//	@RequestMapping("/member/page")
-	//	public String toJoinForm3() {
-	//		return "/member/page";
-	//	}
-	//	@RequestMapping("/admin/page")
-	//	public String toJoinForm4() {
-	//		return "/admin/page";
-	//	}
 
 	@RequestMapping(value="login.do",method=RequestMethod.POST)
 	public String memberLogin(Member m, Model model, HttpSession session) {
 
 		Member loginUser = mService.loginMember(m);
 		// 어노테이션에따라서 model의 scope가 달라짐
-		//System.out.println("m의 비밀번호 인코드 : "+bcryptPasswordEncoder.encode(m.getUser_pwd()));
-		//System.out.println("login의 비밀번호 인코드 : "+bcryptPasswordEncoder.encode(loginUser.getUser_pwd()));
+
 		System.out.println("m 비밀번호 : "+m.getUser_pwd() +" || login 비밀번호 :  "+ loginUser.getUser_pwd());
-		//		System.out.println("matches 결과 : "+bcryptPasswordEncoder.matches(m.getUser_pwd(),loginUser.getUser_pwd()));
+
 
 		//Profile 불러오기
 		MemberProfile memberProfile = mService.getMemberProfile(loginUser.getUser_sq()); 
@@ -224,17 +193,12 @@ public class MemberController {
 
 	@RequestMapping("updatePwd.do")
 	public String updatePwd(Model model,Member m,@RequestParam String user_pwd_up) {
-		//		System.out.println("updatePwd의 m : "+m);
+
 		Member loginUser = mService.loginMember(m);
-		//		System.out.println("login result : "+loginUser);
-		//		System.out.println("login pwd : "+loginUser.getUser_pwd());
-		//		System.out.println("pwd_up result : "+user_pwd_up);
+	
 		if(loginUser != null && bcryptPasswordEncoder.matches(m.getUser_pwd(),loginUser.getUser_pwd())) {
 			String newPwd = bcryptPasswordEncoder.encode(user_pwd_up);
-			//			System.out.println("pwd_up encode result : "+newPwd);
-			//			System.out.println("pwd_up encode result2 : "+newPwd);
 			loginUser.setUser_pwd(newPwd);
-			//			System.out.println("login after pwd : "+loginUser.getUser_pwd());
 			int result = mService.updateMemberPwd(loginUser);
 			if(result >0) {
 				model.addAttribute("loginUser",loginUser);
@@ -420,22 +384,7 @@ public class MemberController {
 		return "member/userProfile";
 	}
 	
-//	@ResponseBody
-//	@RequestMapping(value="commentList.do",produces="application/json; charset=utf-8")
-//	public void getReplyList(int bId, HttpServletResponse response) throws JsonIOException, IOException {
-//		response.setContentType("application/json; charset=utf-8");
-//		ArrayList<ProfileComment> rList = mService.selectCommentList(bId);
-//		
-//		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-//		gson.toJson(rList,response.getWriter());
-//	}
-	
 
-	//	@RequestMapping("error.do")
-	//	public String errorPage() {
-	//		return "common/error";
-	//	}
-	
 //	@ResponseBody
 	@RequestMapping(value="writeComment.do")
 	public String writeComment(ProfileComment comment, HttpSession session,Model m, @RequestParam(name="tempPoint") int tempPoint,HttpServletResponse response) {
@@ -480,7 +429,7 @@ public class MemberController {
 		}
 		
 		
-		//viewProfile메소드 가능할시에 Model에 셋팅이 필요한지?
+		//viewProfile메소드 가능할시에 Model에 셋팅이 필요한지? -필요없다.
 		//m.addAttribute("p", mp);
 		//m.addAttribute("pcList",pcList);
 		

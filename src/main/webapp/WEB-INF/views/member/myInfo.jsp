@@ -84,7 +84,10 @@
 				<button>
 					<a href="sellList.do">모아보기</a>
 				</button>
-				<div class="keywords">
+				<div class="keywords" style="display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;">
 					<div class="keywordInputs">
 						<input type="text" class="keywordInput"></input>
 						<button class="keywordBtn" style="width: 100px;">키워드 추가</button>
@@ -92,34 +95,6 @@
 
 					<ul class="keywordList">
 						<li class="keyword">나이키<i class="fas fa-times"></i></li>
-						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
-						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
-						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
-						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
-						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
-						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
-						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
-						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
-						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
-						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
-						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
-						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
-						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
-						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
-						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
-						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
-						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
-						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
-						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
-						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
-						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
-						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
-						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
-						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
-						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
-						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
-						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
-						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
 						<li class="keyword">아디다스<i class="fas fa-times"></i></li>
 					</ul>
 				</div>

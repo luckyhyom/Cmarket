@@ -59,7 +59,7 @@
 						</div>
 					</div>
 					<div class="login">
-						<a href="pbWrite.do" style="width: 45px;">Write</a> <a
+						<a href="toPbWrite.do" style="width: 45px;">Write</a> <a
 							href="myInfo.do" style="width: 66px">my Info</a>
 					</div>
 					<a href="logout.do" style="width: 30px;" class="logoutBtn">Logout</a>

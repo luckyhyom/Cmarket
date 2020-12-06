@@ -8,11 +8,6 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Document</title>
-<style>
-section:nth-of-type(1) {
-	margin-top: 100px;
-}
-</style>
 </head>
 <link rel="stylesheet" href="${root}/css/main.css" />
 <link rel="stylesheet" href="${root}/css/board-write.css" />
@@ -27,32 +22,34 @@ section:nth-of-type(1) {
 	href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap"
 	rel="stylesheet" />
 <body>
-	<c:import url="../common/header.jsp" />
+	<c:import url="../common/header.jsp"/>
 
 	<section class="boardList">
 		<ul class="boardList__">
-			<h1 style="border-bottom: 1px solid gainsboro">너랑나랑은 님의 판매내역</h1>
-			<h1>전체</h1>
-
+			<h1>인기 중고</h1>
+			<div class="buttonBox" style="width: 100%; padding: 20px 30px">
+				<button style="">글쓰기</button>
+			</div>
+			
 			<c:forEach items="${pbList}" var="pb">
-				<li class="board">
+				<a href="pbDetail.do" style=""><li class="board">
 					<div class="titleImg">
-						<img src="${root}/board-imgs/${pb.board_img}" alt="" />
+						<img src="${root}/img/${pb.board_img}" alt="" />
 					</div>
 					<div class="boardInfo">
 						<h1>${pb.board_title}</h1>
 						<span>${pb.board_address}</span>
 						<div class="worth">
-							<span class="price">${pb.price }원</span> <span class="likes"><i
-								class="far fa-heart"></i></span>
+							<span class="price">${pb.price }원</span> <span class="likes">❤️</span>
 						</div>
 					</div>
-				</li>
+			</li></a>
 			</c:forEach>
-
+			
+			
 		</ul>
 	</section>
 
-	<c:import url="../common/footer.jsp" />
+	<c:import url="../common/footer.jsp"/>
 </body>
 </html>

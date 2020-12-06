@@ -92,7 +92,7 @@
 								<c:if test="${ pc.com_judge eq 'N'}">
 									<div class="etc" style="color:blue;">불만이에요!</div>&nbsp;
 								</c:if>
-								<div class="etc">${pc.com_date}</div>
+								<div class="etc commentTime">${pc.com_date}</div>
 								<c:if test="${pc.com_writer eq sessionScope.memberProfile.profile_nickname}">
 									<a href="${deleteComment}">삭제</a>
 								</c:if>
@@ -111,6 +111,44 @@
       upTempBtn.addEventListener('click',()=>{
         upTempWindow.classList.toggle('show');
       })
+      
+      
+      const comTime = document.querySelectorAll('.commentTime');
+      const today = new Date();
+      console.log(today);  
+      comTime.forEach(
+    		  time => {
+    			  console.log(time.innerHTML);
+    			  time.innerHTML = timeForToday(time.innerHTML);
+    			  console.log(time.innerHTML);
+    		    /* time.innerHTML = timeForToday('Fri Dec 04 2020 18:09:59 GMT+0900'); */
+    		  }
+    		);
+      
+      
+      function timeForToday(value) {
+        const today = new Date();
+        const timeValue = new Date(value);
+		timeValue.setHours(timeValue.getHours()-39);
+		/* 현재 시간에서 등록시간을 뺀 후에, 1000을 나누면 초가 되고, 초를 60으로 나누면 분이 된다. */
+        const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
+        if (betweenTime < 1) return '방금전';
+        if (betweenTime < 60) {
+            return `${'${betweenTime}'}분전`;
+        }
+
+        const betweenTimeHour = Math.floor(betweenTime / 60);
+        if (betweenTimeHour < 24) {
+            return `${'${betweenTimeHour}'}시간전`;
+        }
+
+        const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+        if (betweenTimeDay < 365) {
+            return `${'${betweenTimeDay}'}일전`;
+        }
+
+        return `${'${Math.floor(betweenTimeDay / 365)}'}년전`;
+ }
     </script>
 	<c:import url="../common/footer.jsp" />
 </body>

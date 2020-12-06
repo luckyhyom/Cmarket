@@ -3,19 +3,71 @@
 <mapper namespace="boardMapper">
 
 	<resultMap type="Board" id="boardResultSet">
-		<id property="bId" column="BID" />
-		<result property="bTitle" column="BTITLE" />
-		<result property="bWriter" column="BWRITER" />
-		<result property="bContent" column="BCONTENT" />
-		<result property="originalFileName" column="ORIGINAL_FILENAME" />
-		<result property="renameFileName" column="RENAME_FILENAME" />
-		<result property="bCount" column="BCOUNT" />
-		<result property="bCreateDate" column="B_CREATE_DATE" />
-		<result property="bModifyDate" column="B_MODIFY_DATE" />
-		<result property="bStatus" column="B_STATUS" />
+		<id property="board_sq" column="board_sq" />
+		<result property="board_writer" column="board_writer" />
+		<result property="board_category" column="board_category" />
+		<result property="board_title" column="board_title" />
+		<result property="price" column="price" />
+		<result property="board_img" column="board_img" />
+		<result property="board_dips_cnt" column="board_dips_cnt" />
+		<result property="board_chat_cnt" column="board_chat_cnt" />
+		<result property="board_views_cnt" column="board_views_cnt" />
+		<result property="board_date" column="board_date" />
+		<result property="board_update_date" column="board_update_date" />
+		<result property="board_address" column="board_address" />
+		<result property="nego" column="nego" />
+	</resultMap>
+
+	<resultMap type="BoardContent" id="boardContentResultSet">
+		<id property="board_content_sq" column="board_content_sq" />
+		<result property="board_sq" column="board_sq" />
+		<result property="board_content" column="board_content" />
+	</resultMap>
+	
+	<resultMap type="FileBoard" id="fileBoardResultSet">
+		<id property="file_sq" column="file_sq" />
+		<result property="board_content_sq" column="board_content_sq" />
+		<result property="file_name" column="file_name" />
+		<result property="file_org_name" column="file_org_name" />
+		<result property="file_size" column="file_size" />
 	</resultMap>
 
 
+
+	<select id="getBoardList" resultMap="boardResultSet">
+		SELECT *
+		FROM board_tb
+		ORDER BY board_sq DESC
+	</select>
+
+	<insert id="insertPB" parameterType="Board">
+		INSERT INTO board_tb
+		VALUES(board_tb_seq.NEXTVAL,#{board_writer},#{board_category},#{board_title},#{price},#{board_img},DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,#{board_address},#{nego})
+	</insert>
+
+	<select id="getBoard" parameterType="Board" resultMap="boardResultSet">
+		SELECT *
+		FROM board_tb
+		WHERE board_writer = #{board_writer}
+		AND board_img=#{board_img}
+	</select>
+	
+	<insert id="insertContent" parameterType="BoardContent">
+		INSERT INTO board_content_tb
+		VALUES(board_content_tb_seq.NEXTVAL,#{board_sq},#{board_content})
+	</insert>
+	
+	<select id="getContent" parameterType="BoardContent" resultMap="boardContentResultSet">
+		SELECT *
+		FROM board_content_tb
+		WHERE board_sq = #{board_sq}
+	</select>
+	
+	<insert id="insertFile" parameterType="FileBoard">
+		INSERT INTO file_tb
+		VALUES(file_tb_seq.NEXTVAL,#{board_content_sq},#{file_name},#{file_org_name},#{file_size})
+	</insert>
+<!--**************************************************************************************************-->
 
 	<select id="getListCount" resultType="_int">
 		SELECT COUNT(*)
@@ -76,28 +128,5 @@
 		]]>
 	</select>
 
-	<resultMap type="Reply" id="replyResultSet">
-		<id property="rId" column="RID" />
-		<result property="rContent" column="RCONTENT" />
-		<result property="refBid" column="REF_BID" />
-		<result property="rWriter" column="RWRITER" />
-		<result property="rCreateDate" column="R_CREATE_DATE" />
-		<result property="rModifyDate" column="R_MODIFY" />
-		<result property="rStatus" column="R_STATUS" />
-	</resultMap>
 
-	<select id="selectReplyList" parameterType="_int"
-		resultMap="replyResultSet">
-		SELECT *
-		FROM REPLY
-		WHERE REF_BID=#{bId}
-		AND R_STATUS='Y'
-		ORDER
-		BY REF_BID DESC
-	</select>
-	
-	<insert id="insertReply" parameterType="Reply">
-		insert into reply values
-		(SEQ_RID.NEXTVAL,#{rContent},#{refBid},#{rWriter},SYSDATE,SYSDATE,DEFAULT)
-	</insert>
 </mapper>

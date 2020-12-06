@@ -1,6 +1,7 @@
 package com.cmarket.spring.member.model.vo;
 
-import java.sql.Date;
+import java.sql.Timestamp;
+//import java.util.Date;
 
 public class ProfileComment {
 
@@ -12,7 +13,7 @@ public class ProfileComment {
 	private int com_writer_sq;
 	private String com_img;
 	private String com_content;
-	private Date com_date;
+	private Timestamp com_date;
 	
 	
 	
@@ -22,7 +23,7 @@ public class ProfileComment {
 	}
 	
 	public ProfileComment(int comment_sq, int profile_sq, String com_judge, String com_writer, int com_writer_sq,
-			String com_img, String com_content, Date com_date) {
+			String com_img, String com_content, Timestamp com_date) {
 		super();
 		this.comment_sq = comment_sq;
 		this.profile_sq = profile_sq;
@@ -78,10 +79,10 @@ public class ProfileComment {
 	public void setCom_content(String com_content) {
 		this.com_content = com_content;
 	}
-	public Date getCom_date() {
+	public Timestamp getCom_date() {
 		return com_date;
 	}
-	public void setCom_date(Date com_date) {
+	public void setCom_date(Timestamp com_date) {
 		this.com_date = com_date;
 	}
 
