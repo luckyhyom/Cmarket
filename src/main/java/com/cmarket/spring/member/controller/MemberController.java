@@ -239,13 +239,13 @@ public class MemberController {
 	@ResponseBody // string형태, 즉 json형태. but 단순 string일경우는 type:json안해도됨
 	@RequestMapping(value="updateProfilePhoto.do",produces="text/json; charset=UTF-8",method=RequestMethod.POST)
 	public String profileFileUpload(
-//			@RequestParam(name="profile_sq", required=false) String profile_sq,
+//			@RequestParam(name="profile_sq", required=false) String profile_sq, //받아지나 확인= 안받아짐.
 			@RequestBody MemberProfile profile,
 //			@RequestBody Member loginUser,
-//			@RequestParam String fileName,
+//			@RequestParam String fileName, //받아지나 확인
 			HttpSession session,
 			HttpServletRequest request){
-	
+		//System.out.println("profile : "+profile_sq);
 		System.out.println("profile : "+profile);
 		System.out.println(session);
 		System.out.println(session.getAttribute("memberProfile"));

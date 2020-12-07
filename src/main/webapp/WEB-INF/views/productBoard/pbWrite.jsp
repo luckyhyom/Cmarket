@@ -38,17 +38,25 @@
 	<section class="latest-product-area latest-padding"
 		style="text-align: center">
 		<section class="sectionBox">
-			<form action="writePB.do" method="post" enctype="multipart/form-data" id="writePBForm" >
-				<input type="hidden" name="profile_sq" value="${memberProfile.profile_sq}">
+			<form action="writePB.do" method="post" enctype="multipart/form-data"
+				id="writePBForm">
+				<input type="hidden" name="profile_sq"
+					value="${memberProfile.profile_sq}">
 				<ul class="writeBox">
-						<li class="wImg"><a>상품이미지</a>
-							<div class="wrap">
-								<label class="wrap2">
-									<i class="fas fa-camera"></i>
-									<input type="file" class="wImgFile" accept="image/*" name="imgFile1" id="imgFile1" required />
-								</label>
-							</div>
-						</li>
+					<li class="wImg"><a>상품이미지</a>
+						<div class="wrap">
+							<label class="wrap2"> <i class="fas fa-camera"></i> <input
+								type="file" class="wImgFile" accept="image/*" name="imgFile1"
+								id="imgFile1" required />
+							</label>
+							
+							<%-- <label class="wrap2"> <i class='fas fa-trash'></i> <img
+								src='${root}/board-imgs/${json.fileName}' alt='readyImg' /> <input
+								type='hidden' value='${json.fileName}' name='files' /> <input
+								type='hidden' value='${json.oriName}' name='oriNames' />
+							</label> --%>
+
+						</div></li>
 
 
 
@@ -61,7 +69,7 @@
 							<div class="wCate__option">
 								<div class="option__1">
 									<ul>
-										<select name='cate_name' id="cate_name" style="width:100%;">
+										<select name='cate_name' id="cate_name" style="width: 100%;">
 											<option value='' selected>-- 선택 --</option>
 											<option value='남성의류'>남성의류</option>
 											<option value='여성의류'>여성의류</option>
@@ -76,7 +84,7 @@
 						<div class="wrap">
 							<input type="text" name="board_address" id="board_address" />
 						</div></li>
-			<!-- 		<li class="wStatus"><a>상태</a>
+					<!-- 		<li class="wStatus"><a>상태</a>
 						<div class="wrap">
 							<input type="radio" name="status" id="used" /> <label for="used">중고상품</label>
 							<input type="radio" name="status" id="new" /> <label for="new">새상품</label>
@@ -99,7 +107,8 @@
 						</div></li>
 					<li class="wEx"><a>설명</a>
 						<div class="wrap">
-							<textarea name="board_content" id="board_content" cols="30" rows="10"></textarea>
+							<textarea name="board_content" id="board_content" cols="30"
+								rows="10"></textarea>
 						</div></li>
 				</ul>
 				<button type="submit">등록하기</button>
@@ -167,6 +176,9 @@
 	const inputFile = document.querySelector('input[name="imgFile1"]');
 	const profile_sq = document.querySelector('input[name="profile_sq"]');
 	const wrap = document.querySelector('.wrap');
+	
+	const deleteImg = document.querySelectorAll('.fa-trash');
+	
 	console.log(inputFile);
 	console.log(profile_sq.value);
 		/* injectImg.src = `${root}/img/Bill.png`; */
@@ -191,13 +203,54 @@
 			    						    	<input type='hidden' value='${'${json.fileName}'}' name='files'/>
 			    						    	<input type='hidden' value='${'${json.oriName}'}' name='oriNames'/>`;
 			    						    wrap.append(label);
-
 			    						});
 			  } else {
 			    console.error(res.statusText);
 			  }
-			}).catch(err => console.error(err));	
+			}).catch(err => console.error(err));
+		
+		
+		setTimeout(() => {
+		 
+			 	const deleteImg = document.querySelectorAll('.fa-trash');
+	            deleteImg.forEach((btn)=>{
+	
+						btn.addEventListener('click',(e)=>{
+	 					console.log('success');
+	  
+						/* input에 들어있는 파일명 */
+						const fileName = btn.nextSibling.nextSibling.nextSibling.nextSibling.value;
+		  				console.log(fileName);
+
+		  				console.log(btn.nextSibling.nextSibling.nextSibling.nextSibling.value);
+		  				fetch('deletePBFile.do', {
+		    			method: 'POST',
+		  				body: JSON.stringify({file_name:fileName,}),
+		  				headers: new Headers({'Content-Type':'application/json'}),
+		  		}).then((res) => {
+		    						if (res.status === 200 || res.status === 201) {
+		    							res.text().then((json) => {
+		      							/* res.json().then((json) => { */
+		      								/* String값 받아오는법? */
+		                    									console.log(json);
+		                  				});
+		    						} else {
+		      								console.error(res.statusText);
+		    						}
+		  		}).catch(err => console.error(err));
+		  
+		      btn.parentElement.remove();
+						})
+				})
+				
+		}, 300);
+	    
 	})
+	
+	  
+      
+		
+	
     </script>
 </body>
 </html>

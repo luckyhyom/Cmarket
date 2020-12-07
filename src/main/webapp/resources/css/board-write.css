@@ -80,8 +80,8 @@ input[type="text"]:focus {
 .wImg .wrap2 {
   width: 180px;
   height: 180px;
-  /* background-color: aliceblue; */
-  background-color: #ffe355;
+  background-color: aliceblue;
+  /* background-color: #ffe355; */
   text-align: center;
   line-height: 300px;
   color: rgb(195, 194, 204);
@@ -99,13 +99,24 @@ input[type="text"]:focus {
   height: 100%;
   width: 100%;
 }
-.fa-camera,
+.fa-camera {
+  font-weight: 900;
+  font-size: 30px;
+  position: absolute;
+  top: 74px;
+  opacity: 1;
+}
+
 .fa-trash {
   font-weight: 900;
   font-size: 30px;
   position: absolute;
   top: 74px;
-  opacity: 0.7;
+  opacity: 0;
+  transition: all linear 200ms;
+}
+.wrap2:hover .fa-trash {
+  opacity: 0.9;
 }
 
 .wImgFile {

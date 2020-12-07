@@ -13,6 +13,7 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -208,6 +209,24 @@ public class BoardController {
 		if(file.exists()) {
 			file.delete();
 		}
+	}
+	
+	@ResponseBody // string형태, 즉 json형태. but 단순 string일경우는 type:json안해도됨
+	@RequestMapping(value="deletePBFile.do",produces="text/json; charset=UTF-8",method=RequestMethod.POST)
+	private String deleteFile2(
+//			@RequestParam(name="imgFile1",required=false) String fileName,
+			@RequestBody FileBoard fileName,
+			HttpServletRequest request) {
+		System.out.println("fileName : "+fileName);
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String folderPath = root+File.separator+"board-imgs";
+		String filePath = folderPath+File.separator+fileName.getFile_name();
+		File file = new File(filePath);
+		if(file.exists()) {
+			file.delete();
+			return "good";
+		}
+		return "fail";
 	}
 
 	@RequestMapping("pbUpdate.do")
