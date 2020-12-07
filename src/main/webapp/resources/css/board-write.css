@@ -87,6 +87,9 @@ input[type="text"]:focus {
   color: rgb(195, 194, 204);
   z-index: 1;
   margin-right: 14px;
+    display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .wImg .wrap2::after {
@@ -96,11 +99,13 @@ input[type="text"]:focus {
   height: 100%;
   width: 100%;
 }
-.fa-camera {
+.fa-camera,
+.fa-trash {
   font-weight: 900;
   font-size: 30px;
   position: absolute;
   top: 74px;
+  opacity: 0.7;
 }
 
 .wImgFile {

@@ -38,19 +38,23 @@
 	<section class="latest-product-area latest-padding"
 		style="text-align: center">
 		<section class="sectionBox">
-			<form action="writePB.do" method="post" enctype="multipart/form-data">
+			<form action="writePB.do" method="post" enctype="multipart/form-data" id="writePBForm" >
+				<input type="hidden" name="profile_sq" value="${memberProfile.profile_sq}">
 				<ul class="writeBox">
-					<li class="wImg"><a>상품이미지</a>
-						<div class="wrap">
-							<label class="wrap2"><i class="fas fa-camera"></i> <input
-								type="file" class="wImgFile" accept="image/*" name="imgFile1"
-								id="imgFile1" /> </label> <label class="wrap2"> <img
-								src="${root}/img/Jiseong.png" alt="" />
-							</label>
-						</div></li>
+						<li class="wImg"><a>상품이미지</a>
+							<div class="wrap">
+								<label class="wrap2">
+									<i class="fas fa-camera"></i>
+									<input type="file" class="wImgFile" accept="image/*" name="imgFile1" id="imgFile1" required />
+								</label>
+							</div>
+						</li>
+
+
+
 					<li class="wTitle"><a>제목</a>
 						<div class="wrap">
-							<input type="text" name="board_title" id="" />
+							<input type="text" name="board_title" id="board_title" />
 						</div></li>
 					<li class="wCate"><a>카테고리</a>
 						<div class="wrap">
@@ -70,7 +74,7 @@
 						</div></li>
 					<li class="wPlace"><a>거래지역</a>
 						<div class="wrap">
-							<input type="text" name="board_address" id="" />
+							<input type="text" name="board_address" id="board_address" />
 						</div></li>
 			<!-- 		<li class="wStatus"><a>상태</a>
 						<div class="wrap">
@@ -156,6 +160,44 @@
           out.style.color = "black";
         }
       });
+
+      
+  	const form = document.querySelector('#writePBForm');
+	/* const injectImg = document.querySelector('.injectImg'); */
+	const inputFile = document.querySelector('input[name="imgFile1"]');
+	const profile_sq = document.querySelector('input[name="profile_sq"]');
+	const wrap = document.querySelector('.wrap');
+	console.log(inputFile);
+	console.log(profile_sq.value);
+		/* injectImg.src = `${root}/img/Bill.png`; */
+
+		/* formData.append('profile_sq', profile_sq.value); */
+	inputFile.addEventListener('change',()=>{
+		const formData = new FormData(form);
+
+		fetch('uploadPBFile.do', {
+			  method: 'POST', // POST 메소드 지정
+			  body: formData, // formData를 데이터로 설정
+			}).then((res) => {
+			  if (res.status === 200 || res.status === 201) {
+				console.log(res);
+			    res.json().then((json) => {
+			    							console.log(json.fileName);
+			    						    const label = document.createElement('label');
+			    						    label.classList.add('wrap2');
+			    						    label.innerHTML=
+			    						    	`<i class='fas fa-trash'></i>
+			    						    	<img src='${root}/board-imgs/${'${json.fileName}'}' alt='readyImg' />
+			    						    	<input type='hidden' value='${'${json.fileName}'}' name='files'/>
+			    						    	<input type='hidden' value='${'${json.oriName}'}' name='oriNames'/>`;
+			    						    wrap.append(label);
+
+			    						});
+			  } else {
+			    console.error(res.statusText);
+			  }
+			}).catch(err => console.error(err));	
+	})
     </script>
 </body>
 </html>

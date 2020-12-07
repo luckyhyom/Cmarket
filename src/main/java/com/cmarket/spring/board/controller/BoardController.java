@@ -9,11 +9,14 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cmarket.spring.board.model.service.BoardService;
@@ -46,35 +49,42 @@ public class BoardController {
 	}
 
 	@RequestMapping("toPbWrite.do")
-	public String pbWrite() {
+	public String pbWrite(Model m,Board board) {
+//		int writePB = bService.insertPB(board);
+//		Board writenPB = bService.getBoard(board);
+//		m.addAttribute("board", writenPB);
 		return "productBoard/pbWrite";
 	}
 
 	@RequestMapping("writePB")
 	public String WritePB(Board board, BoardContent content, Category cate,
-			@RequestParam(name="imgFile1") MultipartFile file1,
-			@RequestParam(name="imgFile2",required=false) MultipartFile file2,
-			@RequestParam(name="imgFile3",required=false) MultipartFile file3,
+//			@RequestParam(name="imgFile1") MultipartFile file1,
+//			@RequestParam(name="imgFile2",required=false) MultipartFile file2,
+//			@RequestParam(name="imgFile3",required=false) MultipartFile file3,
+			@RequestParam(name="files",required=false) String[] files,
+			@RequestParam(name="files",required=false) String[] oriNames,
 			HttpServletRequest request,
 			HttpSession session,
 			Model m,
 			FileBoard file01
 			) {
 
-		if(file1.getOriginalFilename().equals("")) {
-			m.addAttribute("msg","파일 업로드 에러");
+		System.out.println(files[0]);
+		if(files == null) {
+			m.addAttribute("msg","파일을 등록 해주세요.");
 			return "common/errorPage";
 		}
+		
+		
 		MemberProfile visitMp = (MemberProfile) session.getAttribute("memberProfile");
-		System.out.println(cate);
-		// board 셋팅
+		// board 셋팅 [cate]
 		board.setBoard_category(cate.getCate_name());
-		//
+		// [writer]
 		board.setBoard_writer(visitMp.getProfile_nickname());
-		//
-		String oriName = file1.getOriginalFilename();
-		String renameFile = saveFile(file1,request);
-		board.setBoard_img(renameFile);
+		// [thumbnail]
+		//String oriName = file1.getOriginalFilename();
+		//String renameFile = saveFile(file1,request);
+		board.setBoard_img(files[0]);
 		
 		// 일단 file_tb에는 참조할 board_content_sq가 필요하므로, board를 먼저 만들고, board_content 만들어주자.
 		int writePB = bService.insertPB(board);
@@ -93,14 +103,26 @@ public class BoardController {
 		BoardContent newContent = bService.getContent(pBSq);
 		int cSq = newContent.getBoard_content_sq();
 		
+		// file_tb에 파일 정보를 등록해주자.
+		for(int i=0; i<files.length; i++) {
+			file01.setBoard_content_sq(cSq);
+			file01.setFile_name(files[i]);
+			file01.setFile_org_name(oriNames[i]);
+			int save = bService.insertFile(file01);
+			if(save<=0) {
+				m.addAttribute("msg","파일을 등록 오류, 관리자에게 문의 바랍니다.");
+				return "common/errorPage";
+			}
+		}
+		
 		
 		// 1번 파일에 대한 기록을 file_tb에 저장해야한다. 객체에 꼭 담을 필요는 없지만, 담아야한다면 어떻게 객체를 생성해야할까?
 		// 나중에 multifile을 배열로 받아보자
 		//FileBoard file01 = new FileBoard();
-		file01.setBoard_content_sq(cSq);
-		file01.setFile_name(renameFile);
-		file01.setFile_org_name(oriName);
-		int save1 = bService.insertFile(file01);
+//		file01.setBoard_content_sq(cSq);
+//		file01.setFile_name(renameFile);
+//		file01.setFile_org_name(oriName);
+//		int save1 = bService.insertFile(file01);
 		//int save1 = bService.insertFile(cSq,oriName,renameFile);
 		
 		// 2번 파일이 존재한다면 마찬가지로 file_tb에 저장해야한다. - file2.getOriginalFilename() != null 이게 안먹는다는건 null이 아니라 값이 비어있는 multifile객체가 들어오는건가. null떴잖아근데.
@@ -128,6 +150,28 @@ public class BoardController {
 //		}
 
 		return "redirect:pbList.do";
+	}
+	
+	@ResponseBody // string형태, 즉 json형태. but 단순 string일경우는 type:json안해도됨
+	@RequestMapping(value="uploadPBFile.do",produces="text/json; charset=UTF-8",method=RequestMethod.POST)
+	public String profileFileUpload(
+			@RequestParam(name="imgFile1",required=false) MultipartFile file,
+			HttpServletRequest request){
+
+		// String과 file 두개 같이 가져오기
+		System.out.println("file : "+file.getOriginalFilename());
+		
+		// 새로운 파일 이름 변경
+		String renameFile = saveFile(file,request);
+		// 변경된 파일 이름으로 profile.setUser_photo
+//		profile.setProfile_photo(renameFile);
+		
+		JSONObject job = new JSONObject();
+		job.put("fileName", renameFile);
+		job.put("oriName",file.getOriginalFilename());
+		
+		return job.toJSONString();
+
 	}
 
 	private String saveFile(MultipartFile file, HttpServletRequest request) {
