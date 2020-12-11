@@ -8,6 +8,15 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Document</title>
+
+<style type="text/css">
+.text{
+	margin:auto;
+	color:gray;
+}
+
+</style>
+
 </head>
 <link rel="stylesheet" href="${root}/css/main.css" />
 <link rel="stylesheet" href="${root}/css/board-write.css" />
@@ -25,10 +34,8 @@
 	<section class="sections">
 		<div class="sections__">
 			<div class="text">
-				<h1>게시글 작성</h1>
-				<span></span>
+				<h1>상품 등록</h1>
 			</div>
-			<div class="textImg"></div>
 		</div>
 	</section>
 	<!-- banner end -->
@@ -42,12 +49,14 @@
 				id="writePBForm">
 				<input type="hidden" name="profile_sq"
 					value="${memberProfile.profile_sq}">
+				<input type="hidden" name="sample4_jibunAddress"
+					value="${sessionScope.loginUser.sample4_jibunAddress}">
 				<ul class="writeBox">
 					<li class="wImg"><a>상품이미지</a>
 						<div class="wrap">
 							<label class="wrap2"> <i class="fas fa-camera"></i> <input
 								type="file" class="wImgFile" accept="image/*" name="imgFile1"
-								id="imgFile1" required />
+								id="imgFile1"  />
 							</label>
 							
 							<%-- <label class="wrap2"> <i class='fas fa-trash'></i> <img
@@ -62,14 +71,14 @@
 
 					<li class="wTitle"><a>제목</a>
 						<div class="wrap">
-							<input type="text" name="board_title" id="board_title" />
+							<input type="text" name="board_title" id="board_title" required/>
 						</div></li>
 					<li class="wCate"><a>카테고리</a>
 						<div class="wrap">
 							<div class="wCate__option">
 								<div class="option__1">
 									<ul>
-										<select name='cate_name' id="cate_name" style="width: 100%;">
+										<select name='cate_name' id="cate_name" style="width: 100%;" required>
 											<option value='' selected>-- 선택 --</option>
 											<option value='남성의류'>남성의류</option>
 											<option value='여성의류'>여성의류</option>
@@ -80,10 +89,10 @@
 								</div>
 							</div>
 						</div></li>
-					<li class="wPlace"><a>거래지역</a>
+					<!-- <li class="wPlace"><a>거래지역</a>
 						<div class="wrap">
 							<input type="text" name="board_address" id="board_address" />
-						</div></li>
+						</div></li> -->
 					<!-- 		<li class="wStatus"><a>상태</a>
 						<div class="wrap">
 							<input type="radio" name="status" id="used" /> <label for="used">중고상품</label>
@@ -93,14 +102,14 @@
 						<div class="wrap">
 							<div class="inputs">
 								<div class="inputs__price">
-									<input type="text" name="price" id="price" class="input" />
+									<input type="text" name="price" id="price" class="input" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" required />
 									<div class="output">
 										<div class="out">원</div>
 									</div>
 								</div>
-								<div class="inputs__status">
-									<input type="checkbox" name="" id="include" /> <label
-										for="include">배송비포함</label> <input type="checkbox" name="nego"
+								<div class="inputs__status" style='text-align: start'>
+									<!-- <input type="checkbox" name="" id="include" /> <label
+										for="include">배송비포함</label> --> <input type="checkbox" name="nego"
 										id="nego" value="Y" /> <label for="nego">가격협의 가능</label>
 								</div>
 							</div>
@@ -108,10 +117,10 @@
 					<li class="wEx"><a>설명</a>
 						<div class="wrap">
 							<textarea name="board_content" id="board_content" cols="30"
-								rows="10"></textarea>
+								rows="10" required></textarea>
 						</div></li>
 				</ul>
-				<button type="submit">등록하기</button>
+				<button type="submit" onClick="return inspectFile()">등록하기</button>
 			</form>
 		</section>
 	</section>
@@ -223,6 +232,8 @@
 		  				console.log(fileName);
 
 		  				console.log(btn.nextSibling.nextSibling.nextSibling.nextSibling.value);
+		  				
+		  				/* 컨트롤러에서 @RequestBody형식의 객체형태로 받아줘야한다. json은 String이 아닌 객체이다. */
 		  				fetch('deletePBFile.do', {
 		    			method: 'POST',
 		  				body: JSON.stringify({file_name:fileName,}),
@@ -249,7 +260,16 @@
 	
 	  
       
-		
+		function inspectFile(){
+			if(document.querySelector('input[name=files]')){
+				return true;
+			}else{
+				alert('제품 이미지를 등록해주세요.');
+				return false;
+			}
+		}
+	
+	
 	
     </script>
 </body>

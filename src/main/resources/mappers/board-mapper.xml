@@ -16,6 +16,9 @@
 		<result property="board_update_date" column="board_update_date" />
 		<result property="board_address" column="board_address" />
 		<result property="nego" column="nego" />
+		<result property="board_state" column="board_state" />
+		<result property="board_sample4_jibunAddress" column="board_sample4_jibunAddress" />
+		<result property="profile_sq" column="profile_sq" />
 	</resultMap>
 
 	<resultMap type="BoardContent" id="boardContentResultSet">
@@ -37,19 +40,34 @@
 	<select id="getBoardList" resultMap="boardResultSet">
 		SELECT *
 		FROM board_tb
+		WHERE board_state = 'Y'
 		ORDER BY board_sq DESC
 	</select>
 
 	<insert id="insertPB" parameterType="Board">
 		INSERT INTO board_tb
-		VALUES(board_tb_seq.NEXTVAL,#{board_writer},#{board_category},#{board_title},#{price},#{board_img},DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,#{board_address},#{nego})
+		VALUES(board_tb_seq.NEXTVAL,#{board_writer},#{board_category},#{board_title},#{price},#{board_img},DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,
+		#{board_address},#{nego},DEFAULT,#{board_sample4_jibunAddress},#{profile_sq})
 	</insert>
+	
+	<update id="deletePB" parameterType="Board">
+		UPDATE board_tb
+		SET
+		board_state='N'
+		WHERE board_sq = #{board_sq}
+	</update>
 
 	<select id="getBoard" parameterType="Board" resultMap="boardResultSet">
 		SELECT *
 		FROM board_tb
 		WHERE board_writer = #{board_writer}
 		AND board_img=#{board_img}
+	</select>
+	
+	<select id="getBoard2" parameterType="Board" resultMap="boardResultSet">
+		SELECT *
+		FROM board_tb
+		WHERE board_sq = #{board_sq}
 	</select>
 	
 	<insert id="insertContent" parameterType="BoardContent">
@@ -67,6 +85,12 @@
 		INSERT INTO file_tb
 		VALUES(file_tb_seq.NEXTVAL,#{board_content_sq},#{file_name},#{file_org_name},#{file_size})
 	</insert>
+	
+	<select id="getFiles" parameterType="BoardContent" resultMap="fileBoardResultSet">
+		SELECT *
+		FROM file_tb
+		WHERE board_content_sq = #{board_content_sq}
+	</select>
 <!--**************************************************************************************************-->
 
 	<select id="getListCount" resultType="_int">

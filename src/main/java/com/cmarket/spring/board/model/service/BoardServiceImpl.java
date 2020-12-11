@@ -46,6 +46,16 @@ public class BoardServiceImpl implements BoardService {
 	public int insertFile(FileBoard file01) {
 		return bDao.insertFile(file01);
 	}
+
+	@Override
+	public Board getBoard2(Board board) {
+		return bDao.getBoard2(board);
+	}
+
+	@Override
+	public ArrayList<FileBoard> getFiles(int board_content_sq) {
+		return bDao.getFiles(board_content_sq);
+	}
 	
 	
 

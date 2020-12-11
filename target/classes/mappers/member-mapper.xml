@@ -43,7 +43,6 @@
 		SELECT *
 		FROM user_tb
 		WHERE user_id=#{user_id} AND user_status ='Y'
-
 	</select>
 
 

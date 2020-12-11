@@ -28,79 +28,57 @@
 				<i class="fas fa-angle-left left"></i>
 				<i class="fas fa-angle-right right"></i>
 				<ul class="imgList">
-					<c:forEach items="${files}" var="f">
-						<li class="boardImg">
-						<img src="${root}/board-imgs/${f.file_name}"alt="" />
-						</li>	
-					</c:forEach>
+					<li class="boardImg"><img src="${root}/img/grapick.jpeg"
+						alt="" /></li>
+					<li class="boardImg"><img src="${root}/img/searon.png" alt="" />
+					</li>
+					<li class="boardImg"><img src="${root}/img/Hyoshin.png" alt="" />
+					</li>
 				</ul>
 			</ul>
 			<div class="boardUserInfo">
 				<div class="userInfo">
-					<img src="${root}/profilePhotos/${writer.profile_photo}" alt="" />
+					<img src="${root}/img/Hyoshin.png" alt="" />
 					<div class="userInfo__">
 						<div class="userInfo__name">
-							<a href="userProfile.do">${b.board_writer }</a>
+							<a href="userProfile.do">너랑나랑은</a>
 						</div>
-						<div class="userInfo__address">${b.board_address}</div>
+						<div class="userInfo__address">아직구 안돼동</div>
 					</div>
 				</div>
 				<div class="userRating">
 					<div class="temp">
 						<div class="tempCount">
-							<div class="tempInt">${writer.profile_temperature }'C</div>
+							<div class="tempInt">70.5'C</div>
 							<div class="tempGraph">
-								<div class="tempGraph__gage" style="width:${writer.profile_temperature }%"></div>
+								<div class="tempGraph__gage"></div>
 							</div>
 						</div>
-						<c:if test="${ writer.profile_temperature >= 70 }">
-						<div class="tempImg"><i class="far fa-grin-hearts"></i></div>
-						</c:if>
-						<c:if test="${ writer.profile_temperature < 70 && writer.profile_temperature >= 52}">
-						<div class="tempImg"><i class="far fa-grin-squint"></i></div>
-						</c:if>
-						<c:if test="${ writer.profile_temperature < 52 && writer.profile_temperature >= 42}">
-						<div class="tempImg"><i class="far fa-grin-wink"></i></div>
-						</c:if>
-						<c:if test="${ writer.profile_temperature < 42 && writer.profile_temperature >= 31}">
-						<div class="tempImg"><i class="far fa-smile"></i></div>
-						</c:if>
-						<c:if test="${ writer.profile_temperature < 31 && writer.profile_temperature >= 10}">
-						<div class="tempImg"><i class="far fa-frown-open"></i></div>
-						</c:if>
-						<c:if test="${ writer.profile_temperature < 10 }">
-						<div class="tempImg"><i class="fas fa-poop"></i></div>
-						</c:if>
-						
-						
+						<div class="tempImg">이모티콘넣</div>
 					</div>
 					<span>매너온도</span>
 				</div>
 			</div>
 			<div class="boardContent">
-				<h2>${b.board_title }</h2>
+				<h2>RX570 4g 블로워팬 33000</h2>
 				<div class="btns">
-					<c:if test="${sessionScope.loginUser ne null}">
-						<button class="writeBtn">
-							<a href="toPbWrite.do">글쓰기</a>
-						</button>
-					</c:if>
-					<c:if test="${memberProfile.profile_sq eq writer.profile_sq}">
-						<button class="updateBtn">수정</button>
-					</c:if>
-					<c:if test="${memberProfile.profile_sq eq writer.profile_sq}">
-						<button>삭제</button>
-					</c:if>
+					<button class="writeBtn">
+						<a href="toPbWrite.do">글쓰기</a>
+					</button>
 					<!-- <button>목록</button> -->
+					<button class="updateBtn">수정</button>
+					<button>삭제</button>
 				</div>
-				<span class="boardCate">${b.board_category} ∙ <span class="boardDate">${b.board_date }</span></span>
-				<span class="boardPrice">${b.price }원</span>
+				<span class="boardCate">디지털/가전 ∙ 5시간 전 </span> <span
+					class="boardPrice">33,000원</span>
 				<div class="boardContent__">
-					${c.board_content }
+					정상사용제품이고 컴퓨터 싹바꾸면서 남아서 내놓습니다.<br /> 배그 국민옵 90~110프레임 정도 나오고 롤은
+					충분히하고도 남습니다.<br /> 2호선 신림역 거래이며 오늘 6시이전에 오시면 천원 빼드립니다.<br />
+					***-****-**** 전화나 문자주세요~ 택배는 안합니다.
 				</div>
 				<div class="boardInfo">
-					채팅 ${b.board_chat_cnt } ∙ <input type="checkbox" id="heart" /> <label for="heart"
-						class="fas fa-heart"></label> 관심 ${b.board_dips_cnt } ∙ 조회 ${b.board_views_cnt }
+					채팅 5 ∙ <input type="checkbox" id="heart" /> <label for="heart"
+						class="fas fa-heart"></label> 관심 4 ∙ 조회 136
 				</div>
 			</div>
 		</div>
@@ -279,46 +257,5 @@
 	</section>
 
 	<c:import url="../common/footer.jsp"/>
-	
-	<script>
-
-    
-    const boardDate = document.querySelectorAll('.boardDate');
-    const today = new Date();
-    console.log(today);  
-    boardDate.forEach(
-  		  date => {
-  			  console.log(date.innerHTML);
-  			  date.innerHTML = timeForToday(date.innerHTML);
-  			  console.log(date.innerHTML);
-  		    /* time.innerHTML = timeForToday('Fri Dec 04 2020 18:09:59 GMT+0900'); */
-  		  }
-  		);
-    
-    
-    function timeForToday(value) {
-      const today = new Date();
-      const timeValue = new Date(value);
-		timeValue.setHours(timeValue.getHours()+9);
-		/* 현재 시간에서 등록시간을 뺀 후에, 1000을 나누면 초가 되고, 초를 60으로 나누면 분이 된다. */
-      const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
-      if (betweenTime < 1) return '방금전';
-      if (betweenTime < 60) {
-          return `${'${betweenTime}'}분전`;
-      }
-
-      const betweenTimeHour = Math.floor(betweenTime / 60);
-      if (betweenTimeHour < 24) {
-          return `${'${betweenTimeHour}'}시간전`;
-      }
-
-      const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
-      if (betweenTimeDay < 365) {
-          return `${'${betweenTimeDay}'}일전`;
-      }
-
-      return `${'${Math.floor(betweenTimeDay / 365)}'}년전`;
-}
-	</script>
 </body>
 </html>

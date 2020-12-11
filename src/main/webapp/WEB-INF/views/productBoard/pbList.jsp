@@ -35,19 +35,24 @@ section:nth-of-type(1) {
 			<h1>전체</h1>
 
 			<c:forEach items="${pbList}" var="pb">
-				<li class="board">
-					<div class="titleImg">
-						<img src="${root}/board-imgs/${pb.board_img}" alt="" />
-					</div>
-					<div class="boardInfo">
-						<h1>${pb.board_title}</h1>
-						<span>${pb.board_address}</span>
-						<div class="worth">
-							<span class="price">${pb.price }원</span> <span class="likes"><i
-								class="far fa-heart"></i></span>
+				<c:url var="detail" value="PBDetail.do">
+					<c:param name="board_sq" value="${pb.board_sq}"/>
+				</c:url>
+				<a href="${detail}">
+					<li class="board">
+						<div class="titleImg">
+							<img src="${root}/board-imgs/${pb.board_img}" alt="" />
 						</div>
-					</div>
-				</li>
+						<div class="boardInfo">
+							<h1>${pb.board_title}</h1>
+							<span>${pb.board_address}</span>
+							<div class="worth">
+								<span class="price">${pb.price }원</span> <span class="likes"><i
+									class="far fa-heart"></i></span>
+							</div>
+						</div>
+					</li>
+				</a>
 			</c:forEach>
 
 		</ul>

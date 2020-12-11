@@ -127,7 +127,7 @@
 					</div>
 				</div>
 				<div class="chatList__User">
-					<img class="chatUserImg" src="${root}/img/Misaki.jpg" />
+					<img class="chatUserImg" src="${root}/img/cat.jpg" />
 					<div class="chatUserName">みさき</div>
 					<div class="chatIcon chatListUserBtn">
 						<i class="fas fa-ellipsis-h"></i>

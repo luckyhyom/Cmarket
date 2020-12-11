@@ -25,6 +25,8 @@ import com.cmarket.spring.board.model.vo.Board;
 import com.cmarket.spring.board.model.vo.BoardContent;
 import com.cmarket.spring.board.model.vo.Category;
 import com.cmarket.spring.board.model.vo.FileBoard;
+import com.cmarket.spring.member.model.service.MemberService;
+import com.cmarket.spring.member.model.vo.Member;
 import com.cmarket.spring.member.model.vo.MemberProfile;
 
 @Controller
@@ -32,6 +34,9 @@ public class BoardController {
 
 	@Autowired
 	BoardService bService;
+	
+	@Autowired
+	MemberService mService;
 
 	@RequestMapping("pbList.do")
 	public String pbList(Model m) {
@@ -44,8 +49,22 @@ public class BoardController {
 		return "productBoard/pbList";
 	}
 
-	@RequestMapping("pbDetail.do")
-	public String pbDetail() {
+	@RequestMapping("PBDetail.do")
+	public String pbDetail(Model m, Board board) {
+		System.out.println("board 들어있니? : "+board);
+		Board b = bService.getBoard2(board);
+		
+		BoardContent c = bService.getContent(b.getBoard_sq());
+		ArrayList<FileBoard> files = bService.getFiles(c.getBoard_content_sq());
+		System.out.println("sq들어있니? : "+b.getProfile_sq());
+		
+		MemberProfile writer = mService.getMemberProfile2(b.getProfile_sq());
+		
+		m.addAttribute("b", b);
+		m.addAttribute("c", c);
+		m.addAttribute("files", files);
+		m.addAttribute("writer", writer);
+		
 		return "productBoard/pbDetail";
 	}
 
@@ -67,15 +86,25 @@ public class BoardController {
 			HttpServletRequest request,
 			HttpSession session,
 			Model m,
-			FileBoard file01
+			FileBoard file01,
+			Member member
 			) {
 
+		String address = member.getSample4_jibunAddress().substring(0, member.getSample4_jibunAddress().lastIndexOf('동')+1);
+		//address.lastIndexOf(" ", 1);
+		System.out.println(address);
+		// 구~동 자르기. 0도 안되고 1도 안되고 2가 되네
+		address = address.substring(address.lastIndexOf(" ", 2));
+		//공백제거
+		address = address.replaceAll("(^\\p{Z}+|\\p{Z}+$)", "");
+		
 		System.out.println(files[0]);
 		if(files == null) {
 			m.addAttribute("msg","파일을 등록 해주세요.");
 			return "common/errorPage";
 		}
 		
+		System.out.println(board.getProfile_sq());
 		
 		MemberProfile visitMp = (MemberProfile) session.getAttribute("memberProfile");
 		// board 셋팅 [cate]
@@ -86,7 +115,8 @@ public class BoardController {
 		//String oriName = file1.getOriginalFilename();
 		//String renameFile = saveFile(file1,request);
 		board.setBoard_img(files[0]);
-		
+		//
+		board.setBoard_address(address);
 		// 일단 file_tb에는 참조할 board_content_sq가 필요하므로, board를 먼저 만들고, board_content 만들어주자.
 		int writePB = bService.insertPB(board);
 		

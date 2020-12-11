@@ -19,6 +19,10 @@ public interface BoardService {
 	BoardContent getContent(int pBSq);
 
 	int insertFile(FileBoard file01);
+
+	Board getBoard2(Board board);
+
+	ArrayList<FileBoard> getFiles(int board_content_sq);
 	
 	
 

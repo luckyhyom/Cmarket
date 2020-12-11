@@ -40,4 +40,12 @@ public class BoardDao {
 		return sqlSession.insert("boardMapper.insertFile",file01);
 	}
 
+	public Board getBoard2(Board board) {
+		return sqlSession.selectOne("boardMapper.getBoard2",board);
+	}
+
+	public ArrayList<FileBoard> getFiles(int board_content_sq) {
+		return (ArrayList) sqlSession.selectList("boardMapper.getFiles",board_content_sq);
+	}
+
 }

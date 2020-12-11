@@ -129,7 +129,7 @@
       function timeForToday(value) {
         const today = new Date();
         const timeValue = new Date(value);
-		timeValue.setHours(timeValue.getHours()-39);
+		timeValue.setHours(timeValue.getHours()+9);
 		/* 현재 시간에서 등록시간을 뺀 후에, 1000을 나누면 초가 되고, 초를 60으로 나누면 분이 된다. */
         const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
         if (betweenTime < 1) return '방금전';
