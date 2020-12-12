@@ -47,29 +47,59 @@
 				</div>
 				<div class="userRating">
 					<div class="temp">
+						<c:if test="${ writer.profile_temperature >= 70 }">
 						<div class="tempCount">
-							<div class="tempInt">${writer.profile_temperature }'C</div>
+							<div class="tempInt" style="color:red">${writer.profile_temperature }'C</div>
 							<div class="tempGraph">
-								<div class="tempGraph__gage" style="width:${writer.profile_temperature }%"></div>
+								<div class="tempGraph__gage" style="width:${writer.profile_temperature }%; background-color:red"></div>
 							</div>
 						</div>
-						<c:if test="${ writer.profile_temperature >= 70 }">
-						<div class="tempImg"><i class="far fa-grin-hearts"></i></div>
+						<div class="tempImg"><i class="far fa-grin-hearts"style="color:red"></i></div>
 						</c:if>
 						<c:if test="${ writer.profile_temperature < 70 && writer.profile_temperature >= 52}">
-						<div class="tempImg"><i class="far fa-grin-squint"></i></div>
+						<div class="tempCount">
+							<div class="tempInt" style="color:pink">${writer.profile_temperature }'C</div>
+							<div class="tempGraph">
+								<div class="tempGraph__gage" style="width:${writer.profile_temperature }%; background-color:pink"></div>
+							</div>
+						</div>
+						<div class="tempImg"><i class="far fa-grin-squint"style="color:pink"></i></div>
 						</c:if>
 						<c:if test="${ writer.profile_temperature < 52 && writer.profile_temperature >= 42}">
-						<div class="tempImg"><i class="far fa-grin-wink"></i></div>
+						<div class="tempCount">
+							<div class="tempInt" style="color:orange">${writer.profile_temperature }'C</div>
+							<div class="tempGraph">
+								<div class="tempGraph__gage" style="width:${writer.profile_temperature }%; background-color:orange"></div>
+							</div>
+						</div>
+						<div class="tempImg"><i class="far fa-grin-wink"style="color:orange"></i></div>
 						</c:if>
 						<c:if test="${ writer.profile_temperature < 42 && writer.profile_temperature >= 31}">
-						<div class="tempImg"><i class="far fa-smile"></i></div>
+						<div class="tempCount">
+							<div class="tempInt" style="color:green">${writer.profile_temperature }'C</div>
+							<div class="tempGraph">
+								<div class="tempGraph__gage" style="width:${writer.profile_temperature }%; background-color:green"></div>
+							</div>
+						</div>
+						<div class="tempImg"><i class="far fa-smile"style="color:green"></i></div>
 						</c:if>
 						<c:if test="${ writer.profile_temperature < 31 && writer.profile_temperature >= 10}">
-						<div class="tempImg"><i class="far fa-frown-open"></i></div>
+						<div class="tempCount">
+							<div class="tempInt" style="color:blue">${writer.profile_temperature }'C</div>
+							<div class="tempGraph">
+								<div class="tempGraph__gage" style="width:${writer.profile_temperature }%; background-color:blue"></div>
+							</div>
+						</div>
+						<div class="tempImg"><i class="far fa-frown-open"style="color:blue"></i></div>
 						</c:if>
 						<c:if test="${ writer.profile_temperature < 10 }">
-						<div class="tempImg"><i class="fas fa-poop"></i></div>
+						<div class="tempCount">
+							<div class="tempInt" style="color:black">${writer.profile_temperature }'C</div>
+							<div class="tempGraph">
+								<div class="tempGraph__gage" style="width:90%; background-color:black"></div>
+							</div>
+						</div>
+						<div class="tempImg"><i class="fas fa-poop"style="color:black"></i></div>
 						</c:if>
 						
 						
@@ -81,15 +111,13 @@
 				<h2>${b.board_title }</h2>
 				<div class="btns">
 					<c:if test="${sessionScope.loginUser ne null}">
-						<button class="writeBtn">
-							<a href="toPbWrite.do">글쓰기</a>
-						</button>
+							<a href="toPbWrite.do" style="color:slategray">글쓰기</a>
 					</c:if>
 					<c:if test="${memberProfile.profile_sq eq writer.profile_sq}">
-						<button class="updateBtn">수정</button>
+						<a href="toPbWrite.do" style="color:slategray">수정</a>
 					</c:if>
 					<c:if test="${memberProfile.profile_sq eq writer.profile_sq}">
-						<button>삭제</button>
+						<a href="toPbWrite.do" style="color:slategray">삭제</a>
 					</c:if>
 					<!-- <button>목록</button> -->
 				</div>
@@ -100,7 +128,7 @@
 				</div>
 				<div class="boardInfo">
 					채팅 ${b.board_chat_cnt } ∙ <input type="checkbox" id="heart" /> <label for="heart"
-						class="fas fa-heart"></label> 관심 ${b.board_dips_cnt } ∙ 조회 ${b.board_views_cnt }
+						class="fas fa-heart"></label> 관심 ${b.board_dips_cnt } ∙ 조회 ${b.board_views_cnt } <c:if test="${b.nego eq 'Y'}"> <span style="color:green;">가격협의</span><i class="far fa-check-circle" style="color:green;"></i> </c:if>
 				</div>
 			</div>
 		</div>

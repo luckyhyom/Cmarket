@@ -56,11 +56,53 @@
 				</div>
 			</div>
 			<div class="profileTemp">
-				<div class="tempCount">매너온도 ${p.profile_temperature}C🥰</div>
+				<c:if test="${ p.profile_temperature >= 70 }">
+					<div class="tempCount" style="color:red">매너온도 ${p.profile_temperature}'C <i class="far fa-grin-hearts"style="color:red"></i></div>
 				<div class="temp">
 					<div class="temp__"
-						style="width:${p.profile_temperature}%"></div>
+						style="width:${p.profile_temperature}%; background-color:red"></div>
 				</div>
+				</c:if>
+				
+				<c:if test="${ p.profile_temperature < 70 && p.profile_temperature >= 52}">
+					<div class="tempCount" style="color:pink">매너온도 ${p.profile_temperature}'C <i class="far fa-grin-hearts"style="color:pink"></i></div>
+				<div class="temp">
+					<div class="temp__"
+						style="width:${p.profile_temperature}%; background-color:pink"></div>
+				</div>
+				</c:if>
+				
+				<c:if test="${ p.profile_temperature < 52 && p.profile_temperature >= 42}">
+					<div class="tempCount" style="color:orange">매너온도 ${p.profile_temperature}'C <i class="far fa-grin-hearts"style="color:orange"></i></div>
+				<div class="temp">
+					<div class="temp__"
+						style="width:${p.profile_temperature}%; background-color:orange"></div>
+				</div>
+				</c:if>
+				
+				<c:if test="${ p.profile_temperature < 42 && p.profile_temperature >= 31}">
+					<div class="tempCount" style="color:green">매너온도 ${p.profile_temperature}'C <i class="far fa-grin-hearts"style="color:green"></i></div>
+				<div class="temp">
+					<div class="temp__"
+						style="width:${p.profile_temperature}%; background-color:green"></div>
+				</div>
+				</c:if>
+				
+				<c:if test="${ p.profile_temperature < 31 && p.profile_temperature >= 10}">
+					<div class="tempCount" style="color:blue">매너온도 ${p.profile_temperature}'C <i class="far fa-grin-hearts"style="color:blue"></i></div>
+				<div class="temp">
+					<div class="temp__"
+						style="width:${p.profile_temperature}%; background-color:blue"></div>
+				</div>
+				</c:if>
+				
+				<c:if test="${ p.profile_temperature < 10 }">
+					<div class="tempCount" style="color:black">매너온도 ${p.profile_temperature}'C <i class="far fa-grin-hearts"style="color:black"></i></div>
+				<div class="temp">
+					<div class="temp__"
+						style="width:90%; background-color:black"></div>
+				</div>
+				</c:if>
 			</div>
 			<div class="sellList">
 				<button>
