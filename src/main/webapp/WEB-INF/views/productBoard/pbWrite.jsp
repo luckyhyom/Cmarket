@@ -236,7 +236,10 @@
 		  				/* 컨트롤러에서 @RequestBody형식의 객체형태로 받아줘야한다. json은 String이 아닌 객체이다. */
 		  				fetch('deletePBFile.do', {
 		    			method: 'POST',
-		  				body: JSON.stringify({file_name:fileName,}),
+		  				body: JSON.stringify({
+		  					file_name:fileName,
+		  					}),
+		  				}
 		  				headers: new Headers({'Content-Type':'application/json'}),
 		  		}).then((res) => {
 		    						if (res.status === 200 || res.status === 201) {

@@ -15,6 +15,7 @@
 		<typeAlias type="com.cmarket.spring.board.model.vo.Board" alias="Board"/>
 		<typeAlias type="com.cmarket.spring.board.model.vo.BoardContent" alias="BoardContent"/>
 		<typeAlias type="com.cmarket.spring.board.model.vo.FileBoard" alias="FileBoard"/>
+		<typeAlias type="com.cmarket.spring.board.model.vo.Dips" alias="Dips"/>
 	</typeAliases>
 	
 	<!-- environments 엘리먼트로 dataSource 등의 DB정보들을 작성했었다.

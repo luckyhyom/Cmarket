@@ -24,6 +24,7 @@ import com.cmarket.spring.board.model.service.BoardService;
 import com.cmarket.spring.board.model.vo.Board;
 import com.cmarket.spring.board.model.vo.BoardContent;
 import com.cmarket.spring.board.model.vo.Category;
+import com.cmarket.spring.board.model.vo.Dips;
 import com.cmarket.spring.board.model.vo.FileBoard;
 import com.cmarket.spring.member.model.service.MemberService;
 import com.cmarket.spring.member.model.vo.Member;
@@ -50,30 +51,59 @@ public class BoardController {
 	}
 
 	@RequestMapping("PBDetail.do")
-	public String pbDetail(Model m, Board board) {
-		System.out.println("board 들어있니? : "+board);
+	public String pbDetail(Model m, Board board, HttpSession session, Dips dips) {
+		
 		Board b = bService.getBoard2(board);
 		
-		BoardContent c = bService.getContent(b.getBoard_sq());
-		ArrayList<FileBoard> files = bService.getFiles(c.getBoard_content_sq());
-		System.out.println("sq들어있니? : "+b.getProfile_sq());
-		
 		MemberProfile writer = mService.getMemberProfile2(b.getProfile_sq());
+		MemberProfile visitor = (MemberProfile) session.getAttribute("memberProfile");
+		
+		if(visitor.getProfile_sq() != writer.getProfile_sq()) {
+			int upViews = bService.upViews(b);
+			if(upViews<=0) {
+				m.addAttribute("msg", "페이지 에러 입니다. 고객센터에 문의해주세요.");
+				return "common/errorPage";
+			}
+		}
+		
+		BoardContent c = bService.getContent(b.getBoard_sq());
+		
+		ArrayList<FileBoard> files = bService.getFiles(c.getBoard_content_sq());
+
+		dips.setProfile_sq(visitor.getProfile_sq());
+		dips.setBoard_sq(board.getBoard_sq());
+		
+		Dips d = bService.checkDips(dips);
 		
 		m.addAttribute("b", b);
 		m.addAttribute("c", c);
+		m.addAttribute("d",d);
 		m.addAttribute("files", files);
 		m.addAttribute("writer", writer);
 		
 		return "productBoard/pbDetail";
 	}
-
+	
 	@RequestMapping("toPbWrite.do")
 	public String pbWrite(Model m,Board board) {
 //		int writePB = bService.insertPB(board);
 //		Board writenPB = bService.getBoard(board);
 //		m.addAttribute("board", writenPB);
 		return "productBoard/pbWrite";
+	}
+	
+	@RequestMapping("deletePB.do")
+	public String deletePB(Model m,Board board) {
+		
+		int result = bService.deletePB(board);
+		
+		if(result>0) {
+			return "redirect:pbList.do";
+		}else {
+			m.addAttribute("msg", "삭제 실패, 관리자에게 문의해주세요.");
+			return "common/errorPage";
+		}
+		
 	}
 
 	@RequestMapping("writePB")
@@ -183,6 +213,13 @@ public class BoardController {
 		return "redirect:pbList.do";
 	}
 	
+	@RequestMapping("updatePB.do")
+	public String updatePB() {
+		
+		
+		return "productBoard/pbUpdate";
+	}
+	
 	@ResponseBody // string형태, 즉 json형태. but 단순 string일경우는 type:json안해도됨
 	@RequestMapping(value="uploadPBFile.do",produces="text/json; charset=UTF-8",method=RequestMethod.POST)
 	public String profileFileUpload(
@@ -259,14 +296,65 @@ public class BoardController {
 		return "fail";
 	}
 
-	@RequestMapping("pbUpdate.do")
-	public String pbUpdate() {
-		return "productBoard/pbUpdate";
-	}
 
 	@RequestMapping("pbTopList.do")
 	public String pbTopList() {
 		return "productBoard/pbTopList";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="dips.do",produces="text/json; charset=UTF-8",method=RequestMethod.POST)
+	public String dips(@RequestBody Dips d, HttpSession session,HttpServletRequest request, Board board) {
+		
+		// 사용자 profile가져오기
+		MemberProfile p = (MemberProfile) session.getAttribute("memberProfile");
+		
+		// 게시글 정보 가져오기
+		board.setBoard_sq(d.getBoard_sq());
+		Board b = bService.getBoard2(board);
+		
+		// 찜 확인
+		Dips checkDips = bService.checkDips(d);
+		
+		// 찜 등록 및 삭제
+		if(checkDips != null) {
+			// 삭제
+			int deleteDips = bService.deleteDips(d);
+			// 삭제 성공시
+			if(deleteDips>0) {
+				// 찜 DB에서 조회한 현재 게시글의 총 찜 갯수
+				int dipsCount = bService.dipsCount(d);
+				// 게시글 DB에 찜 갯수를 저장.
+				b.setBoard_dips_cnt(dipsCount);
+				int updateBoard = bService.updateBoardDips(b);
+				//return Integer.toString(dipsCount);
+				return "good";
+			}else {
+				return "error";
+			}
+		}else {
+			int dipsBoard = bService.dipsBoard(d);
+			if(dipsBoard>0) {
+				int dipsCount = bService.dipsCount(d);
+				b.setBoard_dips_cnt(dipsCount);
+				int updateBoard = bService.updateBoardDips(b);
+				//return Integer.toString(dipsCount);
+				return "good";
+			}else {
+				return "error";
+			}
+			
+		}
+		
+//		result>0{
+//			bService.deleteDips(b);
+//			bService.downDipsCount(b);
+//			}else{
+//			bService.upDipsCount(b);
+//			}
+
+		
+		
+	}	
 
 }

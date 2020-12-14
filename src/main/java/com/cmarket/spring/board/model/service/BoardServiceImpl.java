@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import com.cmarket.spring.board.model.dao.BoardDao;
 import com.cmarket.spring.board.model.vo.Board;
 import com.cmarket.spring.board.model.vo.BoardContent;
+import com.cmarket.spring.board.model.vo.Dips;
 import com.cmarket.spring.board.model.vo.FileBoard;
+import com.cmarket.spring.member.model.vo.MemberProfile;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -55,6 +57,41 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public ArrayList<FileBoard> getFiles(int board_content_sq) {
 		return bDao.getFiles(board_content_sq);
+	}
+
+	@Override
+	public int upViews(Board b) {
+		return bDao.upViews(b);
+	}
+
+	@Override
+	public int deletePB(Board board) {
+		return bDao.deletePB(board);
+	}
+
+	@Override
+	public Dips checkDips(Dips d) {
+		return bDao.checkDips(d);
+	}
+
+	@Override
+	public int dipsCount(Dips d) {
+		return bDao.dipsCount(d);
+	}
+
+	@Override
+	public int deleteDips(Dips d) {
+		return bDao.deleteDips(d);
+	}
+
+	@Override
+	public int dipsBoard(Dips d) {
+		return bDao.dipsBoard(d);
+	}
+
+	@Override
+	public int updateBoardDips(Board b) {
+		return bDao.updateBoardDips(b);
 	}
 	
 	

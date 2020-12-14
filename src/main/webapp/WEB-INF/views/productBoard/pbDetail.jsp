@@ -114,21 +114,24 @@
 							<a href="toPbWrite.do" style="color:slategray">글쓰기</a>
 					</c:if>
 					<c:if test="${memberProfile.profile_sq eq writer.profile_sq}">
-						<a href="toPbWrite.do" style="color:slategray">수정</a>
+						<a href="updatePB.do" style="color:slategray">수정</a>
 					</c:if>
 					<c:if test="${memberProfile.profile_sq eq writer.profile_sq}">
-						<a href="toPbWrite.do" style="color:slategray">삭제</a>
+						<a href="deletePB.do" style="color:slategray">삭제</a>
 					</c:if>
 					<!-- <button>목록</button> -->
 				</div>
 				<span class="boardCate">${b.board_category} ∙ <span class="boardDate">${b.board_date }</span></span>
-				<span class="boardPrice">${b.price }원</span>
+				<span class="boardPrice">${b.price }</span>
 				<div class="boardContent__">
 					${c.board_content }
 				</div>
 				<div class="boardInfo">
-					채팅 ${b.board_chat_cnt } ∙ <input type="checkbox" id="heart" /> <label for="heart"
-						class="fas fa-heart"></label> 관심 ${b.board_dips_cnt } ∙ 조회 ${b.board_views_cnt } <c:if test="${b.nego eq 'Y'}"> <span style="color:green;">가격협의</span><i class="far fa-check-circle" style="color:green;"></i> </c:if>
+					채팅 ${b.board_chat_cnt } ∙ 
+					<c:if test="${d eq null}"><input type="checkbox" id="heart"/></c:if>
+					<c:if test="${d ne null}"><input type="checkbox" id="heart" checked /></c:if>
+					 <label for="heart"
+						class="fas fa-heart dips"></label> 관심 <span class="dipsCount">${b.board_dips_cnt}</span> ∙ 조회 ${b.board_views_cnt } <c:if test="${b.nego eq 'Y'}"> <span style="color:green;">가격협의</span><i class="far fa-check-circle" style="color:green;"></i> </c:if>
 				</div>
 			</div>
 		</div>
@@ -206,7 +209,7 @@
 			</li>
 			<li class="board">
 				<div class="titleImg">
-					<img src="${root}/img/Misaki.jpg" alt="" />
+					<img src="${root}/img/cat.jpg" alt="" />
 				</div>
 				<div class="boardInfo">
 					<h1>5단 철제 수납 팝니다</h1>
@@ -347,6 +350,75 @@
 
       return `${'${Math.floor(betweenTimeDay / 365)}'}년전`;
 }
+    
+    
+    
+    const inputText = document.querySelector(".boardPrice");
+    
+    (function comma(){
+    	
+    	let val = inputText.innerHTML;
+
+    	console.log(inputText+'asd');
+        // 값을 임시 저장한다.
+        let result = "";
+        // 최종 값을 반환한다.
+        let result2 = "";
+
+        if (val.length <= 3) {
+        	inputText.style.color = "black";
+          return (inputText.textContent = `${'${val}'}` + "원");
+        }
+        // 길이 4부터는 콤마 입력
+        else if (val.length > 3) {
+          let str = "";
+          for (i = 1; i < val.length; i++) {
+            let cut = val.substr(val.length - i, 1);
+            str += cut;
+            let comma = ",";
+            if (i % 3 === 0) {
+              str += comma;
+            }
+            result = str + val[0];
+          }
+        }
+        // result값을 result2에 거꾸로 담는다.
+        for (i = 1; i < result.length + 1; i++) {
+          let cut2 = result.substr(result.length - i, 1);
+          result2 += cut2;
+        }
+        inputText.textContent = result2 + "원";
+    })();
+      
+    
+    const dipsBtn = document.querySelector('.dips');
+    
+    dipsBtn.addEventListener('click',()=>{
+    	fetch('dips.do',{
+    		method:'POST',
+    		body: JSON.stringify({
+    								board_sq:${b.board_sq},
+    								profile_sq:${memberProfile.profile_sq},
+    				}),
+			headers: new Headers({'Content-Type':'application/json'}),
+    	}).then((res) => {
+			if (res.status === 200 || res.status === 201) {
+				res.text().then((json) => {
+				    const dipsCount = document.querySelector('dipsCount');
+				    console.log(json);
+				    
+				    /* 왠지 모르겠지만 공백 페이지가 뜬다. 그래서 일단 새로고침으로 해결해줬다. */
+				    location.reload();
+  				});
+			} else {
+						console.error(res.statusText);
+			}
+}).catch(err => console.error(err));
+
+btn.parentElement.remove();
+})
+    /* }) */
+
 	</script>
 </body>
 </html>

@@ -35,7 +35,11 @@
 		<result property="file_size" column="file_size" />
 	</resultMap>
 
-
+	<resultMap type="Dips" id="dipsResultSet">
+		<result property="board_sq" column="board_sq" />
+		<result property="profile_sq" column="profile_sq" />
+	</resultMap>
+	
 
 	<select id="getBoardList" resultMap="boardResultSet">
 		SELECT *
@@ -43,7 +47,13 @@
 		WHERE board_state = 'Y'
 		ORDER BY board_sq DESC
 	</select>
-
+	
+	<update id="upViews">
+		UPDATE board_tb
+		SET board_views_cnt = #{board_views_cnt}+1
+		WHERE board_sq = #{board_sq}
+	</update>
+	
 	<insert id="insertPB" parameterType="Board">
 		INSERT INTO board_tb
 		VALUES(board_tb_seq.NEXTVAL,#{board_writer},#{board_category},#{board_title},#{price},#{board_img},DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,
@@ -91,57 +101,49 @@
 		FROM file_tb
 		WHERE board_content_sq = #{board_content_sq}
 	</select>
-<!--**************************************************************************************************-->
+	
+	<select id="checkDips" parameterType="Dips" resultType="Dips">
+		SELECT *
+		FROM dips_tb
+		WHERE board_sq = #{board_sq} AND profile_sq = #{profile_sq}
+	</select>
+	
+	<select id="getUserDips" parameterType="Dips" resultMap="dipsResultSet">
+		SELECT *
+		FROM dips_tb
+		WHERE profile_sq = #{profile_sq}
+	</select>
 
-	<select id="getListCount" resultType="_int">
+	<select id="getBoardDips" parameterType="Dips" resultMap="dipsResultSet">
+		SELECT *
+		FROM dips_tb
+		WHERE profile_sq = #{profile_sq}
+	</select>	
+
+	<select id="dipsCount" parameterType="Dips" resultType="_int">
 		SELECT COUNT(*)
-		FROM BOARD
-		WHERE B_STATUS ='Y'
+		FROM dips_tb
+		WHERE board_sq = #{board_sq}
 	</select>
 
-	<select id="selectList" resultMap="boardResultSet">
-		SELECT *
-		FROM BOARD
-		WHERE
-		b_STATUS='Y'
-		ORDER BY BID DESC
-	</select>
-
-	<update id="updateCount" parameterType="_int">
-		UPDATE BOARD
-		SET BCOUNT =
-		BCOUNT +1
-		WHERE BID = #{bId}
-	</update>
-
-	<select id="selectBoard" resultMap="boardResultSet">
-		SELECT *
-		FROM BOARD
-		WHERE BID =
-		#{bId}
-		AND B_STATUS='Y'
-	</select>
-
-	<insert id="insertBoard" parameterType="Board">
-		INSERT INTO BOARD
-		VALUES(SEQ_BID.NEXTVAL,#{bTitle},#{bWriter},#{bContent},#{originalFileName},#{renameFileName},DEFAULT,SYSDATE,SYSDATE,DEFAULT)
+	<insert id="dipsBoard" parameterType="Dips">
+		INSERT INTO dips_tb
+		VALUES (#{board_sq},#{profile_sq})
 	</insert>
+	
+	<delete id="deleteDips" parameterType="Dips">
+		DELETE dips_tb
+		WHERE board_sq = #{board_sq} AND profile_sq = #{profile_sq}
+	</delete>
 
-	<update id="updateBoard" parameterType="Board">
-		UPDATE BOARD
+	<update id="updateBoardDips" parameterType="Board">
+		UPDATE board_tb
 		SET
-		BTITLE=#{bTitle},BCONTENT=#{bContent},ORIGINAL_FILENAME=#{originalFileName},RENAME_FILENAME=#{renameFileName},B_MODIFY_DATE
-		= SYSDATE
-		WHERE BID = #{bId}
-	</update>
-	<!-- bId를 '파라미터로 넘겨받으니까' int -->
-	<update id="deleteBoard" parameterType="_int">
-		UPDATE BOARD
-		SET B_STATUS
-		= 'N'
-		WHERE BID = #{bId}
+		board_dips_cnt=#{board_dips_cnt}
+		WHERE board_sq = #{board_sq}
 	</update>
 
+<!--**************************************************************************************************-->
 	<select id="selectTopList" resultMap="boardResultSet">
 	<![CDATA[
 		SELECT *
