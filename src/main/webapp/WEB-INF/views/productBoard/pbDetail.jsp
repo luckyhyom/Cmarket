@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 <title>boardDetail</title>
 </head>
 <link rel="stylesheet" href="${root}/css/main.css" />
@@ -40,7 +41,10 @@
 					<img src="${root}/profilePhotos/${writer.profile_photo}" alt="" />
 					<div class="userInfo__">
 						<div class="userInfo__name">
-							<a href="userProfile.do">${b.board_writer }</a>
+							<c:url value="viewProfile.do" var="viewProfile">
+								<c:param name="profile_sq" value="${ b.profile_sq }"/>
+							</c:url>
+							<a href="${viewProfile}">${b.board_writer }</a>
 						</div>
 						<div class="userInfo__address">${b.board_address}</div>
 					</div>
@@ -131,7 +135,7 @@
 					<c:if test="${d eq null}"><input type="checkbox" id="heart"/></c:if>
 					<c:if test="${d ne null}"><input type="checkbox" id="heart" checked /></c:if>
 					 <label for="heart"
-						class="fas fa-heart dips"></label> 관심 <span class="dipsCount">${b.board_dips_cnt}</span> ∙ 조회 ${b.board_views_cnt } <c:if test="${b.nego eq 'Y'}"> <span style="color:green;">가격협의</span><i class="far fa-check-circle" style="color:green;"></i> </c:if>
+						class="fas fa-heart dips" id="dips"></label> 관심 <span class="dipsCount">${b.board_dips_cnt}</span> ∙ 조회 ${b.board_views_cnt } <c:if test="${b.nego eq 'Y'}"> <span style="color:green;">가격협의</span><i class="far fa-check-circle" style="color:green;"></i> </c:if>
 				</div>
 			</div>
 		</div>
@@ -392,32 +396,65 @@
       
     
     const dipsBtn = document.querySelector('.dips');
-    
-    dipsBtn.addEventListener('click',()=>{
+/*     var dipsCount2 = document.querySelector('.dipsCount');
+     dipsBtn.addEventListener('click',()=>{
     	fetch('dips.do',{
     		method:'POST',
     		body: JSON.stringify({
     								board_sq:${b.board_sq},
     								profile_sq:${memberProfile.profile_sq},
-    				}),
+    				}), 
 			headers: new Headers({'Content-Type':'application/json'}),
     	}).then((res) => {
+    		
+    		
 			if (res.status === 200 || res.status === 201) {
 				res.text().then((json) => {
-				    const dipsCount = document.querySelector('dipsCount');
-				    console.log(json);
+					
 				    
+				    console.log(dipsCount2);
+				    dipsCount2.innerHTML = ${b.board_dips_cnt};
 				    /* 왠지 모르겠지만 공백 페이지가 뜬다. 그래서 일단 새로고침으로 해결해줬다. */
-				    location.reload();
-  				});
+				    /* location.reload(true); */
+  			/*	});
 			} else {
 						console.error(res.statusText);
 			}
+			
+			return false;
+			
 }).catch(err => console.error(err));
 
 btn.parentElement.remove();
-})
-    /* }) */
+})  */
+    
+     $('#dips').on("click",function(){
+
+				var board_sq = ${b.board_sq};
+				var profile_sq = ${memberProfile.profile_sq};
+
+				$.ajax({
+					url:"dips.do",
+					data:JSON.stringify({
+						board_sq:board_sq,
+						profile_sq:profile_sq
+					}),
+					dataType:'text',
+					type:"post",
+					headers: {
+					        'Content-Type':'application/json'
+					},
+					success:function(data){
+							  const dipsCount = document.querySelector('.dipsCount');
+							  console.log(dipsCount);
+							  dipsCount.innerHTML = data;
+							  console.log(data);
+					}, error:function(request,status,errorData){
+						console.log(request.status+" : " + errorData);
+					}
+				})
+				
+			}) 
 
 	</script>
 </body>

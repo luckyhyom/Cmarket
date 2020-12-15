@@ -328,7 +328,7 @@ public class BoardController {
 				b.setBoard_dips_cnt(dipsCount);
 				int updateBoard = bService.updateBoardDips(b);
 				//return Integer.toString(dipsCount);
-				return "good";
+				return Integer.toString(dipsCount);
 			}else {
 				return "error";
 			}
@@ -339,12 +339,56 @@ public class BoardController {
 				b.setBoard_dips_cnt(dipsCount);
 				int updateBoard = bService.updateBoardDips(b);
 				//return Integer.toString(dipsCount);
-				return "good";
+				return Integer.toString(dipsCount);
 			}else {
 				return "error";
 			}
 			
 		}
+		
+//		@ResponseBody
+//		@RequestMapping(value="dips.do",produces="text/json; charset=UTF-8",method=RequestMethod.POST)
+//		public String dips(@RequestBody Dips d, HttpSession session,HttpServletRequest request, Board board) {
+//			
+//			// 사용자 profile가져오기
+//			MemberProfile p = (MemberProfile) session.getAttribute("memberProfile");
+//			
+//			// 게시글 정보 가져오기
+//			board.setBoard_sq(d.getBoard_sq());
+//			Board b = bService.getBoard2(board);
+//			
+//			// 찜 확인
+//			Dips checkDips = bService.checkDips(d);
+//			
+//			// 찜 등록 및 삭제
+//			if(checkDips != null) {
+//				// 삭제
+//				int deleteDips = bService.deleteDips(d);
+//				// 삭제 성공시
+//				if(deleteDips>0) {
+//					// 찜 DB에서 조회한 현재 게시글의 총 찜 갯수
+//					int dipsCount = bService.dipsCount(d);
+//					// 게시글 DB에 찜 갯수를 저장.
+//					b.setBoard_dips_cnt(dipsCount);
+//					int updateBoard = bService.updateBoardDips(b);
+//					//return Integer.toString(dipsCount);
+//					return "good";
+//				}else {
+//					return "error";
+//				}
+//			}else {
+//				int dipsBoard = bService.dipsBoard(d);
+//				if(dipsBoard>0) {
+//					int dipsCount = bService.dipsCount(d);
+//					b.setBoard_dips_cnt(dipsCount);
+//					int updateBoard = bService.updateBoardDips(b);
+//					//return Integer.toString(dipsCount);
+//					return "good";
+//				}else {
+//					return "error";
+//				}
+//				
+//			}
 		
 //		result>0{
 //			bService.deleteDips(b);
