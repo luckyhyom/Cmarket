@@ -6,7 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
@@ -47,11 +49,41 @@ public class BoardController {
 		//		List<Category> content = (ArrayList) bService.getCateList();
 
 		m.addAttribute("pbList",boardList);
+		m.addAttribute("title","전체 게시글");
+		return "productBoard/pbList";
+	}
+	
+	@SuppressWarnings("null")
+	@RequestMapping("toDips.do")
+	public String dipsList(Model m,HttpSession session,
+						   ArrayList<Board> boardList, Board board,Dips dips) {
+		
+		MemberProfile user = (MemberProfile) session.getAttribute("memberProfile");
+		dips.setProfile_sq(user.getProfile_sq());
+		
+		ArrayList<Dips> dipsList = bService.getUserDips(dips);
+		
+		for(Dips d:dipsList) {
+			board.setBoard_sq(d.getBoard_sq());
+			Board b = bService.getBoard2(board);
+			System.out.println("d : " + d);
+			System.out.println("b : " + b);
+			if(b != null) {
+				boardList.add(b);
+				
+			}
+		}
+		
+		m.addAttribute("pbList",boardList);
+		m.addAttribute("title","찜 목록");
+		
 		return "productBoard/pbList";
 	}
 
 	@RequestMapping("PBDetail.do")
-	public String pbDetail(Model m, Board board, HttpSession session, Dips dips) {
+	public String pbDetail(Model m, Board board, HttpSession session, Dips dips,HttpServletRequest request,HttpServletResponse response) {
+		
+
 		
 		Board b = bService.getBoard2(board);
 		
@@ -74,6 +106,68 @@ public class BoardController {
 		dips.setBoard_sq(board.getBoard_sq());
 		
 		Dips d = bService.checkDips(dips);
+		
+		
+		/***********/
+		  // 해당 게시판 번호를 받아 리뷰 상세페이지로 넘겨줌
+        
+//        Cookie[] cookies = request.getCookies();
+//        System.out.println(cookies);
+//        
+//        // 비교하기 위해 새로운 쿠키
+//        Cookie viewCookie = null;
+// 
+//        // 쿠키가 있을 경우 
+//        if (cookies != null && cookies.length > 0) 
+//        {
+//            for (int i = 0; i < cookies.length; i++)
+//            {
+//                // Cookie의 name이 cookie + reviewNo와 일치하는 쿠키를 viewCookie에 넣어줌 
+//                if (cookies[i].getName().equals("cookie"+board.getBoard_sq()));
+//                { 
+//                    System.out.println("처음 쿠키가 생성한 뒤 들어옴.");
+//                    viewCookie = cookies[i];
+//                }
+//            }
+//        }
+//        
+//        if (board != null) {
+//            System.out.println("System - 해당 상세 리뷰페이지로 넘어감");
+// 
+//            // 만일 viewCookie가 null일 경우 쿠키를 생성해서 조회수 증가 로직을 처리함.
+//            if (viewCookie == null && visitor.getProfile_sq() != writer.getProfile_sq()) {    
+//                System.out.println("cookie 없음");
+//                
+//                // 쿠키 생성(이름, 값)
+//                Cookie newCookie = new Cookie("cookie"+board.getBoard_sq(), "|" + board.getBoard_sq() + "|");
+//                                
+//                // 쿠키 추가
+//                response.addCookie(newCookie);
+// 
+//                // 쿠키를 추가 시키고 조회수 증가시킴
+//                int result = bService.upViews(board);
+//                
+//                if(result>0) {
+//                    System.out.println("조회수 증가");
+//                }else {
+//                    System.out.println("조회수 증가 에러");
+//                }
+//            }
+//            // viewCookie가 null이 아닐경우 쿠키가 있으므로 조회수 증가 로직을 처리하지 않음.
+//            else {
+//                System.out.println("cookie 있음");
+//                
+//                // 쿠키 값 받아옴.
+//                String value = viewCookie.getValue();
+//                
+//                System.out.println("cookie 값 : " + value);
+//        
+//            }
+// ;
+//        } 
+        
+        /********/
+		
 		
 		m.addAttribute("b", b);
 		m.addAttribute("c", c);

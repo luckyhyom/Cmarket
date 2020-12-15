@@ -78,4 +78,7 @@ public class BoardDao {
 		return sqlSession.update("boardMapper.updateBoardDips",b);
 	}
 
+	public ArrayList<Dips> getUserDips (Dips dips) {
+		return (ArrayList) sqlSession.selectList("getUserDips",dips);
+	}
 }

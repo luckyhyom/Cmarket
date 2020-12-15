@@ -31,8 +31,8 @@ section:nth-of-type(1) {
 
 	<section class="boardList">
 		<ul class="boardList__">
-			<h1 style="border-bottom: 1px solid gainsboro">너랑나랑은 님의 판매내역</h1>
-			<h1>전체</h1>
+			<h1 style="border-bottom: 1px solid gainsboro">${MemberProfile.profile_nickname} 님의 ${title}</h1>
+			<h1>${title}</h1>
 
 			<c:forEach items="${pbList}" var="pb">
 				<c:url var="detail" value="PBDetail.do">

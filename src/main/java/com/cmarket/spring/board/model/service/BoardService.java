@@ -40,6 +40,8 @@ public interface BoardService {
 
 	int updateBoardDips(Board b);
 
+	ArrayList<Dips> getUserDips(Dips dips);
+
 	
 	
 

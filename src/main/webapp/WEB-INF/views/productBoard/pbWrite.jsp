@@ -239,7 +239,6 @@
 		  				body: JSON.stringify({
 		  					file_name:fileName,
 		  					}),
-		  				}
 		  				headers: new Headers({'Content-Type':'application/json'}),
 		  		}).then((res) => {
 		    						if (res.status === 200 || res.status === 201) {

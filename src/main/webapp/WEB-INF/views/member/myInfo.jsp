@@ -79,7 +79,7 @@
 					<a href="sellList.do">구매내역</a>
 				</button>
 				<button>
-					<a href="sellList.do">관심목록</a>
+					<a href="toDips.do">관심목록</a>
 				</button>
 				<button>
 					<a href="sellList.do">모아보기</a>

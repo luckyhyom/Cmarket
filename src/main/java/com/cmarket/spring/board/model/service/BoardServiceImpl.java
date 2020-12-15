@@ -93,6 +93,11 @@ public class BoardServiceImpl implements BoardService {
 	public int updateBoardDips(Board b) {
 		return bDao.updateBoardDips(b);
 	}
+
+	@Override
+	public ArrayList<Dips> getUserDips(Dips dips) {
+		return bDao.getUserDips(dips);
+	}
 	
 	
 
