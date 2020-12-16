@@ -121,7 +121,10 @@
 						<a href="updatePB.do" style="color:slategray">수정</a>
 					</c:if>
 					<c:if test="${memberProfile.profile_sq eq writer.profile_sq}">
-						<a href="deletePB.do" style="color:slategray">삭제</a>
+						<c:url value="deletePB.do" var="deletePB">
+							<c:param name="board_sq" value="${b.board_sq}" />
+						</c:url>
+						<a href="${deletePB }" style="color:slategray" onClick="return checkDelete()">삭제</a>
 					</c:if>
 					<!-- <button>목록</button> -->
 				</div>
@@ -456,6 +459,13 @@ btn.parentElement.remove();
 				
 			}) 
 
+			function checkDelete(){
+    	 		if(confirm('정말 삭제하시겠어요?')){
+    	 			return true;
+    	 		}else {
+    	 			return false;
+    	 		}
+     		}
 	</script>
 </body>
 </html>
