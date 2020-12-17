@@ -48,6 +48,20 @@
 		ORDER BY board_sq DESC
 	</select>
 	
+	<select id="searchBoard" parameterType="String" resultMap="boardResultSet" >
+		SELECT *
+		FROM board_tb
+		WHERE board_state = 'Y' AND board_title LIKE '%' ||  #{words} || '%'
+		ORDER BY board_sq DESC
+	</select>
+	
+	<select id="areaBoard" parameterType="Board" resultMap="boardResultSet" >
+		SELECT *
+		FROM board_tb
+		WHERE board_state = 'Y' AND board_title LIKE '%' ||  #{board_title} || '%'
+		ORDER BY board_sq DESC
+	</select>
+	
 	<update id="upViews">
 		UPDATE board_tb
 		SET board_views_cnt = #{board_views_cnt}+1

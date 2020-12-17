@@ -79,6 +79,14 @@ public class BoardDao {
 	}
 
 	public ArrayList<Dips> getUserDips (Dips dips) {
-		return (ArrayList) sqlSession.selectList("getUserDips",dips);
+		return (ArrayList) sqlSession.selectList("boardMapper.getUserDips",dips);
+	}
+
+	public ArrayList<Board> searchBoard(String words) {
+		return (ArrayList) sqlSession.selectList("boardMapper.searchBoard",words);
+	}
+
+	public ArrayList<Board> areaBoard(Board board) {
+		return (ArrayList) sqlSession.selectList("boardMapper.areaBoard",board);
 	}
 }

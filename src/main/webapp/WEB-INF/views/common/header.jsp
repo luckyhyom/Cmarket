@@ -35,6 +35,7 @@
 	</c:if>
 	<c:if test="${ !empty sessionScope.loginUser }">
 		<nav>
+		<form action="search.do" method="get">
 			<div class="nav">
 				<div class="navR">
 					<div class="logo">
@@ -42,11 +43,16 @@
 							alt="cucumber logo" /></a>
 					</div>
 					<div class="searchBar">
-						<input type="search" class="searchText" placeholder="물품명을 검색해보세요!" />
-						<i class="fas fa-search"></i>
+					
+						<input type="search" class="searchText" placeholder="물품명을 검색해보세요!" name="words" />
+						<button style="outline: none; border: none; background: none;cursor: pointer;"><i class="fas fa-search"></i></button>
 					</div>
 				</div>
-
+				</form>
+					<c:url value="areaBoard.do" var="area">
+						<c:param name="sample4_jibunAddress" value="${sessionScope.loginUser.sample4_jibunAddress}"></c:param>
+					</c:url>
+					<a href="${area}" style="color:green;">우리동네</a>
 				<div class="navRight">
 					<div class="toggleBtns">
 						<!-- chatListToggle Btn -->

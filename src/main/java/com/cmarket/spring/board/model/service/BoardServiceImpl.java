@@ -98,6 +98,16 @@ public class BoardServiceImpl implements BoardService {
 	public ArrayList<Dips> getUserDips(Dips dips) {
 		return bDao.getUserDips(dips);
 	}
+
+	@Override
+	public ArrayList<Board> searchBoard(String words) {
+		return bDao.searchBoard(words);
+	}
+
+	@Override
+	public ArrayList<Board> areaBoard(Board board) {
+		return bDao.areaBoard(board);
+	}
 	
 	
 

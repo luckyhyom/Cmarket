@@ -62,6 +62,40 @@ public class BoardController {
 		return "productBoard/pbList";
 	}
 	
+	@RequestMapping("search.do")
+	public String search(Model m,@RequestParam(name="words",required=false) String words) {
+		
+		ArrayList<Board> boardList = bService.searchBoard(words);
+		
+		
+		m.addAttribute("pbList",boardList);
+		m.addAttribute("title","'"+words+"' "+"검색 결과");
+		
+		return "productBoard/pbList";
+	}
+	
+	
+	@RequestMapping("areaBoard.do")
+	public String areaBoard(Model m,Member member,Board board) {
+
+		System.out.println("areaBoard 주소 테스트 : "+member.getSample4_jibunAddress());
+		String address = member.getSample4_jibunAddress().substring(0, member.getSample4_jibunAddress().lastIndexOf('동')+1);
+		// 구~동 자르기. 0도 안되고 1도 안되고 2가 되네
+		address = address.substring(address.lastIndexOf(" ", 2));
+		//공백제거
+		address = address.replaceAll("(^\\p{Z}+|\\p{Z}+$)", "");
+		System.out.println("areaBoard 주소 테스트2 : "+address);
+		board.setBoard_address(address);
+		System.out.println("areaBoard board 테스트 : "+board);
+		ArrayList<Board> boardList = bService.areaBoard(board);
+		System.out.println("areaBoard boardList 테스트 : "+boardList);
+
+		m.addAttribute("pbList",boardList);
+		m.addAttribute("title","내 지역 게시글");
+
+		return "productBoard/pbList";
+	}
+	
 	@SuppressWarnings("null")
 	@RequestMapping("toDips.do")
 	public String dipsList(Model m,HttpSession session,
@@ -117,67 +151,6 @@ public class BoardController {
 		Dips d = bService.checkDips(dips);
 		
 		
-		/***********/
-		  // 해당 게시판 번호를 받아 리뷰 상세페이지로 넘겨줌
-        
-//        Cookie[] cookies = request.getCookies();
-//        System.out.println(cookies);
-//        
-//        // 비교하기 위해 새로운 쿠키
-//        Cookie viewCookie = null;
-// 
-//        // 쿠키가 있을 경우 
-//        if (cookies != null && cookies.length > 0) 
-//        {
-//            for (int i = 0; i < cookies.length; i++)
-//            {
-//                // Cookie의 name이 cookie + reviewNo와 일치하는 쿠키를 viewCookie에 넣어줌 
-//                if (cookies[i].getName().equals("cookie"+board.getBoard_sq()));
-//                { 
-//                    System.out.println("처음 쿠키가 생성한 뒤 들어옴.");
-//                    viewCookie = cookies[i];
-//                }
-//            }
-//        }
-//        
-//        if (board != null) {
-//            System.out.println("System - 해당 상세 리뷰페이지로 넘어감");
-// 
-//            // 만일 viewCookie가 null일 경우 쿠키를 생성해서 조회수 증가 로직을 처리함.
-//            if (viewCookie == null && visitor.getProfile_sq() != writer.getProfile_sq()) {    
-//                System.out.println("cookie 없음");
-//                
-//                // 쿠키 생성(이름, 값)
-//                Cookie newCookie = new Cookie("cookie"+board.getBoard_sq(), "|" + board.getBoard_sq() + "|");
-//                                
-//                // 쿠키 추가
-//                response.addCookie(newCookie);
-// 
-//                // 쿠키를 추가 시키고 조회수 증가시킴
-//                int result = bService.upViews(board);
-//                
-//                if(result>0) {
-//                    System.out.println("조회수 증가");
-//                }else {
-//                    System.out.println("조회수 증가 에러");
-//                }
-//            }
-//            // viewCookie가 null이 아닐경우 쿠키가 있으므로 조회수 증가 로직을 처리하지 않음.
-//            else {
-//                System.out.println("cookie 있음");
-//                
-//                // 쿠키 값 받아옴.
-//                String value = viewCookie.getValue();
-//                
-//                System.out.println("cookie 값 : " + value);
-//        
-//            }
-// ;
-//        } 
-        
-        /********/
-		
-		
 		m.addAttribute("b", b);
 		m.addAttribute("c", c);
 		m.addAttribute("d",d);
@@ -189,9 +162,6 @@ public class BoardController {
 	
 	@RequestMapping("toPbWrite.do")
 	public String pbWrite(Model m,Board board) {
-//		int writePB = bService.insertPB(board);
-//		Board writenPB = bService.getBoard(board);
-//		m.addAttribute("board", writenPB);
 		return "productBoard/pbWrite";
 	}
 	
@@ -208,6 +178,7 @@ public class BoardController {
 		}
 		
 	}
+	
 
 	@RequestMapping("writePB")
 	public String WritePB(Board board, BoardContent content, Category cate,

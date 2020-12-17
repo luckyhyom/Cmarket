@@ -42,6 +42,10 @@ public interface BoardService {
 
 	ArrayList<Dips> getUserDips(Dips dips);
 
+	ArrayList<Board> searchBoard(String words);
+
+	ArrayList<Board> areaBoard(Board board);
+
 	
 	
 
