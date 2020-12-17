@@ -58,7 +58,7 @@
 	<select id="areaBoard" parameterType="Board" resultMap="boardResultSet" >
 		SELECT *
 		FROM board_tb
-		WHERE board_state = 'Y' AND board_title LIKE '%' ||  #{board_title} || '%'
+		WHERE board_state = 'Y' AND board_address LIKE #{board_address}
 		ORDER BY board_sq DESC
 	</select>
 	

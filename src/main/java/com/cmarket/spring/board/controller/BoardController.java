@@ -63,36 +63,49 @@ public class BoardController {
 	}
 	
 	@RequestMapping("search.do")
-	public String search(Model m,@RequestParam(name="words",required=false) String words) {
+	public String search(Model m,HttpSession session,@RequestParam(name="words",required=false) String words,Dips dips) {
 		
 		ArrayList<Board> boardList = bService.searchBoard(words);
 		
+		//로그인 유저
+		MemberProfile user = (MemberProfile) session.getAttribute("memberProfile");
+		// dips 객체에 로그인유저의 프로필 인덱스 등록.
+		dips.setProfile_sq(user.getProfile_sq());
+		// 로그인 유저의 찜목록, jsp에서 찜목록을 반복문으로 돌려서 board_sq가 동일한것은 찜표시.
+		ArrayList<Dips> dipsList = bService.getUserDips(dips);
 		
+
 		m.addAttribute("pbList",boardList);
 		m.addAttribute("title","'"+words+"' "+"검색 결과");
+		m.addAttribute("dipsList",dipsList);		
 		
 		return "productBoard/pbList";
 	}
 	
 	
 	@RequestMapping("areaBoard.do")
-	public String areaBoard(Model m,Member member,Board board) {
+	public String areaBoard(Model m,HttpSession session,Member member,Board board,Dips dips) {
 
-		System.out.println("areaBoard 주소 테스트 : "+member.getSample4_jibunAddress());
 		String address = member.getSample4_jibunAddress().substring(0, member.getSample4_jibunAddress().lastIndexOf('동')+1);
 		// 구~동 자르기. 0도 안되고 1도 안되고 2가 되네
 		address = address.substring(address.lastIndexOf(" ", 2));
 		//공백제거
 		address = address.replaceAll("(^\\p{Z}+|\\p{Z}+$)", "");
-		System.out.println("areaBoard 주소 테스트2 : "+address);
 		board.setBoard_address(address);
-		System.out.println("areaBoard board 테스트 : "+board);
+		
 		ArrayList<Board> boardList = bService.areaBoard(board);
-		System.out.println("areaBoard boardList 테스트 : "+boardList);
 
+		//로그인 유저
+		MemberProfile user = (MemberProfile) session.getAttribute("memberProfile");
+		// dips 객체에 로그인유저의 프로필 인덱스 등록.
+		dips.setProfile_sq(user.getProfile_sq());
+		// 로그인 유저의 찜목록, jsp에서 찜목록을 반복문으로 돌려서 board_sq가 동일한것은 찜표시.
+		ArrayList<Dips> dipsList = bService.getUserDips(dips);
+		
 		m.addAttribute("pbList",boardList);
 		m.addAttribute("title","내 지역 게시글");
-
+		m.addAttribute("dipsList",dipsList);		
+		
 		return "productBoard/pbList";
 	}
 	
@@ -119,6 +132,7 @@ public class BoardController {
 		
 		m.addAttribute("pbList",boardList);
 		m.addAttribute("title","찜 목록");
+		m.addAttribute("dipsList",dipsList);	
 		
 		return "productBoard/pbList";
 	}

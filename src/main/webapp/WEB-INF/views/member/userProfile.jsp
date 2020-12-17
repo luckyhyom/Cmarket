@@ -147,27 +147,29 @@
 			</div>
 		</div>
 	</section>
+	<c:if test="${p.profile_nickname ne memberProfile.profile_nickname }">
+		<script>
+		const upTempBtn = document.querySelector('.upTemp');
+	      const upTempWindow = document.querySelector('.upTempWindow');
+	      upTempBtn.addEventListener('click',()=>{
+	        upTempWindow.classList.toggle('show');
+	      })
+		</script>
+	</c:if>
 	<script>
-      const upTempBtn = document.querySelector('.upTemp');
-      const upTempWindow = document.querySelector('.upTempWindow');
-      upTempBtn.addEventListener('click',()=>{
-        upTempWindow.classList.toggle('show');
-      })
       
-      
-      const comTime = document.querySelectorAll('.commentTime');
-      const today = new Date();
-      console.log(today);  
-      comTime.forEach(
-    		  time => {
-    			  console.log(time.innerHTML);
-    			  time.innerHTML = timeForToday(time.innerHTML);
-    			  console.log(time.innerHTML);
-    		    /* time.innerHTML = timeForToday('Fri Dec 04 2020 18:09:59 GMT+0900'); */
-    		  }
-    		);
-      
-      
+    
+    const comTime = document.querySelectorAll('.commentTime');
+    const today = new Date();
+    console.log(today);  
+    comTime.forEach(
+  		  time => {
+  			  console.log(time.innerHTML);
+  			  time.innerHTML = timeForToday(time.innerHTML);
+  			  console.log(time.innerHTML);
+  		    /* time.innerHTML = timeForToday('Fri Dec 04 2020 18:09:59 GMT+0900'); */
+  		  }
+  		);
       function timeForToday(value) {
         const today = new Date();
         const timeValue = new Date(value);

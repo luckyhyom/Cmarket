@@ -51,7 +51,7 @@
 						<button>
 							<a class="toUpdate" href="myInfoUpdateForm.do">내 정보 수정</a>
 						</button>
-						<br><a href="${viewProfile}">다른유저정보 테스트</a>
+						<br><a href="${viewProfile}">유저프로필 테스트</a>
 						<!-- <button>대화하기</button>
               <button>칭찬</button>
               <button>비매너</button> -->
