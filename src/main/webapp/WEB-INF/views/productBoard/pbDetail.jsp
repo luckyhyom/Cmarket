@@ -9,6 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 <title>boardDetail</title>
+
 </head>
 <link rel="stylesheet" href="${root}/css/main.css" />
 <link rel="stylesheet" href="${root}/css/board-write.css" />
@@ -416,7 +417,7 @@
 					
 				    
 				    console.log(dipsCount2);
-				    dipsCount2.innerHTML = ${b.board_dips_cnt};
+				    dipsCount2.innerHTML = ${b.board_dips_cnt}; 
 				    /* 왠지 모르겠지만 공백 페이지가 뜬다. 그래서 일단 새로고침으로 해결해줬다. */
 				    /* location.reload(true); */
   			/*	});

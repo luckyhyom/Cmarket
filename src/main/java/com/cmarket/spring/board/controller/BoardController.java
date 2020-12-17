@@ -42,14 +42,23 @@ public class BoardController {
 	MemberService mService;
 
 	@RequestMapping("pbList.do")
-	public String pbList(Model m) {
+	public String pbList(Model m,HttpSession session,Dips dips,Board board) {
 
+		//전체 게시물
 		ArrayList<Board> boardList = bService.getBoardList();
-		//		List<BoardContent> content = (ArrayList) bService.getContentList();
-		//		List<Category> content = (ArrayList) bService.getCateList();
+		
+		//로그인 유저
+		MemberProfile user = (MemberProfile) session.getAttribute("memberProfile");
+		// dips 객체에 로그인유저의 프로필 인덱스 등록.
+		dips.setProfile_sq(user.getProfile_sq());
+		// 로그인 유저의 찜목록, jsp에서 찜목록을 반복문으로 돌려서 board_sq가 동일한것은 찜표시.
+		ArrayList<Dips> dipsList = bService.getUserDips(dips);
+		
 
 		m.addAttribute("pbList",boardList);
 		m.addAttribute("title","전체 게시글");
+		m.addAttribute("dipsList",dipsList);
+		
 		return "productBoard/pbList";
 	}
 	
