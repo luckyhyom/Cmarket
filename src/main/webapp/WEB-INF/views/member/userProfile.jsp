@@ -31,77 +31,103 @@
 					<div class="profileName">${p.profile_nickname}</div>
 					<c:if test="${p.user_sq ne sessionScope.loginUser.user_sq}">
 						<div class="profileTopBtn">
-						<button>대화하기</button>
-						<c:if test="${checkOverlap eq 'no' }">
-							<button class="upTemp">평가하기</button>
-							<div class="upTempWindow">
-								평가하기!
-								<form action="writeComment.do">
+														<form action="follow.do">
 									<!-- 코맨트 등록 유저 정보는 컨트롤러 세션에서 구하기 -->
-									<input type="hidden" name="profile_sq" value="${p.profile_sq}">
-									<input type="text" name="com_content" id="com_content">
-									<label for="upTemp">칭찬</label> <input type="radio"
-										name="tempPoint" id="upTemp" value="1" checked /> <label
-										for="downTemp">불만</label> <input type="radio"
-										name="tempPoint" id="downTemp" value="-1" /><br />
-									<button type="submit">평가하기</button>
+									<input type="hidden" name="leader" value="${p.profile_sq}">
+									<button type="submit">Follow</button>
 								</form>
-							</div>
-						</c:if>
-						<c:if test="${checkOverlap eq 'yes' }">
-							<button class="upTemp" disabled="false">평가하기</button>
-						</c:if>
-					</div>
+							<button>대화하기</button>
+							<c:if test="${checkOverlap eq 'no' }">
+								<button class="upTemp">평가하기</button>
+								<div class="upTempWindow">
+									평가하기!
+									<form action="writeComment.do">
+										<!-- 코맨트 등록 유저 정보는 컨트롤러 세션에서 구하기 -->
+										<input type="hidden" name="profile_sq" value="${p.profile_sq}">
+										<input type="text" name="com_content" id="com_content">
+										<label for="upTemp">칭찬</label> <input type="radio"
+											name="tempPoint" id="upTemp" value="1" checked /> <label
+											for="downTemp">불만</label> <input type="radio"
+											name="tempPoint" id="downTemp" value="-1" /><br />
+										<button type="submit">평가하기</button>
+									</form>
+								</div>
+							</c:if>
+							<c:if test="${checkOverlap eq 'yes' }">
+								<button class="upTemp" disabled="false">평가하기</button>
+							</c:if>
+						</div>
 					</c:if>
 				</div>
 			</div>
 			<div class="profileTemp">
 				<c:if test="${ p.profile_temperature >= 70 }">
-					<div class="tempCount" style="color:red">매너온도 ${p.profile_temperature}'C <i class="far fa-grin-hearts"style="color:red"></i></div>
-				<div class="temp">
-					<div class="temp__"
-						style="width:${p.profile_temperature}%; background-color:red"></div>
-				</div>
+					<div class="tempCount" style="color: red">
+						매너온도 ${p.profile_temperature}'C <i class="far fa-grin-hearts"
+							style="color: red"></i>
+					</div>
+					<div class="temp">
+						<div class="temp__"
+							style="width:${p.profile_temperature}%; background-color:red"></div>
+					</div>
 				</c:if>
-				
-				<c:if test="${ p.profile_temperature < 70 && p.profile_temperature >= 52}">
-					<div class="tempCount" style="color:pink">매너온도 ${p.profile_temperature}'C <i class="far fa-grin-hearts"style="color:pink"></i></div>
-				<div class="temp">
-					<div class="temp__"
-						style="width:${p.profile_temperature}%; background-color:pink"></div>
-				</div>
+
+				<c:if
+					test="${ p.profile_temperature < 70 && p.profile_temperature >= 52}">
+					<div class="tempCount" style="color: pink">
+						매너온도 ${p.profile_temperature}'C <i class="far fa-grin-hearts"
+							style="color: pink"></i>
+					</div>
+					<div class="temp">
+						<div class="temp__"
+							style="width:${p.profile_temperature}%; background-color:pink"></div>
+					</div>
 				</c:if>
-				
-				<c:if test="${ p.profile_temperature < 52 && p.profile_temperature >= 42}">
-					<div class="tempCount" style="color:orange">매너온도 ${p.profile_temperature}'C <i class="far fa-grin-hearts"style="color:orange"></i></div>
-				<div class="temp">
-					<div class="temp__"
-						style="width:${p.profile_temperature}%; background-color:orange"></div>
-				</div>
+
+				<c:if
+					test="${ p.profile_temperature < 52 && p.profile_temperature >= 42}">
+					<div class="tempCount" style="color: orange">
+						매너온도 ${p.profile_temperature}'C <i class="far fa-grin-hearts"
+							style="color: orange"></i>
+					</div>
+					<div class="temp">
+						<div class="temp__"
+							style="width:${p.profile_temperature}%; background-color:orange"></div>
+					</div>
 				</c:if>
-				
-				<c:if test="${ p.profile_temperature < 42 && p.profile_temperature >= 31}">
-					<div class="tempCount" style="color:green">매너온도 ${p.profile_temperature}'C <i class="far fa-grin-hearts"style="color:green"></i></div>
-				<div class="temp">
-					<div class="temp__"
-						style="width:${p.profile_temperature}%; background-color:green"></div>
-				</div>
+
+				<c:if
+					test="${ p.profile_temperature < 42 && p.profile_temperature >= 31}">
+					<div class="tempCount" style="color: green">
+						매너온도 ${p.profile_temperature}'C <i class="far fa-grin-hearts"
+							style="color: green"></i>
+					</div>
+					<div class="temp">
+						<div class="temp__"
+							style="width:${p.profile_temperature}%; background-color:green"></div>
+					</div>
 				</c:if>
-				
-				<c:if test="${ p.profile_temperature < 31 && p.profile_temperature >= 10}">
-					<div class="tempCount" style="color:blue">매너온도 ${p.profile_temperature}'C <i class="far fa-grin-hearts"style="color:blue"></i></div>
-				<div class="temp">
-					<div class="temp__"
-						style="width:${p.profile_temperature}%; background-color:blue"></div>
-				</div>
+
+				<c:if
+					test="${ p.profile_temperature < 31 && p.profile_temperature >= 10}">
+					<div class="tempCount" style="color: blue">
+						매너온도 ${p.profile_temperature}'C <i class="far fa-grin-hearts"
+							style="color: blue"></i>
+					</div>
+					<div class="temp">
+						<div class="temp__"
+							style="width:${p.profile_temperature}%; background-color:blue"></div>
+					</div>
 				</c:if>
-				
+
 				<c:if test="${ p.profile_temperature < 10 }">
-					<div class="tempCount" style="color:black">매너온도 ${p.profile_temperature}'C <i class="far fa-grin-hearts"style="color:black"></i></div>
-				<div class="temp">
-					<div class="temp__"
-						style="width:90%; background-color:black"></div>
-				</div>
+					<div class="tempCount" style="color: black">
+						매너온도 ${p.profile_temperature}'C <i class="far fa-grin-hearts"
+							style="color: black"></i>
+					</div>
+					<div class="temp">
+						<div class="temp__" style="width: 90%; background-color: black"></div>
+					</div>
 				</c:if>
 			</div>
 			<div class="sellList">
@@ -127,15 +153,17 @@
 						</div>
 						<div class="postRight">
 							<div class="postWriter">
-								<a class="postWriterName" href="${goProfile}" style="font-weight: 500;">${pc.com_writer}</a>
+								<a class="postWriterName" href="${goProfile}"
+									style="font-weight: 500;">${pc.com_writer}</a>
 								<c:if test="${ pc.com_judge eq 'Y'}">
-									<div class="etc" style="color:green;">칭찬해요!</div>&nbsp;
-								</c:if> 
+									<div class="etc" style="color: green;">칭찬해요!</div>&nbsp;
+								</c:if>
 								<c:if test="${ pc.com_judge eq 'N'}">
-									<div class="etc" style="color:blue;">불만이에요!</div>&nbsp;
+									<div class="etc" style="color: blue;">불만이에요!</div>&nbsp;
 								</c:if>
 								<div class="etc commentTime">${pc.com_date}</div>
-								<c:if test="${pc.com_writer eq sessionScope.memberProfile.profile_nickname}">
+								<c:if
+									test="${pc.com_writer eq sessionScope.memberProfile.profile_nickname}">
 									<a href="${deleteComment}">삭제</a>
 								</c:if>
 							</div>

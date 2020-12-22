@@ -8,6 +8,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
 
 import com.cmarket.spring.member.model.dao.MemberDao;
+import com.cmarket.spring.member.model.vo.Follow;
 import com.cmarket.spring.member.model.vo.Member;
 import com.cmarket.spring.member.model.vo.MemberProfile;
 import com.cmarket.spring.member.model.vo.ProfileComment;
@@ -118,6 +119,11 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public ProfileComment getComment(ProfileComment comment) {
 		return mDao.getComment(comment);
+	}
+
+	@Override
+	public int insertFollow(Follow follow) {
+		return mDao.insertFollow(follow);
 	}
 	
 	

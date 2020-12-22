@@ -156,7 +156,8 @@
 		SELECT *
 		FROM profile_comment
 		WHERE
-		profile_sq=#{profile_sq} AND comment_sq=#{comment_sq}
+		profile_sq=#{profile_sq}
+		AND comment_sq=#{comment_sq}
 	</select>
 
 	<insert id="writeComment" parameterType="MemberProfile">
@@ -172,6 +173,27 @@
 		#{comment_sq}
 	</delete>
 
+	<resultMap type="Follow" id="followResultSet">
+		<id property="follow_pk" column="follow_pk" />
+		<result property="follower" column="follower" />
+		<result property="leader" column="leader" />
+	</resultMap>
+
+
+	<insert id="insertFollow" parameterType="MemberProfile">
+		INSERT INTO
+		follow_tb
+		VALUES
+		(#{follower},#{leader})
+	</insert>
+
+	<resultMap type="BlockUser" id="blockUserResultSet">
+		<id property="block_pk" column="block_pk" />
+		<result property="blocker" column="blocker" />
+		<result property="blocked" column="blocked" />
+	</resultMap>
+	
+	
 
 
 </mapper>

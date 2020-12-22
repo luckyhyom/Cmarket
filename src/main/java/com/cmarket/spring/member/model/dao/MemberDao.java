@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.cmarket.spring.member.model.vo.Follow;
 import com.cmarket.spring.member.model.vo.Member;
 import com.cmarket.spring.member.model.vo.MemberProfile;
 import com.cmarket.spring.member.model.vo.ProfileComment;
@@ -94,6 +95,11 @@ public class MemberDao {
 
 	public ProfileComment getComment(ProfileComment comment) {
 		return (ProfileComment)sqlSession.selectOne("memberMapper.getComment",comment);
+	}
+
+
+	public int insertFollow(Follow follow) {
+		return sqlSession.insert("memberMapper.insertFollow",follow);
 	}
 	
 

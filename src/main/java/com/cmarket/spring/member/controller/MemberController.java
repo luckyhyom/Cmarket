@@ -28,6 +28,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cmarket.spring.member.model.service.MemberService;
+import com.cmarket.spring.member.model.vo.Follow;
 import com.cmarket.spring.member.model.vo.Member;
 import com.cmarket.spring.member.model.vo.MemberProfile;
 import com.cmarket.spring.member.model.vo.ProfileComment;
@@ -497,4 +498,19 @@ public class MemberController {
 		return "common/errorPage";
 	}
 
+//	@ResponseBody // string형태, 즉 json형태. but 단순 string일경우는 type:json안해도됨
+	@RequestMapping(value="follow.do")
+	public String follow(Follow follow,HttpSession session,Model m){
+		
+		MemberProfile mp = (MemberProfile) session.getAttribute("memberProfile");
+		follow.setFollower(mp.getProfile_sq());
+		int result = mService.insertFollow(follow);
+		if(result>0) {
+			return "redirect:home.do";
+		}else {
+			m.addAttribute("msg","친추실패");
+			return "common/errorPage";
+		}
+	}
+	
 }

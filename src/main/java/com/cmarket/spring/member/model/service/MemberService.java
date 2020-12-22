@@ -2,6 +2,7 @@ package com.cmarket.spring.member.model.service;
 
 import java.util.ArrayList;
 
+import com.cmarket.spring.member.model.vo.Follow;
 import com.cmarket.spring.member.model.vo.Member;
 import com.cmarket.spring.member.model.vo.MemberProfile;
 import com.cmarket.spring.member.model.vo.ProfileComment;
@@ -61,6 +62,8 @@ public interface MemberService {
 	int deleteComment(ProfileComment comment);
 
 	ProfileComment getComment(ProfileComment comment);
+
+	int insertFollow(Follow follow);
 
 
 }

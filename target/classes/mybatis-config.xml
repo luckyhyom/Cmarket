@@ -11,6 +11,8 @@
 		<typeAlias type="com.cmarket.spring.member.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.cmarket.spring.member.model.vo.MemberProfile" alias="MemberProfile"/>
 		<typeAlias type="com.cmarket.spring.member.model.vo.ProfileComment" alias="ProfileComment"/>
+		<typeAlias type="com.cmarket.spring.member.model.vo.Follow" alias="Follow"/>
+		<typeAlias type="com.cmarket.spring.member.model.vo.BlockUser" alias="BlockUser"/>
 		<typeAlias type="com.cmarket.spring.board.model.vo.Category" alias="Category"/>
 		<typeAlias type="com.cmarket.spring.board.model.vo.Board" alias="Board"/>
 		<typeAlias type="com.cmarket.spring.board.model.vo.BoardContent" alias="BoardContent"/>
