@@ -6,6 +6,7 @@ import com.cmarket.spring.board.model.vo.Board;
 import com.cmarket.spring.board.model.vo.BoardContent;
 import com.cmarket.spring.board.model.vo.Dips;
 import com.cmarket.spring.board.model.vo.FileBoard;
+import com.cmarket.spring.member.model.vo.Follow;
 import com.cmarket.spring.member.model.vo.MemberProfile;
 
 public interface BoardService {
@@ -45,6 +46,8 @@ public interface BoardService {
 	ArrayList<Board> searchBoard(String words);
 
 	ArrayList<Board> areaBoard(Board board);
+
+//	ArrayList<Follow> getUserFollowList(int profileNum);
 
 	
 	

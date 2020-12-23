@@ -125,6 +125,11 @@ public class MemberServiceImpl implements MemberService{
 	public int insertFollow(Follow follow) {
 		return mDao.insertFollow(follow);
 	}
+
+	@Override
+	public int deleteFollow(Follow follow) {
+		return mDao.deleteFollow(follow);
+	}
 	
 	
 

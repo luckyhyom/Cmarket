@@ -101,6 +101,11 @@ public class MemberDao {
 	public int insertFollow(Follow follow) {
 		return sqlSession.insert("memberMapper.insertFollow",follow);
 	}
+
+
+	public int deleteFollow(Follow follow) {
+		return sqlSession.delete("memberMapper.deleteFollow",follow);
+	}
 	
 
 }

@@ -10,6 +10,7 @@ import com.cmarket.spring.board.model.vo.Board;
 import com.cmarket.spring.board.model.vo.BoardContent;
 import com.cmarket.spring.board.model.vo.Dips;
 import com.cmarket.spring.board.model.vo.FileBoard;
+import com.cmarket.spring.member.model.vo.Follow;
 import com.cmarket.spring.member.model.vo.MemberProfile;
 
 @Service
@@ -108,6 +109,11 @@ public class BoardServiceImpl implements BoardService {
 	public ArrayList<Board> areaBoard(Board board) {
 		return bDao.areaBoard(board);
 	}
+
+//	@Override
+//	public ArrayList<Follow> getUserFollowList(int profileNum) {
+//		return bDao.getUserFollowList(profileNum);
+//	}
 	
 	
 

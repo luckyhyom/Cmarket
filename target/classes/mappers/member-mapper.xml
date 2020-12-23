@@ -186,6 +186,12 @@
 		VALUES
 		(#{follower},#{leader})
 	</insert>
+	
+	<delete id="deleteFollow" parameterType="MemberProfile">
+		DELETE
+		FROM follow_tb
+		WHERE leader=#{leader}
+	</delete>
 
 	<resultMap type="BlockUser" id="blockUserResultSet">
 		<id property="block_pk" column="block_pk" />

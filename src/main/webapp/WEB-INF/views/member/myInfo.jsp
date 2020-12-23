@@ -82,7 +82,7 @@
 					<a href="toDips.do">관심목록</a>
 				</button>
 				<button>
-					<a href="sellList.do">모아보기</a>
+					<a href="followList.do">모아보기</a>
 				</button>
 				<div class="keywords" style="display: flex;
     flex-direction: column;

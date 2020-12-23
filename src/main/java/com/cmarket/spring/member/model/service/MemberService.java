@@ -65,5 +65,7 @@ public interface MemberService {
 
 	int insertFollow(Follow follow);
 
+	int deleteFollow(Follow follow);
+
 
 }

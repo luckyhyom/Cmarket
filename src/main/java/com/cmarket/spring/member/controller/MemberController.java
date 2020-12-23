@@ -513,4 +513,19 @@ public class MemberController {
 		}
 	}
 	
+	@RequestMapping(value="unFollow.do")
+	public String deleteFollow(Follow follow,HttpSession session,Model m){
+		
+		MemberProfile mp = (MemberProfile) session.getAttribute("memberProfile");
+		follow.setFollower(mp.getProfile_sq());
+		int result = mService.deleteFollow(follow);
+		if(result>0) {
+			return "redirect:home.do";
+		}else {
+			m.addAttribute("msg","친추실패");
+			return "common/errorPage";
+		}
+	}
+
+	
 }

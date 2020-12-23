@@ -10,6 +10,7 @@ import com.cmarket.spring.board.model.vo.Board;
 import com.cmarket.spring.board.model.vo.BoardContent;
 import com.cmarket.spring.board.model.vo.Dips;
 import com.cmarket.spring.board.model.vo.FileBoard;
+import com.cmarket.spring.member.model.vo.Follow;
 import com.cmarket.spring.member.model.vo.MemberProfile;
 
 @Repository("bDao")
@@ -89,4 +90,8 @@ public class BoardDao {
 	public ArrayList<Board> areaBoard(Board board) {
 		return (ArrayList) sqlSession.selectList("boardMapper.areaBoard",board);
 	}
+
+//	public ArrayList<Follow> getUserFollowList(int profileNum) {
+//		return (ArrayList) sqlSession.selectList("boardMapper.getUserFollowList",profileNum);
+//	}
 }

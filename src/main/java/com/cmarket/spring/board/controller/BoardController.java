@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -29,6 +30,7 @@ import com.cmarket.spring.board.model.vo.Category;
 import com.cmarket.spring.board.model.vo.Dips;
 import com.cmarket.spring.board.model.vo.FileBoard;
 import com.cmarket.spring.member.model.service.MemberService;
+import com.cmarket.spring.member.model.vo.Follow;
 import com.cmarket.spring.member.model.vo.Member;
 import com.cmarket.spring.member.model.vo.MemberProfile;
 
@@ -136,6 +138,35 @@ public class BoardController {
 		
 		return "productBoard/pbList";
 	}
+	
+//	@RequestMapping("followList.do")
+//	public String followList(Model m,HttpSession session,
+//			   ArrayList<Board> boardList, Board board,Follow follow){
+//		
+//		MemberProfile user = (MemberProfile) session.getAttribute("memberProfile");
+//		
+//		int profileNum = user.getProfile_sq();
+//		
+//		
+//		
+//		ArrayList<Follow> followList = bService.getUserFollowList(profileNum);
+//		for(Follow f:followList) {
+//			board.setBoard_sq(f.getFollower());
+//			Board b = bService.getBoard2(board);
+//			System.out.println("d : " + f);
+//			System.out.println("b : " + b);
+//			if(b != null) {
+//				boardList.add(b);
+//				
+//			}
+//		}
+//		
+//		m.addAttribute("pbList",boardList);
+//		m.addAttribute("title","모아보기");
+//		m.addAttribute("followList",followList);	
+//		
+//		return "productBoard/pbList";
+//	}
 
 	@RequestMapping("PBDetail.do")
 	public String pbDetail(Model m, Board board, HttpSession session, Dips dips,HttpServletRequest request,HttpServletResponse response) {

@@ -31,10 +31,15 @@
 					<div class="profileName">${p.profile_nickname}</div>
 					<c:if test="${p.user_sq ne sessionScope.loginUser.user_sq}">
 						<div class="profileTopBtn">
-														<form action="follow.do">
+								<form action="follow.do">
 									<!-- 코맨트 등록 유저 정보는 컨트롤러 세션에서 구하기 -->
 									<input type="hidden" name="leader" value="${p.profile_sq}">
 									<button type="submit">Follow</button>
+								</form>
+								<form action="unFollow.do">
+									<!-- 코맨트 등록 유저 정보는 컨트롤러 세션에서 구하기 -->
+									<input type="hidden" name="leader" value="${p.profile_sq}">
+									<button type="submit">unFollow</button>
 								</form>
 							<button>대화하기</button>
 							<c:if test="${checkOverlap eq 'no' }">
