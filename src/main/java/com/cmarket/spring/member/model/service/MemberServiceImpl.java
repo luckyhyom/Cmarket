@@ -127,8 +127,13 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int deleteFollow(Follow follow) {
-		return mDao.deleteFollow(follow);
+	public int unFollow(Follow follow) {
+		return mDao.unFollow(follow);
+	}
+
+	@Override
+	public ArrayList<Follow> getUserFollowList(int profileNum) {
+		return mDao.getUserFollowList(profileNum);
 	}
 	
 	

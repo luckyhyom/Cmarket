@@ -110,10 +110,15 @@ public class BoardServiceImpl implements BoardService {
 		return bDao.areaBoard(board);
 	}
 
-//	@Override
-//	public ArrayList<Follow> getUserFollowList(int profileNum) {
-//		return bDao.getUserFollowList(profileNum);
-//	}
+	@Override
+	public ArrayList<Follow> getUserFollowList(int profileNum) {
+		return bDao.getUserFollowList(profileNum);
+	}
+
+	@Override
+	public ArrayList<Board> getBoardListByProfileSq(int leader) {
+		return bDao.getBoardListByProfileSq(leader);
+	}
 	
 	
 

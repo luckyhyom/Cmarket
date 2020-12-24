@@ -65,7 +65,9 @@ public interface MemberService {
 
 	int insertFollow(Follow follow);
 
-	int deleteFollow(Follow follow);
+	int unFollow(Follow follow);
+
+	ArrayList<Follow> getUserFollowList(int profileNum);
 
 
 }

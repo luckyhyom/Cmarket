@@ -91,7 +91,12 @@ public class BoardDao {
 		return (ArrayList) sqlSession.selectList("boardMapper.areaBoard",board);
 	}
 
-//	public ArrayList<Follow> getUserFollowList(int profileNum) {
-//		return (ArrayList) sqlSession.selectList("boardMapper.getUserFollowList",profileNum);
-//	}
+	public ArrayList<Follow> getUserFollowList(int profileNum) {
+		return (ArrayList) sqlSession.selectList("memberMapper.getUserFollowList",profileNum);
+	}
+
+	public ArrayList<Board> getBoardListByProfileSq(int leader) {
+		return (ArrayList) sqlSession.selectList("boardMapper.getBoardListByProfileSq",leader);
+	}
+
 }

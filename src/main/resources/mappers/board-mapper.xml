@@ -157,23 +157,20 @@
 		WHERE board_sq = #{board_sq}
 	</update>
 
-	<select id="getUserFollowList" parameterType="Follow" resultMap="dipsResultSet">
-		SELECT *
-		FROM dips_tb
-		WHERE profile_sq = #{profile_sq}
-	</select>	
-
 	<resultMap type="Follow" id="followResultSet">
 		<id property="follow_pk" column="follow_pk" />
 		<result property="follower" column="follower" />
 		<result property="leader" column="leader" />
 	</resultMap>
+
 	
-<!-- 	<select id="getUserFollowList" resultMap="dipsResultSet">
+	<select id="getBoardListByProfileSq" resultMap="boardResultSet">
 		SELECT *
-		FROM follow_tb
-		WHERE follower = #{follower}
-	</select> -->
+		FROM board_tb
+		WHERE board_state = 'Y' AND profile_sq = #{int}
+		ORDER BY board_sq DESC
+	</select>
+	
 
 
 <!--**************************************************************************************************-->

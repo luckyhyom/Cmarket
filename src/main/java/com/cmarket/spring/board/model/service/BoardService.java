@@ -47,7 +47,10 @@ public interface BoardService {
 
 	ArrayList<Board> areaBoard(Board board);
 
-//	ArrayList<Follow> getUserFollowList(int profileNum);
+	ArrayList<Follow> getUserFollowList(int profileNum);
+
+	ArrayList<Board> getBoardListByProfileSq(int leader);
+
 
 	
 	

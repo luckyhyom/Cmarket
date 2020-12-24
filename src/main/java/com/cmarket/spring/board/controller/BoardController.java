@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -139,34 +140,50 @@ public class BoardController {
 		return "productBoard/pbList";
 	}
 	
-//	@RequestMapping("followList.do")
-//	public String followList(Model m,HttpSession session,
-//			   ArrayList<Board> boardList, Board board,Follow follow){
-//		
-//		MemberProfile user = (MemberProfile) session.getAttribute("memberProfile");
-//		
-//		int profileNum = user.getProfile_sq();
-//		
-//		
-//		
-//		ArrayList<Follow> followList = bService.getUserFollowList(profileNum);
-//		for(Follow f:followList) {
-//			board.setBoard_sq(f.getFollower());
-//			Board b = bService.getBoard2(board);
-//			System.out.println("d : " + f);
-//			System.out.println("b : " + b);
-//			if(b != null) {
-//				boardList.add(b);
-//				
-//			}
-//		}
-//		
-//		m.addAttribute("pbList",boardList);
-//		m.addAttribute("title","모아보기");
-//		m.addAttribute("followList",followList);	
-//		
-//		return "productBoard/pbList";
-//	}
+	@RequestMapping("followList.do")
+	public String followList(Model m,HttpSession session,
+			   ArrayList<Board> boardList,ArrayList<Board> result,ArrayList<Integer> arr, Board board,Follow follow, Dips dips){
+		
+		MemberProfile user = (MemberProfile) session.getAttribute("memberProfile");
+		int profileNum = user.getProfile_sq();
+		ArrayList<Follow> followList = bService.getUserFollowList(profileNum);
+		
+		for(Follow f:followList) {
+			// 리더의 시퀀스넘버로 게시글목록을 불러온다.
+			ArrayList<Board> boardList2 = bService.getBoardListByProfileSq(f.getLeader());
+			for(Board b:boardList2) {
+				// 불러온 게시글들 총합 리스트에 담는다.
+				//boardList.add(b);
+				
+				// sq 뽑아오기
+				arr.add(b.getBoard_sq());
+			}
+		}
+		// sq 뽑아오기
+		//for(Board b:boardList) {
+			//arr.add(Integer.toString(b.getBoard_sq()));
+			//arr.add(b.getBoard_sq());
+		//}
+		// sq 내림차순 정렬
+		Collections.sort(arr,Collections.reverseOrder());
+		// 정렬된 기준으로 보드 다시 불러오기, 아니면 가지고있는 list로 반복에 반복문을 돌리는게 났나..?
+		for(Integer i:arr) {
+			board.setBoard_sq(i);
+			Board b = bService.getBoard2(board);
+			boardList.add(b);
+		}
+		
+		// 찜 표시
+		dips.setProfile_sq(user.getProfile_sq());
+		// 로그인 유저의 찜목록, jsp에서 찜목록을 반복문으로 돌려서 board_sq가 동일한것은 찜표시.
+		ArrayList<Dips> dipsList = bService.getUserDips(dips);
+		
+		m.addAttribute("pbList",boardList);
+		m.addAttribute("title","모아보기");
+		m.addAttribute("dipsList",dipsList);	
+		
+		return "productBoard/pbList";
+	}
 
 	@RequestMapping("PBDetail.do")
 	public String pbDetail(Model m, Board board, HttpSession session, Dips dips,HttpServletRequest request,HttpServletResponse response) {

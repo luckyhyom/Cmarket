@@ -103,8 +103,13 @@ public class MemberDao {
 	}
 
 
-	public int deleteFollow(Follow follow) {
-		return sqlSession.delete("memberMapper.deleteFollow",follow);
+	public int unFollow(Follow follow) {
+		return sqlSession.delete("memberMapper.unFollow",follow);
+	}
+
+
+	public ArrayList<Follow> getUserFollowList(int profileNum) {
+		return (ArrayList)sqlSession.selectList("memberMapper.getUserFollowList",profileNum);
 	}
 	
 

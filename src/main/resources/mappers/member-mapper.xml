@@ -179,6 +179,12 @@
 		<result property="leader" column="leader" />
 	</resultMap>
 
+	
+	<select id="getUserFollowList" resultMap="followResultSet">
+		SELECT *
+		FROM follow_tb
+		WHERE follower = #{int}
+	</select>
 
 	<insert id="insertFollow" parameterType="MemberProfile">
 		INSERT INTO
@@ -187,7 +193,7 @@
 		(#{follower},#{leader})
 	</insert>
 	
-	<delete id="deleteFollow" parameterType="MemberProfile">
+	<delete id="unFollow" parameterType="MemberProfile">
 		DELETE
 		FROM follow_tb
 		WHERE leader=#{leader}
@@ -199,7 +205,5 @@
 		<result property="blocked" column="blocked" />
 	</resultMap>
 	
-	
-
 
 </mapper>
